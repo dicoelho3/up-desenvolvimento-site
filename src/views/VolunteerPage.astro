@@ -11,7 +11,7 @@ import Testimonials from '../components/sections/Testimonials.astro';
 import Faq from '../components/sections/Faq.astro';
 import CtaBand from '../components/sections/CtaBand.astro';
 import Button from '../components/ui/Button.astro';
-import type { BrandIconName } from '../components/ui/BrandIcon.astro';
+import type { LineIconName } from '../lib/line-icons';
 import { site } from '../config/site';
 import { photo } from '../data';
 import { useTranslations, type Lang } from '../i18n';
@@ -23,8 +23,10 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 const v = t.volunteer;
 
-const roleIcons: BrandIconName[] = ['book', 'handshake', 'map'];
-const getsIcons: BrandIconName[] = ['idea', 'chat', 'heart', 'audiobook'];
+// Todos os ícones desta página são da mesma família (ícones de linha desenhados à mão)
+const roleIcons: LineIconName[] = ['calendar', 'heart', 'compass'];
+const getsIcons: LineIconName[] = ['presentation', 'chat-dots', 'users', 'notebook'];
+const stepIcons: LineIconName[] = ['note-edit', 'chat-dots', 'presentation', 'hand-person'];
 ---
 
 <BaseLayout lang={lang} route="volunteer" title={v.title} description={v.description}>
@@ -42,17 +44,21 @@ const getsIcons: BrandIconName[] = ['idea', 'chat', 'heart', 'audiobook'];
     label={v.role.label}
     title={v.role.title}
     tone="mustard"
-    items={v.role.items.map((item, i) => ({ ...item, icon: roleIcons[i] }))}
+    items={v.role.items.map((item, i) => ({ ...item, icon: `line/${roleIcons[i]!}` as const }))}
   />
 
   <FeatureGrid
     label={v.gets.label}
     title={v.gets.title}
     look="cards"
-    items={v.gets.items.map((item, i) => ({ ...item, icon: getsIcons[i] }))}
+    items={v.gets.items.map((item, i) => ({ ...item, icon: `line/${getsIcons[i]!}` as const }))}
   />
 
-  <Steps label={v.steps.label} title={v.steps.title} items={v.steps.items} />
+  <Steps
+    label={v.steps.label}
+    title={v.steps.title}
+    items={v.steps.items.map((item, i) => ({ ...item, icon: stepIcons[i] }))}
+  />
 
   <VolunteerExtras lang={lang} />
 

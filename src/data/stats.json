@@ -1,8 +1,8 @@
 {
   "items": [
-    { "value": "+70", "label": { "pt": "Jovens acompanhados", "en": "Young people supported" } },
-    { "value": "+45", "label": { "pt": "Voluntários ativos", "en": "Active volunteers" } },
-    { "value": "+7.000", "label": { "pt": "Horas de voluntariado", "en": "Volunteering hours" } },
-    { "value": "100.000€", "label": { "pt": "Em apoio educativo equivalente (15€/h)", "en": "Equivalent educational support (€15/h)" } }
+    { "icon": "users", "value": "+70", "label": { "pt": "Jovens acompanhados", "en": "Young people supported" } },
+    { "icon": "hand-raise", "value": "+45", "label": { "pt": "Voluntários ativos", "en": "Active volunteers" } },
+    { "icon": "clock", "value": "+7.000", "label": { "pt": "Horas de voluntariado", "en": "Volunteering hours" } },
+    { "icon": "hand-money", "value": "100.000€", "label": { "pt": "Em apoio educativo equivalente (15€/h)", "en": "Equivalent educational support (€15/h)" } }
   ]
 }

@@ -16,7 +16,7 @@ const t = useTranslations(lang);
 ---
 
 <section class="hero">
-  <Doodle name="strokes/traco-5" color="var(--orange)" class="hero__string" />
+  <Doodle name="pencil/fio-1" color="var(--orange)" class="hero__string" />
 
   <div class="container hero__grid">
     <div class="hero__copy">
@@ -39,14 +39,16 @@ const t = useTranslations(lang);
       <Image
         src={teamCircle}
         alt=""
-        widths={[420, 640, 900, 1200]}
-        sizes="(min-width: 60rem) 42vw, 90vw"
+        widths={[480, 720, 1000, 1400]}
+        sizes="(min-width: 60rem) 48vw, 95vw"
         loading="eager"
         fetchpriority="high"
         class="hero__photo"
       />
-      <p class="hero__note hand" aria-hidden="true">{t.home.hero.note}</p>
-      <Doodle name="arrows/seta-1" color="var(--navy)" class="hero__arrow" />
+      <p class="hero__note hand" aria-hidden="true">
+        {t.home.hero.note}
+        <Doodle name="arrows/seta-1" color="var(--navy)" inline class="hero__arrow" />
+      </p>
     </div>
   </div>
 </section>
@@ -59,10 +61,10 @@ const t = useTranslations(lang);
     padding-block: var(--space-xl) var(--space-3xl);
   }
   :global(.hero__string) {
-    width: clamp(12rem, 24vw, 21rem);
-    inset-block-start: -2rem;
-    inset-inline-end: -5rem;
-    rotate: 8deg;
+    width: clamp(9rem, 16vw, 15rem);
+    inset-block-start: -4rem;
+    inset-inline-end: -3rem;
+    rotate: 12deg;
   }
   .hero__grid {
     display: grid;
@@ -71,7 +73,7 @@ const t = useTranslations(lang);
   }
   @media (min-width: 60rem) {
     .hero__grid {
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1fr 1fr;
     }
   }
   .hero__eyebrow {
@@ -82,13 +84,15 @@ const t = useTranslations(lang);
     font-weight: 500;
     margin-block-end: var(--space-m);
   }
-  /* O balão laranja da marca */
+  /* O balão do logótipo UP (recortado do símbolo oficial), com um fio curto */
   .hero__dot {
-    width: 0.85em;
-    height: 1em;
-    border-radius: 50% 50% 48% 48% / 55% 55% 45% 45%;
-    background: var(--orange);
     position: relative;
+    flex: none;
+    width: 1.35em;
+    aspect-ratio: 232 / 287;
+    margin-block-end: 0.6em;
+    background: url('/brand/balloon.webp') center / contain no-repeat;
+    transform-origin: 50% 100%;
     animation: float 4s ease-in-out infinite;
   }
   .hero__dot::after {
@@ -96,8 +100,9 @@ const t = useTranslations(lang);
     position: absolute;
     left: 50%;
     top: 100%;
-    width: 1px;
-    height: 0.6em;
+    width: 1.5px;
+    height: 0.65em;
+    translate: -50% 0;
     background: var(--orange);
   }
   .hero__title {
@@ -116,32 +121,45 @@ const t = useTranslations(lang);
   .hero__visual {
     position: relative;
     width: 100%;
-    max-width: 36rem;
+    max-width: 44rem;
     justify-self: center;
+  }
+  /* Em ecrã largo a foto cresce para a margem direita */
+  @media (min-width: 60rem) {
+    .hero__visual {
+      width: calc(100% + 1rem);
+      max-width: 46rem;
+      justify-self: end;
+      margin-inline-end: -1rem;
+    }
+  }
+  @media (min-width: 80rem) {
+    .hero__visual {
+      width: calc(100% + 5rem);
+      margin-inline-end: -4rem;
+    }
   }
   :global(.hero__photo) {
     width: 100%;
     height: auto;
   }
+  /* Legenda por baixo da foto (nunca por cima), com a seta a apontar para ela */
   .hero__note {
-    position: absolute;
-    inset-block-end: 0;
-    inset-inline-start: -0.5rem;
-    rotate: -4deg;
-    font-size: var(--step-1);
+    display: flex;
+    align-items: flex-end;
+    gap: 0.4em;
+    margin-block-start: var(--space-xs);
+    padding-inline-start: 8%;
+    rotate: -3deg;
+    font-size: var(--step-2);
     color: var(--navy);
   }
   :global(.hero__arrow) {
-    width: 3.5rem;
-    inset-block-end: 2rem;
-    inset-inline-start: 1rem;
-    rotate: -10deg;
-    z-index: 1;
-  }
-  @media (max-width: 30rem) {
-    :global(.hero__arrow) {
-      display: none;
-    }
+    width: 2.6rem;
+    margin-block-end: 0.5em;
+    /* espelhada e rodada 90° para a direita: aponta para cima, para a foto */
+    scale: -1 1;
+    rotate: 90deg;
   }
 
   @keyframes float {

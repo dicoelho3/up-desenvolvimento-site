@@ -5,6 +5,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/sections/PageHero.astro';
 import Icon from '../components/ui/Icon.astro';
+import LineIcon from '../components/ui/LineIcon.astro';
 import Button from '../components/ui/Button.astro';
 import { site } from '../config/site';
 import { useTranslations, type Lang } from '../i18n';
@@ -24,14 +25,14 @@ const partnerSubject = lang === 'pt' ? 'Parceria' : 'Partnership';
   <section class="contact">
     <div class="container contact__grid">
       <article class="contact-card contact-card--mustard" data-reveal>
-        <Icon name="mail" size={48} strokeWidth={2} />
+        <LineIcon name="mail-open" size="3.4rem" />
         <h2>{c.emailTitle}</h2>
         <p>{c.emailText}</p>
         <a class="contact-card__big" href={`mailto:${site.email}`}>{site.email}</a>
       </article>
 
       <article class="contact-card contact-card--navy" data-reveal style="--reveal-delay:100ms">
-        <Icon name="instagram" size={48} strokeWidth={2} />
+        <LineIcon name="share" size="3.4rem" color="var(--sun)" />
         <h2>{c.socialTitle}</h2>
         <p>{c.socialText}</p>
         <ul class="contact-card__social" role="list">
@@ -57,12 +58,14 @@ const partnerSubject = lang === 'pt' ? 'Parceria' : 'Partnership';
       </article>
 
       <article class="contact-card contact-card--line" data-reveal style="--reveal-delay:200ms">
+        <LineIcon name="hand-raise" size="3.4rem" color="var(--orange)" />
         <h2>{c.volunteerTitle}</h2>
         <p>{c.volunteerText}</p>
         <Button href={site.forms.volunteer} external lang={lang}>{t.common.applyMentor}</Button>
       </article>
 
       <article class="contact-card contact-card--line" data-reveal style="--reveal-delay:300ms">
+        <LineIcon name="hand-person" size="3.4rem" color="var(--orange)" />
         <h2>{c.partnerTitle}</h2>
         <p>{c.partnerText}</p>
         <Button href={`mailto:${site.email}?subject=${partnerSubject}`} variant="navy">{t.common.writeUs}</Button>
@@ -77,8 +80,14 @@ const partnerSubject = lang === 'pt' ? 'Parceria' : 'Partnership';
   }
   .contact__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    grid-template-columns: 1fr;
     gap: var(--space-l);
+  }
+  /* 2 × 2 em ecrãs médios e grandes: nenhum cartão fica sozinho */
+  @media (min-width: 48rem) {
+    .contact__grid {
+      grid-template-columns: 1fr 1fr;
+    }
   }
   .contact-card {
     display: grid;
@@ -114,7 +123,7 @@ const partnerSubject = lang === 'pt' ? 'Parceria' : 'Partnership';
   .contact-card__big {
     font-size: var(--step-1);
     font-weight: 600;
-    word-break: break-all;
+    overflow-wrap: anywhere;
     text-decoration-color: var(--navy);
   }
   .contact-card__social {

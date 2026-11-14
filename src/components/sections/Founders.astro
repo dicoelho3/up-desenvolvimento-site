@@ -16,11 +16,12 @@ const t = useTranslations(lang).about.founders;
 ---
 
 <section class="founders paper paper--navy">
-  <Doodle name="doodles/sparks" color="var(--orange)" class="founders__sparks" />
   <div class="container">
     <SectionLabel text={t.label} />
     <h2 class="founders__title">{t.title}</h2>
 
+    <div class="founders__wrap">
+    <Doodle name="doodles/sparks" color="var(--orange)" class="founders__sparks" />
     <ul class="founders__grid" role="list">
       {
         founders.map((person, i) => {
@@ -44,14 +45,28 @@ const t = useTranslations(lang).about.founders;
         })
       }
     </ul>
+    </div>
   </div>
 </section>
 
 <style>
+  /* Tracinhos a sair do canto superior direito do último cartão (espelhados) */
+  .founders__wrap {
+    position: relative;
+  }
   :global(.founders__sparks) {
-    width: 5rem;
-    inset-block-start: var(--space-2xl);
-    inset-inline-start: 40%;
+    width: 3.6rem;
+    inset-block-start: -2.6rem;
+    inset-inline-end: -2.4rem;
+    scale: -1 1;
+    z-index: 1;
+  }
+  @media (max-width: 49.99rem) {
+    :global(.founders__sparks) {
+      width: 2.8rem;
+      inset-block-start: -2rem;
+      inset-inline-end: -0.4rem;
+    }
   }
   .founders__title {
     font-size: var(--step-4);

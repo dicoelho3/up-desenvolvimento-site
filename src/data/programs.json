@@ -2,6 +2,7 @@
   "items": [
     {
       "id": "mentorias",
+      "icon": "open-book",
       "title": { "pt": "Mentorias Académicas", "en": "Academic Mentoring" },
       "text": {
         "pt": "Ajudar um jovem a superar os seus **desafios académicos e pessoais**, através de mentorias individuais ou em dupla com um mentor.",
@@ -16,6 +17,7 @@
     },
     {
       "id": "psicossocial",
+      "icon": "chats",
       "title": { "pt": "Atividades Psicossociais", "en": "Psychosocial Activities" },
       "text": {
         "pt": "Atividades lúdicas que desenvolvem **competências psicossociais** fora do contexto da sala de aula e do bairro.",
@@ -30,6 +32,7 @@
     },
     {
       "id": "apoio-ao-estudo",
+      "icon": "note-edit",
       "title": { "pt": "Apoio ao Estudo", "en": "Study Support" },
       "text": {
         "pt": "Um **ciclo de transformação social**: mentorados UP mais velhos dinamizam sessões de estudo com os mais novos.",
@@ -44,6 +47,7 @@
     },
     {
       "id": "bolsas",
+      "icon": "award",
       "title": { "pt": "Bolsas Sociais", "en": "Social Grants" },
       "text": {
         "pt": "Remover barreiras, identificando e **apoiando casos vulneráveis** com parceiros externos: legais, financeiros ou administrativos.",

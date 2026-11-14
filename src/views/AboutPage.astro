@@ -20,7 +20,8 @@ interface Props {
 }
 const { lang } = Astro.props;
 const a = useTranslations(lang).about;
-const methodIcons = ['map', 'doodles/megaphone', 'handshake', 'doodles/magnifier-chart'] as const;
+// Ícones de linha desenhados à mão (a mesma família em todo o site)
+const methodIcons = ['line/pin', 'line/open-book', 'line/users', 'line/chart-growth'] as const;
 ---
 
 <BaseLayout lang={lang} route="about" title={a.title} description={a.description}>

@@ -3,7 +3,7 @@
  * Elemento gráfico da marca (traço livre, seta, doodle, highlight…), pintado com qualquer cor.
  * Os ficheiros vêm de public/brand/ (gerados por scripts/brand-assets.mjs a partir dos SVG oficiais).
  *
- * <Doodle name="strokes/traco-3" color="var(--sun)" class="hero__string" />
+ * <Doodle name="pencil/fio-1" color="var(--sun)" class="hero__string" />
  * <Doodle name="doodles/open-book" color="var(--orange)" inline />
  *
  * Por omissão é decorativo e fica em position:absolute (posiciona-se com CSS no componente pai,
@@ -11,9 +11,12 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { pencilPaths, smoothPath } from '../../lib/pencil-paths';
 
 type Stroke = `strokes/traco-${1 | 2 | 3 | 4 | 5 | 6}`;
-type Arrow = `arrows/seta-${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8}`;
+// Fios a lápis (traço fino e irregular, como no site anterior): imagens .webp em public/brand/pencil
+type Pencil = `pencil/fio-${1 | 2 | 3}`;
+type Arrow =`arrows/seta-${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8}`;
 type DoodleName =
   | 'atom' | 'paper-plane' | 'brush' | 'camera' | 'polaroid' | 'polaroids' | 'easel' | 'sparks-rough' | 'sparks'
   | 'leaf' | 'headset' | 'heart' | 'keyboard' | 'magnifier-chart-bold' | 'magnifier-chart' | 'pencil' | 'portugal'
@@ -21,7 +24,7 @@ type DoodleName =
   | 'question' | 'magnifier' | 'music-1' | 'music-2' | 'bookmark' | 'warning';
 type Highlight = 'circle' | 'circle-thick' | 'circle-thin' | 'ellipse' | 'bubble' | 'box-outline';
 
-export type BrandGraphic = Stroke | Arrow | `doodles/${DoodleName}` | `highlights/${Highlight}`;
+export type BrandGraphic = Pencil | Stroke | Arrow | `doodles/${DoodleName}` | `highlights/${Highlight}`;
 
 interface Props {
   name: BrandGraphic;
@@ -32,17 +35,57 @@ interface Props {
 }
 const { name, color = 'var(--sun)', inline = false, class: className, style = '' } = Astro.props;
 
-// Lê a proporção (viewBox) do SVG para a caixa ter sempre a forma certa.
-const file = path.join(process.cwd(), 'public/brand', `${name}.svg`);
-const viewBox = fs.readFileSync(file, 'utf8').match(/viewBox="([\d.\s-]+)"/)?.[1]?.trim().split(/\s+/).map(Number);
-const ratio = viewBox ? `${viewBox[2]} / ${viewBox[3]}` : '1';
+// Proporção da caixa: a dos fios a lápis é fixa; nos SVG lê-se do viewBox.
+const pencilRatios: Record<string, string> = {
+  'pencil/fio-1': '600 / 804',
+  'pencil/fio-2': '600 / 761',
+  'pencil/fio-3': '761 / 600',
+};
+const ext = name.startsWith('pencil/') ? 'webp' : 'svg';
+let ratio = pencilRatios[name] ?? '1';
+if (ext === 'svg') {
+  const file = path.join(process.cwd(), 'public/brand', `${name}.svg`);
+  const viewBox = fs.readFileSync(file, 'utf8').match(/viewBox="([\d.\s-]+)"/)?.[1]?.trim().split(/\s+/).map(Number);
+  if (viewBox) ratio = `${viewBox[2]} / ${viewBox[3]}`;
+}
+
+// Fios a lápis: SVG em que o traço se "desenha" ao entrar no ecrã (ver data-draw no BaseLayout).
+// A imagem a lápis é recortada por um pincel grosso que percorre a linha central do fio.
+const pencil = pencilPaths[name];
+// Tipo de animação dos restantes desenhos (styles/motion.css)
+const kind = name.startsWith('arrows/') ? 'arrow' : name === 'doodles/sparks' ? 'sparks' : undefined;
+const uid = `d${Math.random().toString(36).slice(2, 9)}`;
 ---
 
+{
+  pencil ? (
+    <span
+      aria-hidden="true"
+      data-draw
+      class:list={['doodle', 'doodle--svg', { 'doodle--inline': inline }, className]}
+      style={`--doodle-color:${color};aspect-ratio:${ratio};${style}`}
+    >
+      <svg viewBox={`0 0 ${pencil.w} ${pencil.h}`} preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <mask id={`${uid}-b`} maskUnits="userSpaceOnUse" x="-40" y="-40" width={pencil.w + 80} height={pencil.h + 80}>
+            <path class="doodle__draw" d={smoothPath(pencil.pts)} pathLength="1" />
+          </mask>
+          <mask id={`${uid}-a`} maskUnits="userSpaceOnUse" x="0" y="0" width={pencil.w} height={pencil.h} style="mask-type:alpha">
+            <image href={`/brand/${name}.webp`} width={pencil.w} height={pencil.h} mask={`url(#${uid}-b)`} />
+          </mask>
+        </defs>
+        <rect width={pencil.w} height={pencil.h} style="fill:var(--doodle-color)" mask={`url(#${uid}-a)`} />
+      </svg>
+    </span>
+  ) : (
 <span
   aria-hidden="true"
+  data-doodle={kind}
   class:list={['doodle', { 'doodle--inline': inline }, className]}
-  style={`--doodle-color:${color};--doodle-src:url('/brand/${name}.svg');aspect-ratio:${ratio};${style}`}
+  style={`--doodle-color:${color};--doodle-src:url('/brand/${name}.${ext}');aspect-ratio:${ratio};${style}`}
 ></span>
+  )
+}
 
 <style>
   .doodle {
@@ -53,6 +96,35 @@ const ratio = viewBox ? `${viewBox[2]} / ${viewBox[3]}` : '1';
     background: var(--doodle-color);
     -webkit-mask: var(--doodle-src) center / contain no-repeat;
     mask: var(--doodle-src) center / contain no-repeat;
+  }
+  .doodle--svg {
+    background: none;
+    -webkit-mask: none;
+    mask: none;
+  }
+  .doodle--svg svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .doodle__draw {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 46;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  /* Desenha o fio do início ao fim quando entra no ecrã */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .doodle__draw {
+      stroke-dasharray: 1 2;
+      stroke-dashoffset: 1.1;
+      transition: stroke-dashoffset 2.2s cubic-bezier(0.55, 0, 0.35, 1) 0.2s;
+    }
+    :global(.js) .is-visible .doodle__draw {
+      stroke-dashoffset: 0;
+    }
   }
   .doodle--inline {
     position: relative;

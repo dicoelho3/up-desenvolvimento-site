@@ -83,7 +83,8 @@ O site segue o Manual de Identidade do UP:
   Corre-o de novo sempre que chegarem elementos novos.
 - **Componentes da marca** (`src/components/ui/`):
   - `Doodle`: traços livres, setas e doodles oficiais, em qualquer cor da paleta (`<Doodle name="strokes/traco-3" color="var(--orange)" />`)
-  - `BrandIcon`: ícones oficiais dentro de círculos (`<BrandIcon name="heart" tone="orange" />`)
+  - `BrandIcon`: ícones oficiais dentro de círculos (`<BrandIcon name="heart" tone="orange" />`; aceita também `line/<nome>`)
+  - `LineIcon`: os 84 ícones de linha desenhados à mão (`<LineIcon name="calendar" />`) — lista de nomes em `src/lib/line-icons.ts`
   - `Characters`: personagens ilustradas, a forma oficial de representar os jovens sem mostrar caras
   - `SectionLabel`: a etiqueta "↘ Título" com linha fina; `TitleArrow`: a seta ↙ dos títulos
   - Nos textos, `*palavra*` aplica o destaque da marca (pincelada nos títulos, marcador no texto)

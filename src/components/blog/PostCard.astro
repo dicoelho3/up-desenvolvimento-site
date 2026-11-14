@@ -5,6 +5,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { formatDate, postPath, type Lang } from '../../i18n';
 import { postSlug } from '../../lib/blog';
+import LineIcon from '../ui/LineIcon.astro';
 
 interface Props {
   post: CollectionEntry<'blog'>;
@@ -21,12 +22,14 @@ const { title, description, date, cover, coverAlt } = post.data;
       cover ? (
         <img src={cover} alt={coverAlt ?? ''} loading="lazy" width="640" height="420" />
       ) : (
-        <div class="post-card__placeholder" aria-hidden="true" />
+        <div class="post-card__placeholder" aria-hidden="true">
+          <LineIcon name="notebook" size="4.5rem" color="var(--navy)" />
+        </div>
       )
     }
   </div>
   <div class="post-card__body">
-    <time datetime={date.toISOString()}>{formatDate(date, lang)}</time>
+    <time datetime={date.toISOString()}><LineIcon name="calendar" size="1.15em" /> {formatDate(date, lang)}</time>
     <Heading class="post-card__title">
       <a href={postPath(postSlug(post), lang)}>{title}</a>
     </Heading>
@@ -62,7 +65,10 @@ const { title, description, date, cover, coverAlt } = post.data;
     object-fit: cover;
     transition: transform 0.6s var(--ease-out);
   }
+  /* Sem foto de capa: papel mostarda com um ícone desenhado à mão */
   .post-card__placeholder {
+    display: grid;
+    place-items: center;
     height: 100%;
     background: var(--mustard) url('/textures/paper-mustard.webp') center / cover;
   }

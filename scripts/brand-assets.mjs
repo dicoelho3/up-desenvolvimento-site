@@ -109,7 +109,7 @@ function runs(profile, minGap, minSize) {
   return out.filter(([a, b]) => b - a >= minSize);
 }
 
-async function sliceSheet(file, { scale, minGap, minSize, size, names, outDir, format }) {
+async function sliceSheet(file, { scale, minGap, minSize, size, names, outDir, format, rowTol = minSize / 2 }) {
   const { data, info } = await sharp(file, { density: 72 * scale, limitInputPixels: false })
     .ensureAlpha()
     .raw()
@@ -129,7 +129,7 @@ async function sliceSheet(file, { scale, minGap, minSize, size, names, outDir, f
     for (const [y0, y1] of runs(rowFilled, minGap, minSize)) pieces.push({ x0, x1, y0, y1 });
   }
   // ordem de leitura: linhas de cima para baixo, depois da esquerda para a direita
-  pieces.sort((a, b) => (Math.abs(a.y0 - b.y0) > minSize / 2 ? a.y0 - b.y0 : a.x0 - b.x0));
+  pieces.sort((a, b) => (Math.abs(a.y0 - b.y0) > rowTol ? a.y0 - b.y0 : a.x0 - b.x0));
   fs.mkdirSync(outDir, { recursive: true });
   for (const [i, p] of pieces.entries()) {
     const name = names?.[i] ?? String(i + 1).padStart(2, '0');
@@ -153,6 +153,22 @@ const iconCount = await sliceSheet(src('SVG/Icons/Icons.svg'), {
   scale: 1, minGap: 30, minSize: 60, size: 192, names: iconNames, outDir: path.join(PUBLIC, 'brand/icons'), format: 'png',
 });
 console.log(`✓ ${iconCount} ícones → public/brand/icons/ (esperados ${iconNames.length})`);
+
+// Icons_2.svg: 84 ícones de linha desenhados à mão (grelha 12 × 7), lidos linha a linha.
+// Saem como máscaras .webp — a cor é dada por CSS (componente LineIcon).
+const lineIconNames = [
+  'thumbs-up', 'heart', 'zoom-in', 'zoom-out', 'qr-code', 'idea', 'notebook', 'pencil', 'trophy', 'globe', 'camera', 'power',
+  'at', 'user', 'users', 'user-add', 'phone', 'phone-call', 'hand-person', 'hand-money', 'pin', 'flower', 'image', 'cursor',
+  'mail', 'mail-open', 'headset', 'mute', 'volume', 'mic', 'share', 'paper-plane', 'home', 'cloud-sun', 'map', 'settings',
+  'printer', 'barcode', 'eye', 'fingerprint', 'scissors', 'key', 'cart', 'hand-raise', 'compass', 'antenna', 'video', 'megaphone',
+  'battery-low', 'battery-plug', 'battery-charge', 'battery-full', 'laptop', 'calendar', 'calculator', 'open-book', 'note-edit', 'clipboard', 'video-play', 'plane',
+  'clip', 'folder', 'folder-open', 'folder-download', 'presentation', 'cloud-upload', 'cloud-download', 'bell-off', 'award', 'trash', 'navigation', 'link',
+  'chart-bars', 'chart-growth', 'institution', 'logout', 'flag', 'chats', 'chat-dots', 'chat-text', 'edit', 'forward', 'tools', 'clock',
+];
+const lineIconCount = await sliceSheet(src('SVG/Icons/Icons_2.svg'), {
+  scale: 1, minGap: 22, minSize: 30, size: 128, rowTol: 60, names: lineIconNames, outDir: path.join(PUBLIC, 'brand/line-icons'), format: 'webp',
+});
+console.log(`✓ ${lineIconCount} ícones de linha → public/brand/line-icons/ (esperados ${lineIconNames.length})`);
 
 const faceCount = await sliceSheet(src('SVG/Doodles/Personagens.svg'), {
   scale: 2, minGap: 6, minSize: 60, size: 200, outDir: path.join(PUBLIC, 'brand/characters'), format: 'webp',

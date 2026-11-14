@@ -1,0 +1,39 @@
+---
+/**
+ * Ícone de linha desenhado à mão (folha Icons_2.svg do manual, 84 ícones).
+ * Ficheiros em public/brand/line-icons/ — gerados por scripts/brand-assets.mjs.
+ * A cor é a do texto à volta (currentColor), ou a que passares em `color`.
+ *
+ * <LineIcon name="mail" />
+ * <LineIcon name="calendar" size="1.1em" color="var(--orange)" />
+ */
+import type { LineIconName } from '../../lib/line-icons';
+
+interface Props {
+  name: LineIconName;
+  /** tamanho CSS (ex.: "1.2em", "48px"). Por omissão acompanha o texto. */
+  size?: string;
+  color?: string;
+  class?: string;
+}
+const { name, size = '1.25em', color = 'currentColor', class: className } = Astro.props;
+---
+
+<span
+  aria-hidden="true"
+  class:list={['line-icon', className]}
+  style={`--size:${size};--color:${color};--icon:url('/brand/line-icons/${name}.webp')`}
+></span>
+
+<style>
+  .line-icon {
+    display: inline-block;
+    flex: none;
+    width: var(--size);
+    aspect-ratio: 1;
+    vertical-align: -0.2em;
+    background: var(--color);
+    -webkit-mask: var(--icon) center / contain no-repeat;
+    mask: var(--icon) center / contain no-repeat;
+  }
+</style>

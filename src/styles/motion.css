@@ -1,0 +1,148 @@
+/* ==========================================================================
+   Animações "desenhadas à mão" — dão vida aos elementos da marca.
+   Todas arrancam quando o elemento entra no ecrã (classe .is-visible, posta pelo
+   script do BaseLayout) e só existem com JS ativo e sem "reduzir movimento".
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* — Rabisco por baixo das palavras destacadas: risca-se traço a traço (→ ← →), como à mão.
+     Fica escondido até entrar no ecrã; aí o BaseLayout troca-o pela versão animada
+     (public/brand/highlights/scribble-*-draw.svg, gerada por scripts/scribble-draw.mjs). */
+  .js mark.brush {
+    background-image: none;
+  }
+
+  /* — Seta fina dos títulos: desenha-se depois do rabisco — */
+  .js .title-arrow path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.6, 0, 0.3, 1) 0.9s;
+  }
+  .js .title-arrow.is-visible path {
+    stroke-dashoffset: 0;
+  }
+
+  /* — Etiqueta de secção: a linha fina chega da margem e a seta "aterra" — */
+  .js .section-label::after {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1s var(--ease-out);
+  }
+  .js .section-label > svg {
+    opacity: 0;
+    transform: translate(-6px, -6px);
+    transition:
+      opacity 0.4s ease 0.45s,
+      transform 0.5s var(--ease-out) 0.45s;
+  }
+  .js .section-label.is-visible::after {
+    transform: none;
+  }
+  .js .section-label.is-visible > svg {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* — Etiquetas-carimbo: batem no papel como um carimbo — */
+  .js .brand-tag {
+    opacity: 0;
+  }
+  .js .brand-tag.is-visible {
+    animation: stamp 0.35s cubic-bezier(0.3, 1.4, 0.5, 1) 0.25s both;
+  }
+  @keyframes stamp {
+    from {
+      opacity: 0;
+      transform: scale(1.12) rotate(-2deg);
+    }
+    60% {
+      opacity: 1;
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* — Setas desenhadas: aparecem como um traço, do início para a ponta — */
+  .js .doodle[data-doodle='arrow'] {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.9s cubic-bezier(0.6, 0, 0.3, 1) 0.5s;
+  }
+  .js .doodle[data-doodle='arrow'].is-visible {
+    clip-path: inset(0 0 0 0);
+  }
+
+  /* — Brilhos (tracinhos): saltam do canto do cartão — */
+  .js .doodle[data-doodle='sparks'] {
+    opacity: 0;
+    transform: scale(0.2);
+    transform-origin: 30% 70%;
+  }
+  .js .doodle[data-doodle='sparks'].is-visible {
+    animation: pop 0.55s cubic-bezier(0.3, 1.8, 0.5, 1) 0.7s both;
+  }
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: scale(0.2);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* — Post-its dos programas: colam-se ao cartão depois de ele aparecer — */
+  .js .program .program__highlight {
+    opacity: 0;
+  }
+  .js .program.is-visible .program__highlight {
+    animation: stick 0.6s cubic-bezier(0.3, 1.5, 0.5, 1) calc(var(--reveal-delay, 0ms) + 0.5s) both;
+  }
+  @keyframes stick {
+    from {
+      opacity: 0;
+      transform: translateY(-10px) rotate(-3deg);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* — Balão das páginas (foto recortada): baloiça devagar, preso pela ponta do fio — */
+  .page-hero__cutout img {
+    transform-origin: 50% 100%;
+    animation: sway 7s ease-in-out infinite;
+  }
+  @keyframes sway {
+    0%,
+    100% {
+      transform: rotate(-1.2deg);
+    }
+    50% {
+      transform: rotate(1.2deg);
+    }
+  }
+}
+
+/* — Ao passar o rato num cartão, o ícone dá um pequeno abanão (como quem acena) — */
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  :is(.feature, .program, .step, .stat, .hood, .ticket, .join-card, .contact-card):hover
+    :is(.line-icon, .brand-icon) {
+    animation: wiggle 0.6s ease-in-out;
+  }
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: none;
+    }
+    30% {
+      transform: rotate(-7deg);
+    }
+    65% {
+      transform: rotate(5deg);
+    }
+  }
+}

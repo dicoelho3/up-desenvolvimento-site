@@ -5,7 +5,8 @@
  * Ícones oficiais (public/brand/icons):
  *   flat:        tools, shop, flag, handshake, audiobook, camera
  *   hand drawn:  chat, heart, book, map, headset, idea
- * Também aceita qualquer doodle (ex.: "doodles/open-book").
+ * Também aceita qualquer doodle (ex.: "doodles/open-book") e qualquer ícone de linha
+ * da folha Icons_2 (ex.: "line/calendar" — lista em LineIcon.astro).
  *
  * Tons (como no manual):
  *   orange  → círculo laranja, ícone branco suave
@@ -14,18 +15,26 @@
  *
  * <BrandIcon name="heart" tone="orange" size={64} />
  */
+import type { LineIconName } from '../../lib/line-icons';
+
 export type BrandIconName =
   | 'tools' | 'shop' | 'flag' | 'handshake' | 'audiobook' | 'camera'
   | 'chat' | 'heart' | 'book' | 'map' | 'headset' | 'idea';
 
+export type AnyBrandIcon = BrandIconName | `doodles/${string}` | `line/${LineIconName}`;
+
 interface Props {
-  name: BrandIconName | `doodles/${string}`;
+  name: AnyBrandIcon;
   tone?: 'orange' | 'cream' | 'outline';
   size?: number;
   class?: string;
 }
 const { name, tone = 'orange', size = 64, class: className } = Astro.props;
-const src = name.startsWith('doodles/') ? `/brand/${name}.svg` : `/brand/icons/${name}.png`;
+const src = name.startsWith('doodles/')
+  ? `/brand/${name}.svg`
+  : name.startsWith('line/')
+    ? `/brand/line-icons/${name.slice(5)}.webp`
+    : `/brand/icons/${name}.png`;
 ---
 
 <span

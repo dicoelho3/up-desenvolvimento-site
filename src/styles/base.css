@@ -145,8 +145,7 @@ ol[role='list'] {
 .paper--mustard {
   --text-soft: var(--navy-900);
   --line: rgb(12 38 58 / 0.3);
-  /* Sobre o amarelo, o destaque passa a laranja-claro mais vivo para continuar visível */
-  --hl: url('/brand/highlights/brush-sun.svg');
+  --hl: url('/brand/highlights/scribble-sun.webp');
   background: var(--papel-amarelo) url('/textures/paper-mustard.webp') center / 1400px auto repeat;
   color: var(--navy);
 }
@@ -154,8 +153,7 @@ ol[role='list'] {
   --text-soft: color-mix(in oklab, var(--branco-suave) 82%, var(--navy));
   --line: rgb(255 251 243 / 0.25);
   /* No azul, o manual usa o destaque em Azul Céu */
-  --hl: url('/brand/highlights/brush-sky.svg');
-  --hl-marker: url('/brand/highlights/marker-double-sky.svg');
+  --hl: url('/brand/highlights/scribble-sky.webp');
   background: var(--papel-azul) url('/textures/paper-navy.webp') center / 1400px auto repeat;
   color: var(--branco-suave);
 }
@@ -163,12 +161,12 @@ ol[role='list'] {
   padding-block: var(--space-2xl);
 }
 
-/* Notas curtas (legendas, anotações) — Afacad itálico, como no manual */
+/* Texto manuscrito usado em pequenas anotações */
 .hand {
-  font-family: var(--font-sans);
-  font-style: italic;
-  font-weight: 500;
-  line-height: 1.2;
+  font-family: var(--font-hand);
+  font-weight: 600;
+  font-size: 1.35em;
+  line-height: 1;
 }
 
 /* Lead / texto de introdução */
@@ -208,12 +206,14 @@ ol[role='list'] {
 }
 
 /* Etiqueta tipo "carimbo" (Manual, p. 5 — Eixos: "Qualidade", "Alcance"):
-   texto claro sobre uma mancha de pincel azul. Uso: <p class="brand-tag">Texto</p> */
+   texto claro sobre uma mancha sólida, ligeiramente torta e com cantos irregulares
+   (as manchas de pincel com riscas cortavam o texto). Uso: <p class="brand-tag">Texto</p> */
 .brand-tag {
   position: relative;
   z-index: 0;
   display: inline-block;
-  padding: 0.2em 0.85em 0.25em;
+  padding: 0.25em 0.8em 0.3em;
+  rotate: -1.5deg;
   color: var(--branco-suave);
   font-size: var(--step-0);
   font-weight: 600;
@@ -225,8 +225,8 @@ ol[role='list'] {
   inset: 0;
   z-index: -1;
   background: var(--tag-bg, var(--navy));
-  -webkit-mask: url('/brand/highlights/marker-double.svg') center / 100% 100% no-repeat;
-  mask: url('/brand/highlights/marker-double.svg') center / 100% 100% no-repeat;
+  border-radius: 0.25em 0.7em 0.35em 0.9em / 0.6em 0.3em 0.7em 0.35em;
+  transform: skewX(-6deg);
 }
 .brand-tag--orange {
   --tag-bg: var(--orange);

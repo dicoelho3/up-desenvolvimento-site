@@ -44,8 +44,7 @@
   --accent: var(--orange);
   --line: color-mix(in oklab, var(--navy) 22%, transparent);
   /* Cor do destaque (highlight) atrás das palavras — muda por fundo em base.css */
-  --hl: url('/brand/highlights/brush-sun.svg');
-  --hl-marker: url('/brand/highlights/marker-double-sun.svg');
+  --hl: url('/brand/highlights/scribble-sun.webp');
 
   /* — Tipografia (Manual, p. 13) —
      Primária: Hagrid (títulos). Enquanto não houver licença web, usamos Archivo Expanded
@@ -54,6 +53,7 @@
   --font-display: 'Hagrid', 'Archivo Variable', 'Archivo', system-ui, sans-serif;
   --font-display-stretch: 125%; /* largura da Archivo para se aproximar da Hagrid; pôr 100% com a Hagrid */
   --font-sans: 'Afacad Variable', 'Afacad', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-hand: 'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
 
   /* Escala fluida: cresce suavemente entre ecrãs de 360px e 1280px */
   --step--1: clamp(0.9rem, 0.87rem + 0.12vw, 0.98rem);

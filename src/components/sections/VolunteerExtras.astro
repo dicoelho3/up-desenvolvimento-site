@@ -5,7 +5,8 @@
  */
 import SectionLabel from '../ui/SectionLabel.astro';
 import BrandIcon from '../ui/BrandIcon.astro';
-import Doodle, { type BrandGraphic } from '../ui/Doodle.astro';
+import LineIcon from '../ui/LineIcon.astro';
+import type { LineIconName } from '../../lib/line-icons';
 import Characters from '../ui/Characters.astro';
 import { useTranslations, type Lang } from '../../i18n';
 
@@ -14,8 +15,8 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = useTranslations(lang).volunteer.extra;
-// Doodles oficiais para cada atividade (marionetas, escalada, física, zoo, Dia do UP)
-const icons: BrandGraphic[] = ['doodles/heart', 'doodles/paper-plane', 'doodles/atom', 'doodles/leaf', 'doodles/sparks'];
+// Ícones de linha para cada atividade (museu, escalada, física, zoo, Dia do UP)
+const icons: LineIconName[] = ['image', 'compass', 'idea', 'flower', 'trophy'];
 ---
 
 <section class="extras paper paper--cream">
@@ -24,7 +25,7 @@ const icons: BrandGraphic[] = ['doodles/heart', 'doodles/paper-plane', 'doodles/
 
     <div class="extras__grid">
       <article class="reading" data-reveal>
-        <BrandIcon name="doodles/open-book" tone="orange" size={68} />
+        <BrandIcon name="line/open-book" tone="cream" size={68} />
         <h2>{t.reading.title}</h2>
         <p class="reading__stat">
           <strong>{t.reading.stat}</strong>
@@ -42,7 +43,7 @@ const icons: BrandGraphic[] = ['doodles/heart', 'doodles/paper-plane', 'doodles/
           {
             t.psycho.list.map((item, i) => (
               <li>
-                <Doodle name={icons[i % icons.length]!} color="currentColor" inline class="psycho__icon" />
+                <LineIcon name={icons[i % icons.length]!} size="1.4em" />
                 {item}
               </li>
             ))
@@ -57,7 +58,7 @@ const icons: BrandGraphic[] = ['doodles/heart', 'doodles/paper-plane', 'doodles/
   .extras__grid {
     display: grid;
     gap: var(--space-xl);
-    align-items: start;
+    align-items: center;
   }
   @media (min-width: 60rem) {
     .extras__grid {
@@ -129,8 +130,5 @@ const icons: BrandGraphic[] = ['doodles/heart', 'doodles/paper-plane', 'doodles/
     rotate: 1.5deg;
     background: var(--navy) url('/textures/paper-navy.webp') center / 600px;
     color: var(--white);
-  }
-  :global(.psycho__icon) {
-    width: 1.5em;
   }
 </style>

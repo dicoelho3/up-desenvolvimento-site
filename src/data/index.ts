@@ -8,6 +8,7 @@
 import { z } from 'astro/zod';
 import type { ImageMetadata } from 'astro';
 
+import { lineIconNames } from '../lib/line-icons';
 import statsJson from './stats.json';
 import programsJson from './programs.json';
 import neighborhoodsJson from './neighborhoods.json';
@@ -19,13 +20,16 @@ import testimonialsJson from './testimonials.json';
 
 const localized = z.object({ pt: z.string(), en: z.string() });
 const localizedList = z.object({ pt: z.array(z.string()), en: z.array(z.string()) });
+/** Ícone de linha opcional (nomes em src/lib/line-icons.ts) */
+const icon = z.enum(lineIconNames).optional();
 
 const schemas = {
-  stats: z.object({ items: z.array(z.object({ value: z.string(), label: localized })) }),
+  stats: z.object({ items: z.array(z.object({ value: z.string(), label: localized, icon })) }),
   programs: z.object({
     items: z.array(
       z.object({
         id: z.string(),
+        icon,
         title: localized,
         text: localized,
         details: localizedList,
@@ -53,7 +57,7 @@ const schemas = {
   founders: z.object({
     items: z.array(z.object({ name: z.string(), photo: z.string(), studies: z.string(), quote: localized })),
   }),
-  timeline: z.object({ items: z.array(z.object({ year: z.string(), title: localized, text: localized })) }),
+  timeline: z.object({ items: z.array(z.object({ year: z.string(), icon, title: localized, text: localized })) }),
   survey: z.object({
     mentees: z.array(z.object({ value: z.number().min(0).max(100), text: localized })),
     mentors: z.array(z.object({ value: z.number().min(0).max(100), text: localized })),

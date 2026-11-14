@@ -68,14 +68,14 @@ const s = t.support;
 
   <div class="container support__more">
     <article class="more" data-reveal>
-      <BrandIcon name="handshake" tone="orange" size={60} />
+      <BrandIcon name="line/hand-raise" tone="orange" size={60} />
       <p class="brand-tag">{s.volunteer.tag}</p>
       <h2>{s.volunteer.title}</h2>
       <p>{s.volunteer.text}</p>
       <Button href={path('volunteer', lang)} variant="ghost">{s.volunteer.cta}</Button>
     </article>
     <article class="more" data-reveal style="--reveal-delay:120ms">
-      <BrandIcon name="shop" tone="orange" size={60} />
+      <BrandIcon name="line/hand-person" tone="orange" size={60} />
       <p class="brand-tag">{s.companies.tag}</p>
       <h2>{s.companies.title}</h2>
       <p>{s.companies.text}</p>
@@ -95,10 +95,7 @@ const s = t.support;
   @media (min-width: 64rem) {
     .support__tickets {
       grid-template-columns: 1fr 1fr;
-      align-items: start;
-    }
-    .ticket--navy {
-      margin-block-start: var(--space-2xl);
+      align-items: stretch; /* as duas senhas com a mesma altura */
     }
   }
 

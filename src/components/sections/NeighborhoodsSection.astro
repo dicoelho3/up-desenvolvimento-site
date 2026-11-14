@@ -5,6 +5,7 @@
  */
 import { Image } from 'astro:assets';
 import Rich from '../ui/Rich.astro';
+import LineIcon from '../ui/LineIcon.astro';
 import SectionLabel from '../ui/SectionLabel.astro';
 import Doodle from '../ui/Doodle.astro';
 import { neighborhoods, partnerLogo } from '../../data';
@@ -18,7 +19,7 @@ const t = useTranslations(lang);
 ---
 
 <section class="hoods paper paper--mustard" id="bairros">
-  <Doodle name="strokes/traco-2" color="var(--navy)" class="hoods__string" />
+  <Doodle name="pencil/fio-2" color="var(--navy)" class="hoods__string" />
   <div class="container">
     <div class="hoods__head">
       <div>
@@ -32,7 +33,10 @@ const t = useTranslations(lang);
       {
         neighborhoods.map((hood, i) => (
           <li class="hood" data-reveal style={`--reveal-delay:${i * 90}ms`}>
-            <h3 class="hood__name">{hood.name}</h3>
+            <h3 class="hood__name">
+              <LineIcon name="pin" />
+              {hood.name}
+            </h3>
             <div class="hood__body">
               <div class="hood__logo">
                 <Image src={partnerLogo(hood.logo)} alt="" width={120} widths={[120, 240]} sizes="120px" />
@@ -96,6 +100,10 @@ const t = useTranslations(lang);
     color: var(--sun);
     font-size: var(--step-1);
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35em;
   }
   .hood__body {
     display: grid;

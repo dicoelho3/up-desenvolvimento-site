@@ -18,14 +18,18 @@ Coisas a resolver antes (ou depois) de pôr o site no ar.
 - [ ] Voltar a pôr fotos das mentorias e atividades com a cara dos jovens **tapada** com as **personagens ilustradas** da marca
   (como no Manual, p. 15). Editar as imagens antes de as pôr no site (tapar na própria imagem, não só por CSS). As personagens estão em `public/brand/characters/`.
 - [ ] Imagem de partilha nas redes (`public/og-image.jpg`) — a atual é provisória
-- [ ] A folha de ícones de linha (`Icons_2.svg`, ~100 ícones) não foi usada; se quiserem estes ícones, enviar em ficheiros separados (ou cortamos a folha)
+- [x] Folha de ícones de linha (`Icons_2.svg`, 84 ícones) cortada para `public/brand/line-icons/` e usada nos números, programas, bairros, passos, percurso, blog, contactos e rodapé. Nos números, programas e percurso, o ícone escolhe-se nos dados (campo `icon`)
 
 ## 2. Decisões de design que o manual não define (validar com quem desenhou a marca)
 - [ ] Botões: pílula laranja/azul com sombra sólida por baixo (escolhido por vocês)
 - [ ] Cartões "senha destacável" na página Apoiar, cartões com cabeçalho colorido (programas, bairros), post-its nos testemunhos
-- [ ] Destaque de palavras: pincelada **por baixo** nos títulos e **marcador** atrás do texto corrido (amarelo claro; azul céu nos fundos azuis)
-- [ ] Notas curtas/legendas em Afacad itálico
+- [ ] Destaque de palavras: **rabisco de pincel da primeira versão** por baixo da palavra, em títulos e texto (amarelo claro; azul céu nos fundos azuis) — reposto a pedido da equipa, fora do manual (o manual usa pincelada nos títulos e marcador no texto). Sobre o fundo mostarda o amarelo nota-se pouco
+- [ ] Notas curtas/legendas em letra manuscrita **Caveat** (Google Fonts, gratuita) — reposta a pedido da equipa; o manual só prevê Hagrid + Afacad
+- [ ] Etiqueta tipo carimbo ("Qualidade", "Apadrinhamento"…) como mancha sólida torta em vez de pincelada com riscas — as riscas cortavam o texto
+- [ ] Ícones: todo o site usa os ícones de linha desenhados à mão (Icons_2.svg); os ícones chapados de Icons.svg ficaram de fora para não misturar estilos
 - [ ] Seta fina ↙ a seguir aos títulos principais de cada página (inspirada nas capas do manual)
+- [ ] Fios decorativos a **lápis** (os da primeira versão, tirados da apresentação) em vez dos traços de marcador do manual — escolha da equipa; os traços do manual continuam disponíveis em `public/brand/strokes`
+- [ ] Os fios a lápis **desenham-se** ao entrar no ecrã (animação; o percurso de cada fio está em `src/lib/pencil-paths.ts` — se trocarem a imagem de um fio, é preciso retraçar o percurso). Quem tem "reduzir movimento" ligado vê o fio já desenhado
 
 ## 3. Conteúdo a confirmar
 - [ ] Ano de fundação: o site diz "nasceu em 2021, associação legal em dezembro de 2022"; o manual diz "Fundada em 2022"

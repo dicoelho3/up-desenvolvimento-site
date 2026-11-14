@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import logoFull from '../../assets/brand/logo-full-light.png';
 import Icon from '../ui/Icon.astro';
+import LineIcon from '../ui/LineIcon.astro';
 import Doodle from '../ui/Doodle.astro';
 import { site } from '../../config/site';
 import { path, useTranslations, type Lang } from '../../i18n';
@@ -15,7 +16,7 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer paper paper--navy">
-  <Doodle name="strokes/traco-4" color="var(--sky)" class="site-footer__doodle" />
+  <Doodle name="pencil/fio-2" color="var(--sky)" class="site-footer__doodle" />
 
   <div class="container site-footer__grid">
     <div class="site-footer__brand">
@@ -61,7 +62,7 @@ const year = new Date().getFullYear();
         </li>
         <li>
           <a href={`mailto:${site.email}`}>
-            <Icon name="mail" size={22} /> Email
+            <LineIcon name="mail" size="22px" /> Email
           </a>
         </li>
       </ul>

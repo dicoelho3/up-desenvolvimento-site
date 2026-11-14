@@ -25,7 +25,7 @@ const { label, title, lead, image, imageAlt = '', note, cutout = false } = Astro
 ---
 
 <section class:list={['page-hero', { 'page-hero--with-image': image }]}>
-  <Doodle name="strokes/traco-3" color="var(--orange)" class="page-hero__string" />
+  <Doodle name="pencil/fio-1" color="var(--orange)" class="page-hero__string" />
   <div class="container page-hero__grid">
     <div class="page-hero__copy">
       <SectionLabel text={label} />
@@ -69,7 +69,8 @@ const { label, title, lead, image, imageAlt = '', note, cutout = false } = Astro
     position: relative;
     isolation: isolate;
     overflow: clip;
-    padding-block: var(--space-2xl) var(--space-3xl);
+    /* mesmo respiro do topo da página inicial */
+    padding-block: var(--space-xl) var(--space-2xl);
   }
   :global(.page-hero__string) {
     width: clamp(9rem, 18vw, 15rem);
@@ -79,7 +80,7 @@ const { label, title, lead, image, imageAlt = '', note, cutout = false } = Astro
   }
   .page-hero--with-image :global(.page-hero__string) {
     inset-inline-end: auto;
-    inset-inline-start: 38%;
+    inset-inline-start: 46%;
     inset-block-start: auto;
     inset-block-end: -4rem;
     rotate: 120deg;
@@ -87,7 +88,8 @@ const { label, title, lead, image, imageAlt = '', note, cutout = false } = Astro
   .page-hero__grid {
     display: grid;
     gap: var(--space-2xl);
-    align-items: center;
+    /* o texto começa logo abaixo da barra, mesmo quando a foto é mais alta */
+    align-items: start;
   }
   @media (min-width: 60rem) {
     .page-hero--with-image .page-hero__grid {
@@ -112,9 +114,17 @@ const { label, title, lead, image, imageAlt = '', note, cutout = false } = Astro
   .page-hero__cutout {
     position: relative;
     justify-self: center;
-    width: min(100%, 30rem);
+    width: min(100%, 26rem);
+  }
+  /* Em ecrã largo o balão desce até ao fim do topo: a ponta do fio toca na secção seguinte */
+  @media (min-width: 60rem) {
+    .page-hero__cutout {
+      align-self: end;
+      margin-block-end: calc(var(--space-2xl) * -1);
+    }
   }
   .page-hero__cutout :global(img) {
+    display: block;
     width: 100%;
     height: auto;
   }

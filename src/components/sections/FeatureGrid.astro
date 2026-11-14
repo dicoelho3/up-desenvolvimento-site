@@ -5,12 +5,12 @@
  */
 import Rich from '../ui/Rich.astro';
 import SectionLabel from '../ui/SectionLabel.astro';
-import BrandIcon, { type BrandIconName } from '../ui/BrandIcon.astro';
+import BrandIcon, { type AnyBrandIcon } from '../ui/BrandIcon.astro';
 
 interface Item {
   title: string;
   text: string;
-  icon?: BrandIconName | `doodles/${string}`;
+  icon?: AnyBrandIcon;
 }
 interface Props {
   label: string;
@@ -28,7 +28,7 @@ const { label, title, items, tone = 'cream', look = 'plain', id } = Astro.props;
   <div class="container">
     <SectionLabel text={label} />
     <Rich as="h2" text={title} class="features__title" />
-    <ul class="features__grid" role="list">
+    <ul class="features__grid" role="list" style={`--count:${items.length}`}>
       {
         items.map((item, i) => (
           <li class="feature" data-reveal style={`--reveal-delay:${i * 80}ms`}>
@@ -60,10 +60,17 @@ const { label, title, items, tone = 'cream', look = 'plain', id } = Astro.props;
     gap: var(--space-xl) var(--space-l);
     padding: 0;
   }
+  /* Cada ponto ocupa 3 linhas da grelha (ícone, título, texto) partilhadas por todos:
+     assim os títulos e os textos ficam alinhados mesmo quando um título ocupa 2 linhas. */
   .feature {
     display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
     align-content: start;
-    gap: var(--space-xs);
+    row-gap: var(--space-s);
+  }
+  .feature h3 {
+    align-self: start;
   }
   .feature h3 {
     font-size: var(--step-1);
@@ -86,10 +93,24 @@ const { label, title, items, tone = 'cream', look = 'plain', id } = Astro.props;
     margin-block-end: var(--space-2xs);
   }
 
-  /* Estilo "cartões" — como a Metodologia UP da apresentação */
+  /* Estilo "cartões" — como a Metodologia UP da apresentação.
+     Grelha fixa (1 → 2 → todas numa linha) para nunca ficar um cartão sozinho. */
+  .features--cards .features__grid {
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 36rem) {
+    .features--cards .features__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 64rem) {
+    .features--cards .features__grid {
+      grid-template-columns: repeat(var(--count), 1fr);
+    }
+  }
   .features--cards .feature {
     justify-items: center;
-    padding: var(--space-xl) var(--space-l);
+    padding: var(--space-xl) var(--space-m);
     border-radius: var(--radius);
     background: var(--navy) url('/textures/paper-navy.webp') center / 900px;
     color: var(--white);
@@ -100,6 +121,11 @@ const { label, title, items, tone = 'cream', look = 'plain', id } = Astro.props;
   }
   .features--cards .feature:nth-child(even) {
     rotate: 0.8deg;
+  }
+  /* Nos cartões (4 colunas) o título é mais pequeno para caber numa coluna estreita */
+  .features--cards .feature h3 {
+    font-size: clamp(1rem, 0.85rem + 0.3vw, 1.12rem);
+    letter-spacing: -0.01em;
   }
   .features--cards .feature p {
     color: color-mix(in oklab, var(--white) 80%, var(--navy));

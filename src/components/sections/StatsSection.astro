@@ -3,6 +3,7 @@
  * Números de impacto — dados em src/data/stats.json.
  */
 import Rich from '../ui/Rich.astro';
+import LineIcon from '../ui/LineIcon.astro';
 import SectionLabel from '../ui/SectionLabel.astro';
 import { stats } from '../../data';
 import { path, pick, useTranslations, type Lang } from '../../i18n';
@@ -32,7 +33,11 @@ const t = useTranslations(lang).home.stats;
         stats.map((stat, i) => (
           <div class="stat" data-reveal style={`--reveal-delay:${i * 80}ms`}>
             <dt>{pick(stat.label, lang)}</dt>
-            <dd>{stat.value}</dd>
+            <dd>
+              {stat.icon && <LineIcon name={stat.icon} size="2.6rem" class="stat__icon" />}
+              <span class="visually-hidden">{stat.value}</span>
+              <span class="stat__value" aria-hidden="true" data-count={stat.value}>{stat.value}</span>
+            </dd>
           </div>
         ))
       }
@@ -40,7 +45,44 @@ const t = useTranslations(lang).home.stats;
   </div>
 </section>
 
+<script>
+  // Os números contam de 0 até ao valor quando aparecem no ecrã ("+7.000", "100.000€"…).
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const els = document.querySelectorAll<HTMLElement>('.stat__value[data-count]');
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          io.unobserve(entry.target);
+          const el = entry.target as HTMLElement;
+          const m = el.dataset.count!.match(/^(\D*)([\d.,\s]+)(.*)$/);
+          if (!m) continue;
+          const [, pre, num, post] = m as unknown as [string, string, string, string];
+          const sep = /\d[.\s]\d{3}/.test(num) ? num.match(/\d([.\s])\d{3}/)![1]! : '';
+          const target = Number(num.replace(/[.,\s]/g, ''));
+          const fmt = (n: number) => (sep ? String(n).replace(/\B(?=(\d{3})+(?!\d))/g, sep) : String(n));
+          const t0 = performance.now();
+          const dur = 1600;
+          const tick = (t: number) => {
+            const p = Math.min(1, (t - t0) / dur);
+            const eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = pre + fmt(Math.round(target * eased)) + post;
+            if (p < 1) requestAnimationFrame(tick);
+          };
+          el.textContent = pre + '0' + post;
+          requestAnimationFrame(tick);
+        }
+      },
+      { rootMargin: '0px 0px -15% 0px' },
+    );
+    els.forEach((el) => io.observe(el));
+  }
+</script>
+
 <style>
+  .stat__value {
+    font-variant-numeric: tabular-nums;
+  }
   .stats__head {
     display: flex;
     flex-wrap: wrap;
@@ -93,6 +135,12 @@ const t = useTranslations(lang).home.stats;
     font-weight: 800;
     line-height: 1;
     letter-spacing: -0.02em;
+  }
+  .stat dd {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-s);
   }
   .stat dt {
     font-size: var(--step--1);

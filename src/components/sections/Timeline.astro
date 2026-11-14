@@ -3,6 +3,7 @@
  * O percurso do UP — dados em src/data/timeline.json.
  */
 import Rich from '../ui/Rich.astro';
+import LineIcon from '../ui/LineIcon.astro';
 import SectionLabel from '../ui/SectionLabel.astro';
 import { timeline } from '../../data';
 import { pick, useTranslations, type Lang } from '../../i18n';
@@ -28,6 +29,7 @@ const t = useTranslations(lang).about.timeline;
               {item.year}
             </p>
             <div class="moment__card">
+              {item.icon && <LineIcon name={item.icon} size="2.4rem" color="var(--navy)" />}
               <h3>{pick(item.title, lang)}</h3>
               <p>{pick(item.text, lang)}</p>
             </div>

@@ -68,6 +68,11 @@ content:
         type: object
         list: true
         fields:
+          - name: icon
+            label: Ícone (opcional — ver public/brand/line-icons)
+            type: select
+            options:
+              values: [users, user, hand-raise, hand-person, hand-money, clock, calendar, chart-growth, chart-bars, trophy, award, heart, pin, home, open-book, chats]
           - name: value
             label: Valor (ex. +70)
             type: string

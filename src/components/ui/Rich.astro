@@ -29,19 +29,15 @@ const html = escape(text)
 <Tag class={className} {...attrs} set:html={html} />
 
 <style is:global>
-  /* Destaque base: marcador atrás do texto (texto corrido) */
+  /* Destaque: rabisco de pincel por baixo da palavra (o da primeira versão do site).
+     Fica abaixo das letras (não por cima), para o texto não parecer apagado.
+     A cor vem de --hl, que muda conforme o fundo (base.css). */
   mark.brush {
     color: inherit;
-    background: var(--hl-marker) no-repeat center / 100% 92%;
-    padding-inline: 0.2em;
-    margin-inline: -0.1em;
+    background: var(--hl) no-repeat left 0 bottom 0 / 100% 0.42em;
+    padding-inline: 0.06em;
+    padding-block-end: 0.16em;
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
-  }
-  /* Nos títulos: pincelada por baixo da palavra (Manual, p. 3 e 7) */
-  :is(h1, h2, h3, h4, .is-display) mark.brush {
-    background: var(--hl) no-repeat left 0 bottom -0.08em / 100% 0.42em;
-    padding-inline: 0.04em;
-    margin-inline: 0;
   }
 </style>
