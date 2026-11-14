@@ -1,0 +1,130 @@
+---
+/**
+ * Bairros e associações parceiras — dados em src/data/neighborhoods.json.
+ * As coordenadas já estão nos dados: um mapa interativo pode substituir/complementar esta grelha.
+ */
+import { Image } from 'astro:assets';
+import Rich from '../ui/Rich.astro';
+import SectionLabel from '../ui/SectionLabel.astro';
+import Doodle from '../ui/Doodle.astro';
+import { neighborhoods, partnerLogo } from '../../data';
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="hoods paper paper--mustard" id="bairros">
+  <Doodle variant="string-2" color="var(--navy)" class="hoods__string" />
+  <div class="container">
+    <div class="hoods__head">
+      <div>
+        <SectionLabel text={t.home.neighborhoods.label} />
+        <Rich as="h2" text={t.home.neighborhoods.title} class="hoods__title" />
+      </div>
+      <p>{t.home.neighborhoods.text}</p>
+    </div>
+
+    <ul class="hoods__grid" role="list">
+      {
+        neighborhoods.map((hood, i) => (
+          <li class="hood" data-reveal style={`--reveal-delay:${i * 90}ms`}>
+            <h3 class="hood__name">{hood.name}</h3>
+            <div class="hood__body">
+              <div class="hood__logo">
+                <Image src={partnerLogo(hood.logo)} alt="" width={120} widths={[120, 240]} sizes="120px" />
+              </div>
+              <p class="hood__partner">{hood.partner}</p>
+              <p class="hood__since">
+                {t.common.since} {hood.since}
+              </p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .hoods {
+    overflow: clip;
+  }
+  :global(.hoods__string) {
+    width: clamp(8rem, 14vw, 12rem);
+    inset-block-end: -3rem;
+    inset-inline-start: -3rem;
+    rotate: 160deg;
+    opacity: 0.85;
+  }
+  .hoods__head {
+    display: grid;
+    gap: var(--space-l);
+    align-items: end;
+    margin-block-end: var(--space-2xl);
+  }
+  @media (min-width: 50rem) {
+    .hoods__head {
+      grid-template-columns: 1.3fr 1fr;
+    }
+  }
+  .hoods__title {
+    font-size: var(--step-4);
+  }
+  .hoods__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: var(--space-l);
+    padding: 0;
+  }
+  .hood {
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--cream);
+    box-shadow: var(--shadow);
+    transition: transform 0.3s var(--ease-out);
+  }
+  .hood:hover {
+    transform: translateY(-4px) rotate(-0.6deg);
+  }
+  .hood__name {
+    padding: var(--space-m);
+    background: var(--navy) url('/textures/paper-navy.webp') center / 900px;
+    color: var(--sun);
+    font-size: var(--step-1);
+    text-align: center;
+  }
+  .hood__body {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-2xs);
+    padding: var(--space-l) var(--space-m);
+    text-align: center;
+  }
+  .hood__logo {
+    display: grid;
+    place-items: center;
+    width: 7.5rem;
+    aspect-ratio: 1;
+    margin-block-end: var(--space-s);
+    border-radius: 50%;
+    background: var(--white);
+    overflow: hidden;
+  }
+  .hood__logo :global(img) {
+    width: 78%;
+    height: 78%;
+    object-fit: contain;
+  }
+  .hood__partner {
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  .hood__since {
+    font-size: var(--step--1);
+    color: var(--text-soft);
+  }
+</style>

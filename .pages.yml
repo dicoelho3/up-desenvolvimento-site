@@ -1,0 +1,103 @@
+# Configuração do Pages CMS (https://pagescms.org)
+# Permite editar o blog e alguns dados do site num editor visual, sem tocar em código.
+# Cada gravação no CMS cria um commit no GitHub → o Vercel publica automaticamente.
+
+media:
+  input: public/images/uploads
+  output: /images/uploads
+
+content:
+  - name: blog-pt
+    label: Blog (Português)
+    type: collection
+    path: src/content/blog/pt
+    filename: '{primary}.md'
+    view:
+      fields: [title, date, draft]
+      sort: [date]
+      default:
+        sort: date
+        order: desc
+    fields: &blogFields
+      - name: title
+        label: Título
+        type: string
+        required: true
+      - name: description
+        label: Resumo (aparece nos cartões e no Google)
+        type: text
+        required: true
+      - name: date
+        label: Data
+        type: date
+        required: true
+      - name: cover
+        label: Imagem de capa
+        type: image
+      - name: coverAlt
+        label: Descrição da imagem (para acessibilidade)
+        type: string
+      - name: author
+        label: Autor
+        type: string
+      - name: draft
+        label: Rascunho (não publicar ainda)
+        type: boolean
+        default: false
+      - name: body
+        label: Texto
+        type: rich-text
+
+  - name: blog-en
+    label: Blog (English)
+    description: Usa o mesmo nome de ficheiro do artigo em português para ligar as traduções.
+    type: collection
+    path: src/content/blog/en
+    filename: '{primary}.md'
+    view:
+      fields: [title, date, draft]
+    fields: *blogFields
+
+  - name: numeros
+    label: Números de impacto
+    type: file
+    path: src/data/stats.json
+    fields:
+      - name: items
+        label: Números
+        type: object
+        list: true
+        fields:
+          - name: value
+            label: Valor (ex. +70)
+            type: string
+          - name: label
+            label: Descrição
+            type: object
+            fields:
+              - { name: pt, label: Português, type: string }
+              - { name: en, label: Inglês, type: string }
+
+  - name: testemunhos
+    label: Testemunhos
+    type: file
+    path: src/data/testimonials.json
+    fields:
+      - name: items
+        label: Testemunhos
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Nome, type: string }
+          - name: role
+            label: Papel
+            type: object
+            fields:
+              - { name: pt, label: Português, type: string }
+              - { name: en, label: Inglês, type: string }
+          - name: quote
+            label: Citação
+            type: object
+            fields:
+              - { name: pt, label: Português, type: text }
+              - { name: en, label: Inglês, type: text }

@@ -1,0 +1,141 @@
+---
+/**
+ * Artigo do blog — /blog/<slug>/ e /en/blog/<slug>/.
+ */
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionLabel from '../components/ui/SectionLabel.astro';
+import PostCard from '../components/blog/PostCard.astro';
+import { getPosts, getTranslation, postSlug } from '../lib/blog';
+import { formatDate, path, postPath, useTranslations, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  post: CollectionEntry<'blog'>;
+}
+const { lang, post } = Astro.props;
+const b = useTranslations(lang).blog;
+const { Content } = await render(post);
+const { title, description, date, cover, coverAlt, author } = post.data;
+
+const otherLang: Lang = lang === 'pt' ? 'en' : 'pt';
+const translation = await getTranslation(post, otherLang);
+const alternateUrl = translation ? postPath(postSlug(translation), otherLang) : path('blog', otherLang);
+
+const others = (await getPosts(lang)).filter((p) => p.id !== post.id).slice(0, 2);
+---
+
+<BaseLayout lang={lang} route="blog" title={title} description={description} alternateUrl={alternateUrl} image={cover}>
+  <article class="post">
+    <header class="container--narrow post__header">
+      <a class="post__back" href={path('blog', lang)}>← {b.back}</a>
+      <h1 class="post__title">{title}</h1>
+      <p class="post__meta">
+        <time datetime={date.toISOString()}>{formatDate(date, lang)}</time>
+        {author && <span> · {author}</span>}
+      </p>
+    </header>
+
+    {
+      cover && (
+        <div class="container post__cover">
+          <img src={cover} alt={coverAlt ?? ''} width="1200" height="700" />
+        </div>
+      )
+    }
+
+    <div class="container--narrow post__body flow">
+      <Content />
+    </div>
+  </article>
+
+  {
+    others.length > 0 && (
+      <section class="more-posts paper paper--cream">
+        <div class="container">
+          <SectionLabel text={b.otherPosts} />
+          <div class="more-posts__grid">
+            {others.map((p) => (
+              <PostCard post={p} lang={lang} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .post {
+    padding-block: var(--space-2xl) var(--space-3xl);
+  }
+  .post__header {
+    display: grid;
+    gap: var(--space-m);
+    margin-block-end: var(--space-xl);
+  }
+  .post__back {
+    font-size: var(--step--1);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .post__title {
+    font-size: var(--step-4);
+  }
+  .post__meta {
+    color: var(--text-soft);
+    font-size: var(--step--1);
+  }
+  .post__cover {
+    margin-block-end: var(--space-2xl);
+  }
+  .post__cover img {
+    width: 100%;
+    max-height: 34rem;
+    object-fit: cover;
+    border-radius: var(--radius-l);
+    rotate: -0.5deg;
+  }
+
+  /* Tipografia do texto do artigo (vem do Markdown) */
+  .post__body {
+    --flow-space: 1.1em;
+    font-size: var(--step-1);
+    line-height: 1.7;
+  }
+  .post__body :global(h2) {
+    --flow-space: 1.8em;
+    font-size: var(--step-3);
+  }
+  .post__body :global(h3) {
+    --flow-space: 1.5em;
+    font-size: var(--step-2);
+  }
+  .post__body :global(ul),
+  .post__body :global(ol) {
+    padding-inline-start: 1.3em;
+  }
+  .post__body :global(li + li) {
+    margin-block-start: 0.35em;
+  }
+  .post__body :global(li::marker) {
+    color: var(--orange);
+  }
+  .post__body :global(a) {
+    text-decoration-color: var(--orange);
+    text-decoration-thickness: 2px;
+  }
+  .post__body :global(blockquote) {
+    padding-inline-start: var(--space-l);
+    border-inline-start: 4px solid var(--sun);
+    font-style: italic;
+  }
+  .post__body :global(img) {
+    border-radius: var(--radius);
+  }
+  .more-posts__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+    gap: var(--space-l);
+  }
+</style>

@@ -1,0 +1,16 @@
+{
+  "mentees": [
+    { "value": 86, "text": { "pt": "Eu **gosto** de ir às mentorias.", "en": "I **enjoy** going to mentoring sessions." } },
+    { "value": 82, "text": { "pt": "Desde que comecei as mentorias, estou **mais empenhado** em tirar boas notas.", "en": "Since starting mentoring, I’m **more committed** to getting good grades." } },
+    { "value": 96, "text": { "pt": "O meu mentor ajuda-me com **métodos de organização** e de **estudo**.", "en": "My mentor helps me with **organisation** and **study methods**." } },
+    { "value": 100, "text": { "pt": "O meu **mentor percebe** as minhas dificuldades.", "en": "My **mentor understands** my difficulties." } },
+    { "value": 67, "text": { "pt": "Os **programas** ao fim de semana são úteis para **desenvolver competências**.", "en": "Weekend **programmes** help me **develop skills**." } }
+  ],
+  "mentors": [
+    { "value": 100, "text": { "pt": "Eu **gosto** de dar mentorias.", "en": "I **enjoy** mentoring." } },
+    { "value": 93, "text": { "pt": "**Gosto da relação** que criei com o meu mentorado.", "en": "I **value the relationship** I’ve built with my mentee." } },
+    { "value": 71, "text": { "pt": "Acredito que estou a ter impacto positivo no **futuro académico** do meu mentorado.", "en": "I believe I’m having a positive impact on my mentee’s **academic future**." } },
+    { "value": 79, "text": { "pt": "Acredito que estou a ter impacto positivo na **vida pessoal** do meu mentorado.", "en": "I believe I’m having a positive impact on my mentee’s **personal life**." } },
+    { "value": 100, "text": { "pt": "As mentorias têm sido boas para **o meu desenvolvimento**.", "en": "Mentoring has been good for **my own development**." } }
+  ]
+}

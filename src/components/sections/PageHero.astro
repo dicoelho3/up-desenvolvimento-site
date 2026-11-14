@@ -1,0 +1,98 @@
+---
+/**
+ * Topo das páginas interiores: etiqueta, título, texto de introdução e (opcional) foto.
+ * Botões ou outros elementos podem ir no <slot />.
+ */
+import type { ImageMetadata } from 'astro';
+import Rich from '../ui/Rich.astro';
+import SectionLabel from '../ui/SectionLabel.astro';
+import Photo from '../ui/Photo.astro';
+import Doodle from '../ui/Doodle.astro';
+
+interface Props {
+  label: string;
+  title: string;
+  lead?: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  note?: string;
+}
+const { label, title, lead, image, imageAlt = '', note } = Astro.props;
+---
+
+<section class:list={['page-hero', { 'page-hero--with-image': image }]}>
+  <Doodle variant="string-1" color="var(--sun)" class="page-hero__string" />
+  <div class="container page-hero__grid">
+    <div class="page-hero__copy">
+      <SectionLabel text={label} />
+      <Rich as="h1" text={title} class="page-hero__title" />
+      {lead && <p class="lead">{lead}</p>}
+      {
+        Astro.slots.has('default') && (
+          <div class="page-hero__actions">
+            <slot />
+          </div>
+        )
+      }
+    </div>
+    {
+      image && (
+        <Photo
+          src={image}
+          alt={imageAlt}
+          tilt="right"
+          note={note}
+          aspect="5/4"
+          loading="eager"
+          sizes="(min-width: 60rem) 45vw, 90vw"
+          widths={[500, 800, 1200]}
+        />
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    padding-block: var(--space-2xl) var(--space-3xl);
+  }
+  :global(.page-hero__string) {
+    width: clamp(9rem, 18vw, 15rem);
+    inset-block-start: -3rem;
+    inset-inline-end: -3rem;
+    rotate: 20deg;
+  }
+  .page-hero--with-image :global(.page-hero__string) {
+    inset-inline-end: auto;
+    inset-inline-start: 38%;
+    inset-block-start: auto;
+    inset-block-end: -4rem;
+    rotate: 120deg;
+  }
+  .page-hero__grid {
+    display: grid;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+  @media (min-width: 60rem) {
+    .page-hero--with-image .page-hero__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .page-hero__title {
+    font-size: var(--step-5);
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    margin-block-end: var(--space-l);
+    max-width: 16ch;
+  }
+  .page-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+    margin-block-start: var(--space-xl);
+  }
+</style>

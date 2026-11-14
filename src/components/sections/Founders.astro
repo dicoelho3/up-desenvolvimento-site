@@ -1,0 +1,101 @@
+---
+/**
+ * Co-fundadores — dados em src/data/founders.json, fotos em src/assets/photos.
+ */
+import { Image } from 'astro:assets';
+import SectionLabel from '../ui/SectionLabel.astro';
+import Doodle from '../ui/Doodle.astro';
+import { founders, photo } from '../../data';
+import { pick, useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang).about.founders;
+---
+
+<section class="founders paper paper--navy">
+  <Doodle variant="sparks" color="var(--sun)" class="founders__sparks" />
+  <div class="container">
+    <SectionLabel text={t.label} />
+    <h2 class="founders__title">{t.title}</h2>
+
+    <ul class="founders__grid" role="list">
+      {
+        founders.map((person, i) => {
+          const [first, ...rest] = person.name.split(' ');
+          return (
+            <li class="person" data-reveal style={`--reveal-delay:${i * 90}ms`}>
+              <Image src={photo(person.photo)} alt={person.name} widths={[300, 600]} sizes="(min-width: 60rem) 22vw, 80vw" class="person__photo" />
+              <div class="person__body">
+                <h3 class="person__name">
+                  {first}
+                  <br />
+                  <mark class="brush">{rest.join(' ')}</mark>
+                </h3>
+                <p class="person__studies">{person.studies}</p>
+                <blockquote>
+                  <p>“{pick(person.quote, lang)}”</p>
+                </blockquote>
+              </div>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  :global(.founders__sparks) {
+    width: 5rem;
+    inset-block-start: var(--space-2xl);
+    inset-inline-start: 40%;
+  }
+  .founders__title {
+    font-size: var(--step-4);
+    margin-block-end: var(--space-2xl);
+  }
+  .founders__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: var(--space-l);
+    padding: 0;
+  }
+  .person {
+    --text-soft: color-mix(in oklab, var(--navy) 78%, var(--cream));
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--sun);
+    border-radius: var(--radius);
+    background: var(--cream-50);
+    color: var(--navy);
+    overflow: hidden;
+  }
+  :global(.person__photo) {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: top;
+  }
+  .person__body {
+    display: grid;
+    align-content: start;
+    gap: var(--space-s);
+    padding: var(--space-l);
+  }
+  .person__name {
+    font-size: var(--step-1);
+    line-height: 1.25;
+  }
+  .person__studies {
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+  blockquote p {
+    font-size: var(--step--1);
+    font-style: italic;
+    color: var(--text-soft);
+  }
+</style>

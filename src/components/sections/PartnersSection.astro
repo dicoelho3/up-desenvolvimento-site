@@ -1,0 +1,93 @@
+---
+/**
+ * Parede de logos dos parceiros — dados em src/data/partners.json.
+ */
+import { Image } from 'astro:assets';
+import Rich from '../ui/Rich.astro';
+import SectionLabel from '../ui/SectionLabel.astro';
+import { partners, partnerLogo } from '../../data';
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang).home.partners;
+---
+
+<section class="partners paper paper--cream">
+  <div class="container partners__grid">
+    <div>
+      <SectionLabel text={t.label} />
+      <Rich as="h2" text={t.title} class="partners__title" />
+    </div>
+
+    <ul class="partners__logos" role="list">
+      {
+        partners.map((partner) => {
+          const logo = (
+            <Image src={partnerLogo(partner.logo)} alt={partner.name} width={180} widths={[180, 360]} sizes="180px" />
+          );
+          return (
+            <li title={partner.name}>
+              {partner.url ? (
+                <a href={partner.url} target="_blank" rel="noopener">
+                  {logo}
+                </a>
+              ) : (
+                logo
+              )}
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .partners {
+    border-block-start: 1px solid var(--line);
+  }
+  .partners__grid {
+    display: grid;
+    gap: var(--space-2xl);
+  }
+  @media (min-width: 60rem) {
+    .partners__grid {
+      grid-template-columns: 0.7fr 2fr;
+      align-items: center;
+    }
+  }
+  .partners__title {
+    font-size: var(--step-3);
+    max-width: 12ch;
+  }
+  .partners__logos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+    gap: var(--space-s);
+    padding: 0;
+  }
+  .partners__logos li {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 3 / 2;
+    padding: var(--space-s);
+    border-radius: var(--radius-s);
+    background: var(--white);
+    transition: transform 0.25s var(--ease-out);
+  }
+  .partners__logos li:hover {
+    transform: rotate(-2deg) scale(1.03);
+  }
+  .partners__logos a {
+    display: contents;
+  }
+  .partners__logos :global(img) {
+    max-height: 4.2rem;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+  }
+</style>

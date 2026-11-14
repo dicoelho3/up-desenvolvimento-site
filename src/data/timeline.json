@@ -1,0 +1,36 @@
+{
+  "items": [
+    {
+      "year": "2021",
+      "title": { "pt": "Nasceu o UP", "en": "UP is born" },
+      "text": {
+        "pt": "Um grupo de universitários junta-se para apoiar o sonho de uma jovem do Bairro da Apelação: entrar no Ensino Secundário, um percurso raro num bairro onde a maioria tem poucas opções. Começámos com \"explicações\".",
+        "en": "A group of university students comes together to support a girl from Bairro da Apelação with her dream of getting into secondary school, a rare path in a neighbourhood with few options. We started out as \"tutors\"."
+      }
+    },
+    {
+      "year": "2021/22",
+      "title": { "pt": "A equipa cresceu", "en": "The team grows" },
+      "text": {
+        "pt": "Mais voluntários juntam-se para combater o insucesso escolar. A missão fica clara: criar um ciclo de transformação social. Os voluntários passam de explicadores a mentores.",
+        "en": "More volunteers join to tackle school failure. The mission becomes clear: build a cycle of social change. Volunteers go from tutors to mentors."
+      }
+    },
+    {
+      "year": "2022/23",
+      "title": { "pt": "Mais parceiros", "en": "More partners" },
+      "text": {
+        "pt": "O projeto passa de boca em boca: São João da Talha (abril de 2022) e Sacavém (maio de 2023) convidam-nos para os seus bairros. Em dezembro de 2022 tornamo-nos uma Associação Legal Sem Fins Lucrativos.",
+        "en": "Word spreads: São João da Talha (April 2022) and Sacavém (May 2023) invite us into their neighbourhoods. In December 2022 we become a registered non-profit association."
+      }
+    },
+    {
+      "year": "2025/26",
+      "title": { "pt": "Novos bairros, nova cara", "en": "New places, new look" },
+      "text": {
+        "pt": "Chegamos ao Bairro Alto com o Projeto + Skillz e à Damaia com o Centro Social 6 de Maio. Lançamos uma nova identidade visual e somos selecionados para a Mostra Nacional de Jovens Empreendedores.",
+        "en": "We arrive in Bairro Alto with Projeto + Skillz and in Damaia with Centro Social 6 de Maio. We launch a new visual identity and are selected for the National Young Entrepreneurs Showcase."
+      }
+    }
+  ]
+}

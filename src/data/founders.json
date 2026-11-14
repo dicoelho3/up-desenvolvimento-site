@@ -1,0 +1,40 @@
+{
+  "items": [
+    {
+      "name": "Filipa Santos",
+      "photo": "fundadora-filipa.jpg",
+      "studies": "BSc Psicologia – FPUL · MSc Psicologia Clínica – FPCEUC",
+      "quote": {
+        "pt": "Sou apaixonada por trabalhar com jovens, tanto na minha prática clínica, como no UP Desenvolvimento, porque acredito que têm neles a capacidade de transformar o mundo.",
+        "en": "I love working with young people, both in my clinical practice and at UP Desenvolvimento, because I believe they have the power to change the world."
+      }
+    },
+    {
+      "name": "Catarina Pessoa-Lopes",
+      "photo": "fundadora-catarina.jpg",
+      "studies": "BSc Gestão – NOVA SBE",
+      "quote": {
+        "pt": "É na missão UP que coloco ao serviço da comunidade as competências que desenvolvi ao longo da carreira. O UP é um dos desafios que mais me realiza: construir uma comunidade dedicada a criar impacto duradouro.",
+        "en": "UP is where I put the skills I built throughout my career at the service of the community. It is one of the most fulfilling challenges I have: building a community dedicated to lasting impact."
+      }
+    },
+    {
+      "name": "Francisco Bentes",
+      "photo": "fundador-francisco.jpg",
+      "studies": "BSc Engenharia Eletrotécnica – IST · MSc Finanças – NOVA SBE",
+      "quote": {
+        "pt": "Com um mindset de engenheiro e uma paixão pelo mundo financeiro, é no UP que realizo o meu maior propósito: construir uma sociedade mais justa, onde todos têm o direito de lutar pelos seus sonhos, assim como eu tive.",
+        "en": "With an engineer’s mindset and a passion for finance, UP is where I find my greatest purpose: building a fairer society where everyone has the right to fight for their dreams, just as I did."
+      }
+    },
+    {
+      "name": "Miguel Villas de Brito",
+      "photo": "fundador-miguel.jpg",
+      "studies": "MSc Integrado em Medicina – NMS",
+      "quote": {
+        "pt": "Estou a formar-me em Medicina, mas desde sempre que tive um amor escondido pela Educação e Pedagogia. O UP é a minha forma de colocar esta paixão ao serviço do bem comum, criando laços que permanecerão por uma vida.",
+        "en": "I’m training to be a doctor, but I’ve always had a hidden love for education. UP is my way of putting that passion to work for the common good, building bonds that will last a lifetime."
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/volunt%C3%A1rio", "destination": "/voluntario/", "permanent": true },
+    { "source": "/voluntário", "destination": "/voluntario/", "permanent": true },
+    { "source": "/sobre-n%C3%B3s", "destination": "/sobre-nos/", "permanent": true },
+    { "source": "/sobre-nós", "destination": "/sobre-nos/", "permanent": true },
+    { "source": "/post/:slug*", "destination": "/blog/", "permanent": true },
+    { "source": "/blog/categories/:slug*", "destination": "/blog/", "permanent": true }
+  ]
+}

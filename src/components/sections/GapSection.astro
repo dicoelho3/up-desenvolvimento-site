@@ -1,0 +1,94 @@
+---
+/**
+ * "O UP nasceu para fechar uma lacuna…" — dois lados ligados por um fio.
+ */
+import Rich from '../ui/Rich.astro';
+import SectionLabel from '../ui/SectionLabel.astro';
+import Icon from '../ui/Icon.astro';
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const g = useTranslations(lang).about.gap;
+---
+
+<section class="gap paper paper--mustard">
+  <div class="container">
+    <SectionLabel text={g.label} />
+    <Rich as="h2" text={g.title} class="gap__title" />
+
+    <div class="gap__grid">
+      <div class="gap__side" data-reveal>
+        <div class="gap__box">
+          <Icon name="map" size={48} strokeWidth={2} />
+          <h3>{g.left.title}</h3>
+        </div>
+        <Rich as="p" text={g.left.text} />
+      </div>
+
+      <svg class="gap__thread" viewBox="0 0 200 80" aria-hidden="true" preserveAspectRatio="none">
+        <path d="M2 40 C 40 10, 60 70, 100 40 S 160 10, 198 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 9"></path>
+      </svg>
+
+      <div class="gap__side" data-reveal style="--reveal-delay:150ms">
+        <div class="gap__box">
+          <Icon name="people" size={48} strokeWidth={2} />
+          <h3>{g.right.title}</h3>
+        </div>
+        <Rich as="p" text={g.right.text} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gap__title {
+    font-size: var(--step-4);
+    max-width: 22ch;
+    margin-block-end: var(--space-2xl);
+  }
+  .gap__grid {
+    display: grid;
+    gap: var(--space-l);
+    align-items: start;
+  }
+  @media (min-width: 56rem) {
+    .gap__grid {
+      grid-template-columns: 1fr 8rem 1fr;
+    }
+  }
+  .gap__side {
+    display: grid;
+    gap: var(--space-l);
+  }
+  .gap__box {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-s);
+    padding: var(--space-xl) var(--space-l);
+    border-radius: var(--radius-l);
+    background: var(--navy) url('/textures/paper-navy.webp') center / 900px;
+    color: var(--white);
+    text-align: center;
+  }
+  .gap__box h3 {
+    font-size: var(--step-2);
+  }
+  .gap__side p {
+    max-width: 40ch;
+  }
+  .gap__thread {
+    width: 100%;
+    height: 4rem;
+    align-self: center;
+    margin-block-start: -6rem;
+    color: var(--navy);
+  }
+  @media (max-width: 55.99rem) {
+    .gap__thread {
+      display: none;
+    }
+  }
+</style>

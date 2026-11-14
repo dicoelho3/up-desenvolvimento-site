@@ -1,0 +1,48 @@
+---
+/**
+ * Lista de artigos — /blog/ e /en/blog/.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import PostCard from '../components/blog/PostCard.astro';
+import { getPosts } from '../lib/blog';
+import { useTranslations, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const b = useTranslations(lang).blog;
+const posts = await getPosts(lang);
+---
+
+<BaseLayout lang={lang} route="blog" title={b.title} description={b.description}>
+  <PageHero label={b.label} title={b.heading} lead={b.lead} />
+
+  <section class="blog-list">
+    <div class="container">
+      {
+        posts.length === 0 ? (
+          <p>{b.empty}</p>
+        ) : (
+          <div class="blog-list__grid">
+            {posts.map((post) => (
+              <PostCard post={post} lang={lang} headingLevel="h2" />
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-list {
+    padding-block-end: var(--space-3xl);
+  }
+  .blog-list__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+    gap: var(--space-l);
+  }
+</style>

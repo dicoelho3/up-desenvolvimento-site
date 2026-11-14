@@ -1,0 +1,59 @@
+---
+/**
+ * Página 404. O Vercel serve-a automaticamente para endereços que não existem.
+ */
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Rich from '../components/ui/Rich.astro';
+import Button from '../components/ui/Button.astro';
+import markOrange from '../assets/brand/mark-orange.png';
+import { useTranslations } from '../i18n';
+
+const t = useTranslations('pt').notFound;
+const en = useTranslations('en').notFound;
+---
+
+<BaseLayout lang="pt" title={t.title}>
+  <section class="not-found container--narrow">
+    <Image src={markOrange} alt="" width={160} class="not-found__balloon" />
+    <Rich as="h1" text={t.heading} />
+    <p class="lead">{t.text}</p>
+    <p class="not-found__en" lang="en">{en.text}</p>
+    <Button href="/">{t.back}</Button>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-m);
+    padding-block: var(--space-3xl);
+    text-align: center;
+  }
+  .not-found h1 {
+    font-size: var(--step-5);
+  }
+  .not-found .lead {
+    margin-inline: auto;
+  }
+  .not-found__en {
+    font-size: var(--step--1);
+    color: var(--text-soft);
+    margin-block-end: var(--space-l);
+  }
+  :global(.not-found__balloon) {
+    width: 8rem;
+    height: auto;
+    animation: drift 6s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-3deg);
+    }
+    50% {
+      transform: translateY(-14px) rotate(4deg);
+    }
+  }
+</style>

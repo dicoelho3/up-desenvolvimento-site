@@ -1,0 +1,133 @@
+---
+/**
+ * "Para além das mentorias": Projeto de Leitura + Atividades psicossociais.
+ * Nota: não usamos fotos dos jovens (menores) no site.
+ */
+import SectionLabel from '../ui/SectionLabel.astro';
+import Icon, { type IconName } from '../ui/Icon.astro';
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang).volunteer.extra;
+const icons: IconName[] = ['heart', 'hand', 'spark', 'compass', 'people'];
+---
+
+<section class="extras paper paper--cream">
+  <div class="container">
+    <SectionLabel text={t.label} />
+
+    <div class="extras__grid">
+      <article class="reading" data-reveal>
+        <Icon name="book" size={44} strokeWidth={2} />
+        <h2>{t.reading.title}</h2>
+        <p class="reading__stat">
+          <strong>{t.reading.stat}</strong>
+          <span>{t.reading.statText}</span>
+        </p>
+        <p>{t.reading.text}</p>
+      </article>
+
+      <article class="psycho" data-reveal style="--reveal-delay:120ms">
+        <h2>{t.psycho.title}</h2>
+        <p>{t.psycho.text}</p>
+        <p class="psycho__note hand">{t.psycho.listNote} ↓</p>
+        <ul class="psycho__list" role="list">
+          {
+            t.psycho.list.map((item, i) => (
+              <li>
+                <Icon name={icons[i % icons.length]!} size={28} strokeWidth={2.2} />
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .extras__grid {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+  @media (min-width: 60rem) {
+    .extras__grid {
+      grid-template-columns: 1fr 1.3fr;
+    }
+  }
+  h2 {
+    font-size: var(--step-3);
+  }
+  .reading {
+    display: grid;
+    gap: var(--space-m);
+    padding: var(--space-xl);
+    border-radius: var(--radius-l);
+    background: var(--navy) url('/textures/paper-navy.webp') center / 900px;
+    color: var(--white);
+    rotate: -1deg;
+  }
+  .reading :global(.icon) {
+    color: var(--sun);
+  }
+  .reading__stat {
+    display: grid;
+    gap: var(--space-2xs);
+    padding: var(--space-m) 0;
+    border-block: 1px solid rgb(255 253 249 / 0.2);
+  }
+  .reading__stat strong {
+    font-size: var(--step-5);
+    line-height: 1;
+    color: var(--orange);
+    letter-spacing: -0.03em;
+  }
+  .reading__stat span {
+    font-size: var(--step--1);
+    opacity: 0.85;
+  }
+  .psycho {
+    display: grid;
+    gap: var(--space-m);
+  }
+  .psycho > p:not(.psycho__note) {
+    max-width: 52ch;
+    color: var(--text-soft);
+  }
+  .psycho__note {
+    color: var(--orange);
+    font-size: var(--step-2);
+    rotate: -2deg;
+    margin-block-start: var(--space-s);
+  }
+  /* Atividades como "autocolantes" mostarda, ligeiramente tortos */
+  .psycho__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+  }
+  .psycho__list li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.6em 1.1em;
+    border-radius: 999px;
+    background: var(--mustard) url('/textures/paper-mustard.webp') center / 600px;
+    color: var(--navy-900);
+    font-weight: 500;
+    rotate: -1.5deg;
+  }
+  .psycho__list li:nth-child(even) {
+    rotate: 1.5deg;
+    background: var(--navy) url('/textures/paper-navy.webp') center / 600px;
+    color: var(--white);
+  }
+  .psycho__list li:nth-child(even) :global(.icon) {
+    color: var(--sun);
+  }
+</style>

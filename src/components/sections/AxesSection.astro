@@ -1,0 +1,87 @@
+---
+/**
+ * Eixos estratégicos: Qualidade e Alcance.
+ */
+import Rich from '../ui/Rich.astro';
+import SectionLabel from '../ui/SectionLabel.astro';
+import Icon from '../ui/Icon.astro';
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const a = useTranslations(lang).about.axes;
+const icons = ['spark', 'pin'] as const;
+---
+
+<section class="axes paper paper--cream">
+  <div class="container">
+    <SectionLabel text={a.label} />
+    <Rich as="h2" text={a.title} class="axes__title" />
+    <div class="axes__grid">
+      {
+        a.items.map((item, i) => (
+          <article class="axis" data-reveal style={`--reveal-delay:${i * 120}ms`}>
+            <p class="axis__tag">{item.tag}</p>
+            <h3>{item.title}</h3>
+            <p class="axis__question">{item.question}</p>
+            <p class="axis__text">{item.text}</p>
+            <Icon name={icons[i]!} size={64} strokeWidth={1.8} class="axis__icon" />
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .axes__title {
+    font-size: var(--step-4);
+    margin-block-end: var(--space-2xl);
+  }
+  .axes__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: var(--space-l);
+  }
+  .axis {
+    position: relative;
+    display: grid;
+    align-content: start;
+    justify-items: start;
+    gap: var(--space-s);
+    padding: var(--space-xl);
+    padding-inline-end: calc(var(--space-xl) + 4rem);
+    border: 2px solid var(--sun);
+    border-radius: var(--radius-l);
+    background: var(--cream-50);
+  }
+  .axis__tag {
+    padding: 0.15em 0.8em;
+    background: var(--navy);
+    color: var(--white);
+    font-size: var(--step--1);
+    font-weight: 500;
+    border-radius: 3px 8px 3px 10px;
+    rotate: -2deg;
+  }
+  .axis h3 {
+    font-size: var(--step-2);
+    color: var(--orange);
+  }
+  .axis__question {
+    font-weight: 600;
+    font-size: var(--step-1);
+    line-height: 1.35;
+  }
+  .axis__text {
+    color: var(--text-soft);
+  }
+  :global(.axis__icon) {
+    position: absolute;
+    inset-block-start: var(--space-xl);
+    inset-inline-end: var(--space-l);
+    color: var(--orange);
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+/**
+ * Fotografia com o tratamento da marca: cantos arredondados, ligeira rotação
+ * opcional e uma nota manuscrita opcional.
+ *
+ * <Photo src={photo('comunidade-grupo.jpg')} alt="…" tilt="left" note="uma nota" />
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  tilt?: 'left' | 'right' | 'none';
+  note?: string;
+  widths?: number[];
+  sizes?: string;
+  loading?: 'lazy' | 'eager';
+  class?: string;
+  aspect?: string;
+}
+
+const {
+  src,
+  alt,
+  tilt = 'none',
+  note,
+  widths = [400, 700, 1000],
+  sizes = '(min-width: 60rem) 33vw, 90vw',
+  loading = 'lazy',
+  class: className,
+  aspect,
+} = Astro.props;
+---
+
+<figure class:list={['photo', `photo--tilt-${tilt}`, className]} style={aspect ? `--aspect:${aspect}` : undefined}>
+  <Image src={src} alt={alt} widths={widths} sizes={sizes} loading={loading} />
+  {note && <figcaption class="photo__note hand">{note}</figcaption>}
+</figure>
+
+<style>
+  .photo {
+    position: relative;
+  }
+  .photo :global(img) {
+    width: 100%;
+    aspect-ratio: var(--aspect, auto);
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .photo--tilt-left {
+    rotate: -1.6deg;
+  }
+  .photo--tilt-right {
+    rotate: 1.4deg;
+  }
+  .photo__note {
+    position: absolute;
+    inset-block-end: -1.6em;
+    inset-inline-end: 0.5em;
+    rotate: -3deg;
+    color: var(--navy);
+    font-size: var(--step-1);
+    white-space: nowrap;
+  }
+</style>

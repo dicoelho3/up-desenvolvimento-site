@@ -1,0 +1,59 @@
+---
+/**
+ * Faixa azul com uma pergunta grande — inspirada no slide "De que forma as tuas oportunidades…".
+ */
+import Rich from '../ui/Rich.astro';
+import SectionLabel from '../ui/SectionLabel.astro';
+import Doodle from '../ui/Doodle.astro';
+
+interface Props {
+  label: string;
+  text: string;
+  aside?: string;
+}
+const { label, text, aside } = Astro.props;
+---
+
+<section class="question paper paper--navy">
+  <Doodle variant="string-2" color="var(--white)" class="question__string" />
+  <div class="container">
+    <SectionLabel text={label} />
+    <Rich as="p" text={text} class="question__text" data-reveal />
+    {aside && <p class="question__aside hand" data-reveal style="--reveal-delay: 200ms">{aside}</p>}
+  </div>
+</section>
+
+<style>
+  .question {
+    overflow: clip;
+  }
+  :global(.question__string) {
+    width: clamp(8rem, 16vw, 13rem);
+    inset-block-end: -2rem;
+    inset-inline-end: 4%;
+    opacity: 0.9;
+  }
+  .question__text {
+    max-width: 18ch;
+    margin-inline: auto;
+    padding-block: var(--space-xl) var(--space-l);
+    text-align: center;
+    font-size: var(--step-5);
+    font-weight: 300;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+  }
+  .question__text :global(strong) {
+    font-weight: 600;
+  }
+  .question__text :global(mark.brush) {
+    font-weight: 600;
+    background-size: 100% 0.35em;
+  }
+  .question__aside {
+    text-align: center;
+    color: var(--sun);
+    font-size: var(--step-2);
+    rotate: -1.5deg;
+  }
+</style>

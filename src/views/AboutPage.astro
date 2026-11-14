@@ -1,0 +1,44 @@
+---
+/**
+ * Página "Sobre nós" — /sobre-nos/ e /en/about/.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import GapSection from '../components/sections/GapSection.astro';
+import AxesSection from '../components/sections/AxesSection.astro';
+import FeatureGrid from '../components/sections/FeatureGrid.astro';
+import Timeline from '../components/sections/Timeline.astro';
+import ImpactSurvey from '../components/sections/ImpactSurvey.astro';
+import Founders from '../components/sections/Founders.astro';
+import NeighborhoodsSection from '../components/sections/NeighborhoodsSection.astro';
+import PartnersSection from '../components/sections/PartnersSection.astro';
+import type { IconName } from '../components/ui/Icon.astro';
+import { photo } from '../data';
+import { useTranslations, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const a = useTranslations(lang).about;
+const methodIcons: IconName[] = ['map', 'megaphone', 'people', 'chart'];
+---
+
+<BaseLayout lang={lang} route="about" title={a.title} description={a.description}>
+  <PageHero label={a.hero.label} title={a.hero.title} lead={a.hero.lead} image={photo('comunidade-reuniao.jpg')} />
+  <GapSection lang={lang} />
+  <AxesSection lang={lang} />
+  <FeatureGrid
+    label={a.method.label}
+    title={a.method.title}
+    tone="mustard"
+    look="cards"
+    items={a.method.items.map((item, i) => ({ ...item, icon: methodIcons[i] }))}
+  />
+  <Timeline lang={lang} />
+  <ImpactSurvey lang={lang} />
+  <NeighborhoodsSection lang={lang} />
+  <Founders lang={lang} />
+  <FeatureGrid label={a.governance.label} title={a.governance.title} items={a.governance.bodies} id="organizacao" />
+  <PartnersSection lang={lang} />
+</BaseLayout>

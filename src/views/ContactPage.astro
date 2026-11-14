@@ -1,0 +1,134 @@
+---
+/**
+ * Página "Contactos" — /contactos/ e /en/contact/.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import Icon from '../components/ui/Icon.astro';
+import Button from '../components/ui/Button.astro';
+import { site } from '../config/site';
+import { useTranslations, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const c = t.contact;
+const partnerSubject = lang === 'pt' ? 'Parceria' : 'Partnership';
+---
+
+<BaseLayout lang={lang} route="contact" title={c.title} description={c.description}>
+  <PageHero label={c.label} title={c.heading} lead={c.lead} />
+
+  <section class="contact">
+    <div class="container contact__grid">
+      <article class="contact-card contact-card--mustard" data-reveal>
+        <Icon name="mail" size={48} strokeWidth={2} />
+        <h2>{c.emailTitle}</h2>
+        <p>{c.emailText}</p>
+        <a class="contact-card__big" href={`mailto:${site.email}`}>{site.email}</a>
+      </article>
+
+      <article class="contact-card contact-card--navy" data-reveal style="--reveal-delay:100ms">
+        <Icon name="instagram" size={48} strokeWidth={2} />
+        <h2>{c.socialTitle}</h2>
+        <p>{c.socialText}</p>
+        <ul class="contact-card__social" role="list">
+          <li>
+            <a href={site.social.instagram.url} target="_blank" rel="noopener">
+              <Icon name="instagram" size={22} />
+              {site.social.instagram.label}
+            </a>
+          </li>
+          <li>
+            <a href={site.social.linkedin.url} target="_blank" rel="noopener">
+              <Icon name="linkedin" size={22} />
+              LinkedIn
+            </a>
+          </li>
+          <li>
+            <a href={site.social.facebook.url} target="_blank" rel="noopener">
+              <Icon name="facebook" size={22} />
+              Facebook
+            </a>
+          </li>
+        </ul>
+      </article>
+
+      <article class="contact-card contact-card--line" data-reveal style="--reveal-delay:200ms">
+        <h2>{c.volunteerTitle}</h2>
+        <p>{c.volunteerText}</p>
+        <Button href={site.forms.volunteer} external lang={lang}>{t.common.applyMentor}</Button>
+      </article>
+
+      <article class="contact-card contact-card--line" data-reveal style="--reveal-delay:300ms">
+        <h2>{c.partnerTitle}</h2>
+        <p>{c.partnerText}</p>
+        <Button href={`mailto:${site.email}?subject=${partnerSubject}`} variant="navy">{t.common.writeUs}</Button>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact {
+    padding-block-end: var(--space-3xl);
+  }
+  .contact__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: var(--space-l);
+  }
+  .contact-card {
+    display: grid;
+    align-content: start;
+    justify-items: start;
+    gap: var(--space-s);
+    padding: var(--space-xl);
+    border-radius: var(--radius-l);
+  }
+  .contact-card h2 {
+    font-size: var(--step-2);
+  }
+  .contact-card--mustard {
+    background: var(--mustard) url('/textures/paper-mustard.webp') center / 1000px;
+    color: var(--navy-900);
+    rotate: -0.8deg;
+  }
+  .contact-card--navy {
+    background: var(--navy) url('/textures/paper-navy.webp') center / 1000px;
+    color: var(--white);
+    rotate: 0.6deg;
+  }
+  .contact-card--navy :global(.icon) {
+    color: var(--sun);
+  }
+  .contact-card--line {
+    border: 2px solid var(--navy);
+  }
+  .contact-card--line p {
+    color: var(--text-soft);
+    margin-block-end: var(--space-xs);
+  }
+  .contact-card__big {
+    font-size: var(--step-1);
+    font-weight: 600;
+    word-break: break-all;
+    text-decoration-color: var(--navy);
+  }
+  .contact-card__social {
+    display: grid;
+    gap: var(--space-xs);
+    padding: 0;
+  }
+  .contact-card__social a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-weight: 500;
+  }
+  .contact-card__social :global(.icon) {
+    color: currentColor !important;
+  }
+</style>

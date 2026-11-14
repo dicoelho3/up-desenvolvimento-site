@@ -1,0 +1,90 @@
+---
+import Rich from '../ui/Rich.astro';
+import SectionLabel from '../ui/SectionLabel.astro';
+import Photo from '../ui/Photo.astro';
+import Doodle from '../ui/Doodle.astro';
+import Button from '../ui/Button.astro';
+import { photo } from '../../data';
+import { path, useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang).home.mission;
+---
+
+<section class="mission paper paper--mustard">
+  <Doodle variant="string-1" color="var(--navy)" class="mission__string" />
+
+  <div class="container mission__grid">
+    <div class="mission__photos">
+      <SectionLabel text={t.label} />
+      <Rich as="h2" text={t.title} class="mission__title" />
+      <div class="mission__collage">
+        <Photo src={photo('comunidade-grupo.jpg')} alt="" tilt="left" aspect="4/3" sizes="(min-width: 60rem) 30vw, 80vw" />
+        <Photo src={photo('comunidade-teach.jpg')} alt="" tilt="right" aspect="4/5" sizes="(min-width: 60rem) 18vw, 45vw" />
+      </div>
+    </div>
+
+    <div class="mission__copy" data-reveal>
+      <p class="mission__kicker">{t.kicker}</p>
+      <Rich as="p" text={t.text} class="mission__statement" />
+      <p class="mission__body">{t.body}</p>
+      <Button href={path('about', lang)} variant="navy">{t.link}</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .mission {
+    overflow: clip;
+  }
+  :global(.mission__string) {
+    width: clamp(8rem, 14vw, 12rem);
+    inset-block-end: -5rem;
+    inset-inline-end: -2rem;
+    rotate: 200deg;
+    opacity: 0.7;
+  }
+  .mission__grid {
+    display: grid;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+  @media (min-width: 60rem) {
+    .mission__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .mission__title {
+    font-size: var(--step-4);
+    margin-block-end: var(--space-xl);
+  }
+  .mission__collage {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    align-items: end;
+    gap: var(--space-s);
+  }
+  .mission__collage > :global(:last-child) {
+    margin-block-end: calc(var(--space-xl) * -1);
+  }
+  .mission__kicker {
+    font-size: var(--step--1);
+    margin-block-end: var(--space-xs);
+  }
+  .mission__statement {
+    font-size: var(--step-3);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-block-end: var(--space-l);
+  }
+  .mission__statement :global(strong) {
+    font-weight: 600;
+  }
+  .mission__body {
+    max-width: 44ch;
+    margin-block-end: var(--space-xl);
+  }
+</style>

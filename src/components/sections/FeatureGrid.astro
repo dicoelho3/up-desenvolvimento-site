@@ -1,0 +1,110 @@
+---
+/**
+ * Grelha de pontos com ícone, título e texto.
+ * Usada em "O que faz um mentor", "O que levas", "Metodologia", etc.
+ */
+import Rich from '../ui/Rich.astro';
+import SectionLabel from '../ui/SectionLabel.astro';
+import Icon, { type IconName } from '../ui/Icon.astro';
+
+interface Item {
+  title: string;
+  text: string;
+  icon?: IconName;
+}
+interface Props {
+  label: string;
+  title: string;
+  items: Item[];
+  tone?: 'cream' | 'mustard' | 'navy';
+  /** "cards": caixas azuis (estilo Metodologia UP); "plain": texto solto com numeração. */
+  look?: 'cards' | 'plain';
+  id?: string;
+}
+const { label, title, items, tone = 'cream', look = 'plain', id } = Astro.props;
+---
+
+<section class:list={['features paper', `paper--${tone}`, `features--${look}`]} id={id}>
+  <div class="container">
+    <SectionLabel text={label} />
+    <Rich as="h2" text={title} class="features__title" />
+    <ul class="features__grid" role="list">
+      {
+        items.map((item, i) => (
+          <li class="feature" data-reveal style={`--reveal-delay:${i * 80}ms`}>
+            {item.icon ? (
+              <Icon name={item.icon} size={48} strokeWidth={2} class="feature__icon" />
+            ) : (
+              <span class="feature__num hand" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+            )}
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .features__title {
+    font-size: var(--step-4);
+    margin-block-end: var(--space-2xl);
+    max-width: 18ch;
+  }
+  .features__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: var(--space-xl) var(--space-l);
+    padding: 0;
+  }
+  .feature {
+    display: grid;
+    align-content: start;
+    gap: var(--space-xs);
+  }
+  .feature h3 {
+    font-size: var(--step-1);
+  }
+  .feature p {
+    color: var(--text-soft);
+  }
+  .feature__num {
+    font-size: var(--step-3);
+    color: var(--orange);
+  }
+  .paper--mustard .feature__num {
+    color: var(--navy);
+  }
+  :global(.feature__icon) {
+    color: var(--orange);
+    margin-block-end: var(--space-2xs);
+  }
+  .paper--mustard :global(.feature__icon) {
+    color: var(--navy);
+  }
+
+  /* Estilo "cartões" — como a Metodologia UP da apresentação */
+  .features--cards .feature {
+    justify-items: center;
+    padding: var(--space-xl) var(--space-l);
+    border-radius: var(--radius);
+    background: var(--navy) url('/textures/paper-navy.webp') center / 900px;
+    color: var(--white);
+    text-align: center;
+  }
+  .features--cards .feature:nth-child(odd) {
+    rotate: -0.8deg;
+  }
+  .features--cards .feature:nth-child(even) {
+    rotate: 0.8deg;
+  }
+  .features--cards .feature p {
+    color: color-mix(in oklab, var(--white) 80%, var(--navy));
+  }
+  .features--cards :global(.feature__icon) {
+    color: var(--white);
+  }
+</style>

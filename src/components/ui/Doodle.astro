@@ -1,0 +1,80 @@
+---
+/**
+ * Traços decorativos desenhados à mão (o "fio do balão" que atravessa a apresentação).
+ * Usa uma máscara, por isso a cor vem de `color` — funciona em qualquer fundo.
+ *
+ * <Doodle variant="string-1" color="var(--sun)" class="pos" />
+ * Posiciona-se com CSS no componente pai (é position: absolute).
+ */
+interface Props {
+  variant?: 'string-1' | 'string-2' | 'arrow' | 'loop-arrow' | 'sparks';
+  color?: string;
+  class?: string;
+  style?: string;
+}
+const { variant = 'string-1', color = 'var(--sun)', class: className, style = '' } = Astro.props;
+const isImage = variant === 'string-1' || variant === 'string-2';
+---
+
+{
+  isImage ? (
+    <span
+      aria-hidden="true"
+      class:list={['doodle', 'doodle--mask', `doodle--${variant}`, className]}
+      style={`--doodle-color:${color};--doodle-src:url('/brand/${variant}.webp');${style}`}
+    />
+  ) : (
+    <svg
+      aria-hidden="true"
+      class:list={['doodle', `doodle--${variant}`, className]}
+      style={`color:${color};${style}`}
+      viewBox="0 0 120 90"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="3.2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      {variant === 'arrow' && (
+        <>
+          <path d="M6 70 C 30 30, 70 14, 110 20" />
+          <path d="M96 9 L111 20 L97 32" />
+        </>
+      )}
+      {variant === 'loop-arrow' && (
+        <>
+          <path d="M8 8 C 14 30, 30 44, 48 40 C 62 37, 62 20, 50 22 C 38 24, 40 46, 60 58 C 74 66, 92 70, 108 70" />
+          <path d="M96 60 L109 70 L95 80" />
+        </>
+      )}
+      {variant === 'sparks' && (
+        <>
+          <path d="M20 40 L8 30" />
+          <path d="M32 26 L28 8" />
+          <path d="M48 30 L60 16" />
+        </>
+      )}
+    </svg>
+  )
+}
+
+<style>
+  .doodle {
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+  }
+  .doodle--mask {
+    display: block;
+    aspect-ratio: 3 / 4;
+    background: var(--doodle-color);
+    -webkit-mask: var(--doodle-src) center / contain no-repeat;
+    mask: var(--doodle-src) center / contain no-repeat;
+  }
+  .doodle--string-1 {
+    aspect-ratio: 600 / 804;
+  }
+  .doodle--string-2 {
+    aspect-ratio: 600 / 761;
+  }
+</style>

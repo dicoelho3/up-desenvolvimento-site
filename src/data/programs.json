@@ -1,0 +1,60 @@
+{
+  "items": [
+    {
+      "id": "mentorias",
+      "title": { "pt": "Mentorias Académicas", "en": "Academic Mentoring" },
+      "text": {
+        "pt": "Ajudar um jovem a superar os seus **desafios académicos e pessoais**, através de mentorias individuais ou em dupla com um mentor.",
+        "en": "Helping a young person overcome their **academic and personal challenges** through one-to-one or paired mentoring."
+      },
+      "details": {
+        "pt": ["Sessões individuais", "1h30, horário pós-laboral"],
+        "en": ["One-to-one sessions", "1h30, after working hours"]
+      },
+      "frequency": "weekly",
+      "highlight": { "pt": "+7.000 horas de mentoria", "en": "7,000+ mentoring hours" }
+    },
+    {
+      "id": "psicossocial",
+      "title": { "pt": "Atividades Psicossociais", "en": "Psychosocial Activities" },
+      "text": {
+        "pt": "Atividades lúdicas que desenvolvem **competências psicossociais** fora do contexto da sala de aula e do bairro.",
+        "en": "Playful activities that build **psychosocial skills** outside the classroom and the neighbourhood."
+      },
+      "details": {
+        "pt": ["Programa em grupo", "Manhã ou tarde, ao fim de semana"],
+        "en": ["Group programme", "Weekend mornings or afternoons"]
+      },
+      "frequency": "monthly",
+      "highlight": { "pt": "+12 programas realizados", "en": "12+ programmes run" }
+    },
+    {
+      "id": "apoio-ao-estudo",
+      "title": { "pt": "Apoio ao Estudo", "en": "Study Support" },
+      "text": {
+        "pt": "Um **ciclo de transformação social**: mentorados UP mais velhos dinamizam sessões de estudo com os mais novos.",
+        "en": "A **cycle of social change**: older UP mentees lead study sessions with younger ones."
+      },
+      "details": {
+        "pt": ["Sessões em grupo", "1h30, horário pós-laboral"],
+        "en": ["Group sessions", "1h30, after working hours"]
+      },
+      "frequency": "weekly",
+      "highlight": { "pt": "Projeto-piloto", "en": "Pilot project" }
+    },
+    {
+      "id": "bolsas",
+      "title": { "pt": "Bolsas Sociais", "en": "Social Grants" },
+      "text": {
+        "pt": "Remover barreiras, identificando e **apoiando casos vulneráveis** com parceiros externos: legais, financeiros ou administrativos.",
+        "en": "Removing barriers by identifying and **supporting vulnerable cases** with external partners: legal, financial or administrative."
+      },
+      "details": {
+        "pt": ["Quando necessário"],
+        "en": ["When needed"]
+      },
+      "frequency": "oneOff",
+      "highlight": { "pt": "3 jovens apoiados", "en": "3 young people supported" }
+    }
+  ]
+}

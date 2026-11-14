@@ -1,0 +1,59 @@
+---
+import SectionLabel from '../ui/SectionLabel.astro';
+import PostCard from '../blog/PostCard.astro';
+import { getPosts } from '../../lib/blog';
+import { path, useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+  limit?: number;
+}
+const { lang, limit = 3 } = Astro.props;
+const t = useTranslations(lang);
+const posts = (await getPosts(lang)).slice(0, limit);
+---
+
+{
+  posts.length > 0 && (
+    <section class="latest paper paper--cream">
+      <div class="container">
+        <div class="latest__head">
+          <div>
+            <SectionLabel text={t.home.blog.label} />
+            <h2 class="latest__title">{t.home.blog.title}</h2>
+          </div>
+          <a class="latest__all" href={path('blog', lang)}>
+            {t.common.seeAll} →
+          </a>
+        </div>
+        <div class="latest__grid">
+          {posts.map((post) => (
+            <PostCard post={post} lang={lang} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .latest__head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-m);
+    margin-block-end: var(--space-xl);
+  }
+  .latest__title {
+    font-size: var(--step-4);
+  }
+  .latest__all {
+    font-weight: 500;
+  }
+  .latest__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+    gap: var(--space-l);
+  }
+</style>

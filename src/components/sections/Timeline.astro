@@ -1,0 +1,102 @@
+---
+/**
+ * O percurso do UP — dados em src/data/timeline.json.
+ */
+import Rich from '../ui/Rich.astro';
+import SectionLabel from '../ui/SectionLabel.astro';
+import { timeline } from '../../data';
+import { pick, useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang).about.timeline;
+---
+
+<section class="timeline paper paper--cream">
+  <div class="container">
+    <SectionLabel text={t.label} />
+    <Rich as="h2" text={t.title} class="timeline__title" />
+
+    <ol class="timeline__list" role="list">
+      {
+        timeline.map((item, i) => (
+          <li class="moment" data-reveal style={`--reveal-delay:${i * 100}ms`}>
+            <p class="moment__year">
+              <span class="moment__dot" aria-hidden="true" />
+              {item.year}
+            </p>
+            <div class="moment__card">
+              <h3>{pick(item.title, lang)}</h3>
+              <p>{pick(item.text, lang)}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .timeline__title {
+    font-size: var(--step-4);
+    margin-block-end: var(--space-2xl);
+  }
+  .timeline__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: var(--space-l);
+    padding: 0;
+  }
+  .moment {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: var(--space-m);
+  }
+  .moment__year {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: var(--step-2);
+    font-weight: 700;
+  }
+  /* Linha que liga os anos */
+  .moment__year::after {
+    content: '';
+    flex: 1;
+    height: 1.5px;
+    background: var(--navy);
+    opacity: 0.6;
+  }
+  .moment:last-child .moment__year::after {
+    background: linear-gradient(to right, var(--navy) 30%, transparent);
+  }
+  .moment__dot {
+    width: 0.8em;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--navy);
+  }
+  .moment:last-child .moment__dot {
+    background: var(--orange);
+  }
+  .moment__card {
+    display: grid;
+    align-content: start;
+    gap: var(--space-s);
+    padding: var(--space-l);
+    border: 2px solid var(--sun);
+    border-radius: var(--radius-l);
+    background: var(--cream-50);
+  }
+  .moment__card h3 {
+    color: var(--orange);
+    font-size: var(--step-1);
+  }
+  .moment__card p {
+    font-size: var(--step--1);
+    color: var(--text-soft);
+  }
+</style>

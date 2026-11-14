@@ -1,0 +1,280 @@
+---
+import { Image } from 'astro:assets';
+import markNavy from '../../assets/brand/mark-navy.png';
+import { site } from '../../config/site';
+import { path, useTranslations, type Lang, type RouteKey } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+  /** Página atual, para marcar o link ativo no menu. */
+  current?: RouteKey;
+  /** Endereço desta mesma página no outro idioma. */
+  alternateUrl: string;
+}
+
+const { lang, current, alternateUrl } = Astro.props;
+const t = useTranslations(lang);
+const otherLang: Lang = lang === 'pt' ? 'en' : 'pt';
+
+const links: { key: RouteKey; label: string }[] = [
+  { key: 'volunteer', label: t.nav.volunteer },
+  { key: 'support', label: t.nav.support },
+  { key: 'about', label: t.nav.about },
+  { key: 'blog', label: t.nav.blog },
+  { key: 'contact', label: t.nav.contact },
+];
+---
+
+<header class="site-header" data-header>
+  <div class="container site-header__inner">
+    <a href={path('home', lang)} class="site-header__logo">
+      <Image src={markNavy} alt="" height={56} widths={[56, 112]} sizes="56px" loading="eager" />
+      <span class="visually-hidden">UP Desenvolvimento — {t.nav.home}</span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
+      <span class="menu-toggle__bars" aria-hidden="true"></span>
+      <span class="menu-toggle__label" data-open-label={t.nav.menu} data-close-label={t.nav.close}>{t.nav.menu}</span>
+    </button>
+
+    <nav id="site-nav" class="site-nav" aria-label="Principal" data-menu>
+      <ul class="site-nav__list" role="list">
+        {
+          links.map(({ key, label }) => (
+            <li>
+              <a href={path(key, lang)} aria-current={current === key ? 'page' : undefined}>
+                {label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="site-nav__actions">
+        {
+          site.showLanguageSwitch && (
+            <a class="lang-switch" href={alternateUrl} hreflang={otherLang} lang={otherLang} title={t.nav.switchLang}>
+              <span aria-hidden="true" class:list={{ on: lang === 'pt' }}>PT</span>
+              <span aria-hidden="true" class:list={{ on: lang === 'en' }}>EN</span>
+              <span class="visually-hidden">{t.nav.switchLang}</span>
+            </a>
+          )
+        }
+        <a class="site-nav__cta" href={site.forms.volunteer} target="_blank" rel="noopener">
+          {t.nav.cta}
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Menu móvel: abre/fecha e fecha com Escape.
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const label = toggle?.querySelector<HTMLElement>('.menu-toggle__label');
+
+  function setOpen(open: boolean) {
+    if (!toggle || !header || !label) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    header.classList.toggle('is-open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+    label.textContent = open ? label.dataset.closeLabel! : label.dataset.openLabel!;
+  }
+
+  toggle?.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+  document.addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(false));
+  matchMedia('(min-width: 60rem)').addEventListener('change', () => setOpen(false));
+
+  // Linha por baixo do header quando se faz scroll.
+  const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 8);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--cream) url('/textures/paper-cream.webp') center / 1200px auto;
+    transition: box-shadow 0.3s;
+  }
+  .site-header.is-scrolled {
+    box-shadow: 0 1px 0 var(--line);
+  }
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-m);
+    min-height: 4.5rem;
+  }
+  .site-header__logo :global(img) {
+    height: 3rem;
+    width: auto;
+    transition: transform 0.4s var(--ease-out);
+  }
+  .site-header__logo:hover :global(img) {
+    transform: translateY(-3px) rotate(-2deg);
+  }
+
+  /* — Navegação — */
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2.5rem);
+  }
+  .site-nav__list {
+    display: flex;
+    gap: clamp(0.75rem, 2vw, 2rem);
+    padding: 0;
+    list-style: none;
+  }
+  .site-nav a {
+    text-decoration: none;
+  }
+  .site-nav__list a {
+    position: relative;
+    padding-block: 0.4em;
+    font-weight: 400;
+  }
+  .site-nav__list a::after {
+    content: '';
+    position: absolute;
+    inset-inline: -0.2em;
+    inset-block-end: 0.05em;
+    height: 0.5em;
+    background: url('/brand/brush.webp') no-repeat center / 100% 100%;
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s var(--ease-out);
+  }
+  .site-nav__list a:hover::after,
+  .site-nav__list a[aria-current='page']::after {
+    transform: scaleX(1);
+  }
+  .site-nav__list a[aria-current='page'] {
+    font-weight: 600;
+  }
+
+  .site-nav__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+  }
+  .lang-switch {
+    display: inline-flex;
+    gap: 0.15em;
+    padding: 0.25em;
+    border: 1.5px solid var(--navy);
+    border-radius: 999px;
+    font-size: var(--step--1);
+    font-weight: 500;
+  }
+  .lang-switch span {
+    padding: 0.15em 0.55em;
+    border-radius: 999px;
+  }
+  .lang-switch .on {
+    background: var(--navy);
+    color: var(--white);
+  }
+  .site-nav__cta {
+    padding: 0.55em 1.1em;
+    border-radius: 999px;
+    background: var(--orange);
+    color: var(--navy-900);
+    font-weight: 500;
+    border: 2px solid var(--navy-900);
+    box-shadow: 0 3px 0 var(--navy-900);
+    transition: transform 0.15s var(--ease-out), box-shadow 0.15s;
+  }
+  .site-nav__cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 0 var(--navy-900);
+  }
+
+  /* — Botão do menu (só em ecrãs pequenos) — */
+  .menu-toggle {
+    display: none;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.5em 0.9em;
+    border: 1.5px solid var(--navy);
+    border-radius: 999px;
+    background: none;
+    font-weight: 500;
+    position: relative;
+    z-index: 2;
+  }
+  .menu-toggle__bars,
+  .menu-toggle__bars::before {
+    display: block;
+    width: 1.1rem;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+    transition: transform 0.3s var(--ease-out);
+  }
+  .menu-toggle__bars {
+    position: relative;
+    translate: 0 -3px;
+  }
+  .menu-toggle__bars::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    width: 0.75rem;
+  }
+  .is-open .menu-toggle__bars {
+    transform: translateY(3px) rotate(45deg);
+  }
+  .is-open .menu-toggle__bars::before {
+    width: 1.1rem;
+    transform: translateY(-6px) rotate(-90deg);
+  }
+
+  @media (max-width: 59.99rem) {
+    .menu-toggle {
+      display: inline-flex;
+    }
+    .site-nav {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--space-2xl);
+      padding: 6rem var(--gutter) var(--space-2xl);
+      background: var(--mustard) url('/textures/paper-mustard.webp') center / 1200px auto;
+      color: var(--navy-900);
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-1rem);
+      transition:
+        opacity 0.3s var(--ease-out),
+        transform 0.3s var(--ease-out),
+        visibility 0s 0.3s;
+    }
+    .is-open .site-nav {
+      visibility: visible;
+      opacity: 1;
+      transform: none;
+      transition-delay: 0s;
+    }
+    .site-nav__list {
+      flex-direction: column;
+      gap: var(--space-xs);
+      font-size: var(--step-3);
+    }
+    .site-nav__list a {
+      font-weight: 600;
+    }
+    .site-header__logo {
+      position: relative;
+      z-index: 2;
+    }
+  }
+</style>

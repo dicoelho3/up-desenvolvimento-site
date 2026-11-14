@@ -1,0 +1,66 @@
+---
+/**
+ * Página "Voluntário" — /voluntario/ e /en/volunteer/.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import FeatureGrid from '../components/sections/FeatureGrid.astro';
+import Steps from '../components/sections/Steps.astro';
+import VolunteerExtras from '../components/sections/VolunteerExtras.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import Faq from '../components/sections/Faq.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import Button from '../components/ui/Button.astro';
+import type { IconName } from '../components/ui/Icon.astro';
+import { site } from '../config/site';
+import { photo } from '../data';
+import { useTranslations, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const v = t.volunteer;
+
+const roleIcons: IconName[] = ['clock', 'heart', 'compass'];
+const getsIcons: IconName[] = ['book', 'hand', 'people', 'spark'];
+---
+
+<BaseLayout lang={lang} route="volunteer" title={v.title} description={v.description}>
+  <PageHero
+    label={v.hero.label}
+    title={v.hero.title}
+    lead={v.hero.lead}
+    image={photo('comunidade-teach.jpg')}
+    note={v.hero.note}
+  >
+    <Button href={site.forms.volunteer} external lang={lang}>{t.common.applyMentor}</Button>
+  </PageHero>
+
+  <FeatureGrid
+    label={v.role.label}
+    title={v.role.title}
+    tone="mustard"
+    items={v.role.items.map((item, i) => ({ ...item, icon: roleIcons[i] }))}
+  />
+
+  <FeatureGrid
+    label={v.gets.label}
+    title={v.gets.title}
+    look="cards"
+    items={v.gets.items.map((item, i) => ({ ...item, icon: getsIcons[i] }))}
+  />
+
+  <Steps label={v.steps.label} title={v.steps.title} items={v.steps.items} />
+
+  <VolunteerExtras lang={lang} />
+
+  <Testimonials lang={lang} label={v.testimonials.label} title={v.testimonials.title} />
+
+  <Faq label={v.faq.label} title={v.faq.title} items={v.faq.items} />
+
+  <CtaBand title={v.cta.title} text={v.cta.text} tone="navy">
+    <Button href={site.forms.volunteer} external lang={lang}>{t.common.applyMentor}</Button>
+  </CtaBand>
+</BaseLayout>

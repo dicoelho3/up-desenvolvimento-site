@@ -1,0 +1,91 @@
+---
+/**
+ * Dois caminhos para participar: ser mentor ou apoiar.
+ */
+import SectionLabel from '../ui/SectionLabel.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import Doodle from '../ui/Doodle.astro';
+import { path, useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang).home.join;
+---
+
+<section class="join paper paper--cream">
+  <div class="container">
+    <SectionLabel text={t.label} />
+    <div class="join__grid">
+      <article class="join-card join-card--navy" data-reveal>
+        <Icon name="people" size={52} strokeWidth={2} />
+        <h2>{t.mentor.title}</h2>
+        <p>{t.mentor.text}</p>
+        <Button href={path('volunteer', lang)} variant="orange">{t.mentor.cta}</Button>
+      </article>
+
+      <Doodle variant="sparks" color="var(--orange)" class="join__sparks" />
+
+      <article class="join-card join-card--mustard" data-reveal style="--reveal-delay:120ms">
+        <Icon name="heart" size={52} strokeWidth={2} />
+        <h2>{t.sponsor.title}</h2>
+        <p>{t.sponsor.text}</p>
+        <Button href={path('support', lang)} variant="navy">{t.sponsor.cta}</Button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .join__grid {
+    position: relative;
+    display: grid;
+    gap: var(--space-l);
+  }
+  @media (min-width: 50rem) {
+    .join__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .join-card--navy {
+      rotate: -1deg;
+    }
+    .join-card--mustard {
+      rotate: 1deg;
+      margin-block-start: var(--space-xl);
+    }
+  }
+  :global(.join__sparks) {
+    width: 4.5rem;
+    inset-block-start: -2.2rem;
+    inset-inline-start: calc(50% - 2.25rem);
+    z-index: 1;
+  }
+  .join-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-m);
+    padding: var(--space-xl);
+    border-radius: var(--radius-l);
+  }
+  .join-card h2 {
+    font-size: var(--step-3);
+  }
+  .join-card p {
+    max-width: 36ch;
+    margin-block-end: var(--space-s);
+  }
+  .join-card--navy {
+    background: var(--navy) url('/textures/paper-navy.webp') center / 1000px;
+    color: var(--white);
+  }
+  .join-card--navy :global(.icon) {
+    color: var(--sun);
+  }
+  .join-card--mustard {
+    background: var(--mustard) url('/textures/paper-mustard.webp') center / 1000px;
+    color: var(--navy-900);
+  }
+</style>

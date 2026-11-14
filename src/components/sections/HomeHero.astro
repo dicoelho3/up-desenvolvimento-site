@@ -1,0 +1,154 @@
+---
+import { Image } from 'astro:assets';
+import teamCircle from '../../assets/photos/team-circle.png';
+import Rich from '../ui/Rich.astro';
+import Button from '../ui/Button.astro';
+import Doodle from '../ui/Doodle.astro';
+import { site } from '../../config/site';
+import { path, useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="hero">
+  <Doodle variant="string-1" color="var(--sun)" class="hero__string" />
+
+  <div class="container hero__grid">
+    <div class="hero__copy">
+      <p class="hero__eyebrow">
+        <span class="hero__dot" aria-hidden="true"></span>
+        {t.home.hero.eyebrow}
+      </p>
+      <Rich as="h1" text={t.home.hero.title} class="hero__title" />
+      <p class="lead">{t.home.hero.lead}</p>
+      <div class="hero__actions">
+        <Button href={site.forms.volunteer} external lang={lang}>{t.common.applyMentor}</Button>
+        <Button href={path('volunteer', lang)} variant="ghost">{t.home.hero.secondary}</Button>
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      <Image
+        src={teamCircle}
+        alt=""
+        widths={[420, 640, 900]}
+        sizes="(min-width: 60rem) 40vw, 85vw"
+        loading="eager"
+        fetchpriority="high"
+        class="hero__photo"
+      />
+      <p class="hero__note hand" aria-hidden="true">{t.home.hero.note}</p>
+      <Doodle variant="loop-arrow" color="var(--navy)" class="hero__arrow" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    padding-block: var(--space-xl) var(--space-3xl);
+  }
+  :global(.hero__string) {
+    width: clamp(12rem, 26vw, 22rem);
+    inset-block-start: -3rem;
+    inset-inline-end: -4rem;
+    rotate: 12deg;
+  }
+  .hero__grid {
+    display: grid;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+  @media (min-width: 60rem) {
+    .hero__grid {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+  }
+  .hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    font-size: var(--step--1);
+    font-weight: 500;
+    margin-block-end: var(--space-m);
+  }
+  /* Um pequeno balão laranja, a "assinatura" da marca */
+  .hero__dot {
+    width: 0.85em;
+    height: 1em;
+    border-radius: 50% 50% 48% 48% / 55% 55% 45% 45%;
+    background: var(--orange);
+    position: relative;
+    animation: float 4s ease-in-out infinite;
+  }
+  .hero__dot::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    width: 1px;
+    height: 0.6em;
+    background: var(--navy);
+  }
+  .hero__title {
+    font-size: var(--step-5);
+    font-weight: 600;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    margin-block-end: var(--space-l);
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+    margin-block-start: var(--space-xl);
+  }
+
+  .hero__visual {
+    position: relative;
+    width: 100%;
+    max-width: 34rem;
+    justify-self: center;
+  }
+  :global(.hero__photo) {
+    width: 100%;
+    height: auto;
+    rotate: 3deg;
+  }
+  .hero__note {
+    position: absolute;
+    inset-block-end: -0.5rem;
+    inset-inline-start: -0.5rem;
+    rotate: -6deg;
+    font-size: var(--step-2);
+    color: var(--navy);
+  }
+  :global(.hero__arrow) {
+    width: 6rem;
+    inset-block-end: 1.5rem;
+    inset-inline-start: 5.5rem;
+    rotate: -30deg;
+    z-index: 1;
+  }
+  @media (max-width: 30rem) {
+    :global(.hero__arrow) {
+      display: none;
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-4deg);
+    }
+    50% {
+      transform: translateY(-4px) rotate(4deg);
+    }
+  }
+</style>

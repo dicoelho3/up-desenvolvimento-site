@@ -1,0 +1,24 @@
+---
+/**
+ * Página "Apoiar" — /apoiar/ e /en/support/.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import SupportOptions from '../components/sections/SupportOptions.astro';
+import StatsSection from '../components/sections/StatsSection.astro';
+import PartnersSection from '../components/sections/PartnersSection.astro';
+import { useTranslations, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = useTranslations(lang).support;
+---
+
+<BaseLayout lang={lang} route="support" title={s.title} description={s.description}>
+  <PageHero label={s.hero.label} title={s.hero.title} lead={s.hero.lead} />
+  <SupportOptions lang={lang} />
+  <StatsSection lang={lang} />
+  <PartnersSection lang={lang} />
+</BaseLayout>

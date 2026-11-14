@@ -1,0 +1,251 @@
+---
+/**
+ * As formas de apoiar: padrinho e IRS (cartões tipo "senha" com picotado), voluntariado e empresas.
+ */
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import { site } from '../../config/site';
+import { path, useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const s = t.support;
+---
+
+<section class="support paper paper--cream">
+  <div class="container support__tickets">
+    <article class="ticket ticket--mustard" id="padrinho" data-reveal>
+      <div class="ticket__main">
+        <p class="ticket__tag">{s.sponsor.tag}</p>
+        <h2>{s.sponsor.title}</h2>
+        <p>{s.sponsor.text}</p>
+        <p class="ticket__covers">{s.sponsor.covers}</p>
+        <ul class="ticket__list" role="list">
+          {
+            s.sponsor.items.map((item) => (
+              <li>
+                <Icon name="check" size={20} strokeWidth={3.5} /> {item}
+              </li>
+            ))
+          }
+        </ul>
+        <Button href={site.forms.sponsor} external variant="navy" lang={lang}>{s.sponsor.cta}</Button>
+      </div>
+      <div class="ticket__stub" aria-hidden="true">
+        <span class="ticket__price">{s.sponsor.price}</span>
+        <span class="ticket__period">{s.sponsor.period}</span>
+      </div>
+    </article>
+
+    <article class="ticket ticket--navy" id="irs" data-reveal style="--reveal-delay:120ms">
+      <div class="ticket__main">
+        <p class="ticket__tag">{s.irs.tag}</p>
+        <h2>{s.irs.title}</h2>
+        <p>{s.irs.text}</p>
+        <ol class="ticket__steps">
+          {s.irs.steps.map((step) => <li>{step}</li>)}
+        </ol>
+        {
+          site.nif && (
+            <p class="ticket__nif">
+              {s.irs.nifLabel}: <strong>{site.nif}</strong>
+            </p>
+          )
+        }
+        <p class="ticket__highlight hand">{s.irs.highlight}</p>
+        <Button href={site.irsGuide} external variant="orange" lang={lang}>{s.irs.guide}</Button>
+      </div>
+      <div class="ticket__stub" aria-hidden="true">
+        <span class="ticket__price">{s.irs.price}</span>
+        <span class="ticket__period">{s.irs.period}</span>
+      </div>
+    </article>
+  </div>
+
+  <div class="container support__more">
+    <article class="more" data-reveal>
+      <Icon name="people" size={44} strokeWidth={2} />
+      <p class="ticket__tag">{s.volunteer.tag}</p>
+      <h2>{s.volunteer.title}</h2>
+      <p>{s.volunteer.text}</p>
+      <Button href={path('volunteer', lang)} variant="ghost">{s.volunteer.cta}</Button>
+    </article>
+    <article class="more" data-reveal style="--reveal-delay:120ms">
+      <Icon name="hand" size={44} strokeWidth={2} />
+      <p class="ticket__tag">{s.companies.tag}</p>
+      <h2>{s.companies.title}</h2>
+      <p>{s.companies.text}</p>
+      <Button href={`mailto:${site.email}?subject=${lang === "pt" ? "Parceria" : "Partnership"}`} variant="ghost">{s.companies.cta}</Button>
+    </article>
+  </div>
+</section>
+
+<style>
+  .support {
+    padding-block-start: 0;
+  }
+  .support__tickets {
+    display: grid;
+    gap: var(--space-xl);
+  }
+  @media (min-width: 64rem) {
+    .support__tickets {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+    .ticket--navy {
+      margin-block-start: var(--space-2xl);
+    }
+  }
+
+  /* — Cartão "senha" com picotado — */
+  .ticket {
+    --notch: 1rem;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    border-radius: var(--radius);
+    /* Recortes semicirculares onde o canhoto se destaca */
+    -webkit-mask:
+      radial-gradient(circle var(--notch) at calc(100% - 7.5rem) 0, transparent 98%, #000) top / 100% 51% no-repeat,
+      radial-gradient(circle var(--notch) at calc(100% - 7.5rem) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+    mask:
+      radial-gradient(circle var(--notch) at calc(100% - 7.5rem) 0, transparent 98%, #000) top / 100% 51% no-repeat,
+      radial-gradient(circle var(--notch) at calc(100% - 7.5rem) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+  }
+  .ticket--mustard {
+    background: var(--mustard) url('/textures/paper-mustard.webp') center / 1000px;
+    color: var(--navy-900);
+    rotate: -0.7deg;
+  }
+  .ticket--navy {
+    background: var(--navy) url('/textures/paper-navy.webp') center / 1000px;
+    color: var(--white);
+    rotate: 0.6deg;
+  }
+  .ticket__main {
+    display: grid;
+    align-content: start;
+    justify-items: start;
+    gap: var(--space-s);
+    padding: var(--space-xl);
+  }
+  .ticket h2 {
+    font-size: var(--step-3);
+  }
+  .ticket__tag {
+    padding: 0.2em 0.8em;
+    border-radius: 4px;
+    background: var(--navy);
+    color: var(--white);
+    font-size: var(--step--1);
+    font-weight: 500;
+    rotate: -2deg;
+  }
+  .ticket--navy .ticket__tag {
+    background: var(--orange);
+    color: var(--navy-900);
+  }
+  .ticket__stub {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    width: 7.5rem;
+    border-inline-start: 2px dashed currentColor;
+    text-align: center;
+  }
+  .ticket__price {
+    font-size: var(--step-4);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .ticket--navy .ticket__price {
+    color: var(--orange);
+  }
+  .ticket__period {
+    font-size: var(--step--1);
+  }
+  .ticket__covers {
+    margin-block-start: var(--space-xs);
+    font-weight: 600;
+  }
+  .ticket__list {
+    display: grid;
+    gap: 0.3em;
+    padding: 0;
+    margin-block-end: var(--space-s);
+  }
+  .ticket__list li {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+  }
+  .ticket__steps {
+    display: grid;
+    gap: 0.35em;
+    padding-inline-start: 1.2em;
+  }
+  .ticket__steps li::marker {
+    color: var(--orange);
+    font-weight: 700;
+  }
+  .ticket__highlight {
+    color: var(--sun);
+    font-size: var(--step-2);
+    rotate: -1deg;
+    margin-block: var(--space-xs);
+  }
+  .ticket__nif strong {
+    font-size: var(--step-1);
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 34rem) {
+    .ticket {
+      grid-template-columns: 1fr;
+      -webkit-mask: none;
+      mask: none;
+    }
+    .ticket__stub {
+      grid-row: 1;
+      width: auto;
+      grid-auto-flow: column;
+      gap: 0.5em;
+      align-items: baseline;
+      padding: var(--space-m) var(--space-xl) 0;
+      border: 0;
+      justify-content: start;
+    }
+  }
+
+  /* — Outras formas — */
+  .support__more {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: var(--space-l);
+    margin-block-start: var(--space-3xl);
+  }
+  .more {
+    display: grid;
+    justify-items: start;
+    align-content: start;
+    gap: var(--space-s);
+    padding: var(--space-xl);
+    border: 2px solid var(--navy);
+    border-radius: var(--radius-l);
+  }
+  .more :global(.icon) {
+    color: var(--orange);
+  }
+  .more h2 {
+    font-size: var(--step-2);
+  }
+  .more > p:not(.ticket__tag) {
+    color: var(--text-soft);
+    margin-block-end: var(--space-xs);
+  }
+</style>

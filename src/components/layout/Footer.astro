@@ -1,0 +1,154 @@
+---
+import { Image } from 'astro:assets';
+import logoFull from '../../assets/brand/logo-full-light.png';
+import Icon from '../ui/Icon.astro';
+import Doodle from '../ui/Doodle.astro';
+import { site } from '../../config/site';
+import { path, useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer paper paper--navy">
+  <Doodle variant="string-2" color="var(--orange)" class="site-footer__doodle" />
+
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <Image src={logoFull} alt="UP Desenvolvimento" width={220} widths={[220, 440]} sizes="220px" class="site-footer__logo" />
+      <p>{t.footer.about}</p>
+    </div>
+
+    <nav aria-label={t.footer.explore}>
+      <h2>{t.footer.explore}</h2>
+      <ul role="list">
+        <li><a href={path('about', lang)}>{t.nav.about}</a></li>
+        <li><a href={path('blog', lang)}>{t.nav.blog}</a></li>
+        <li><a href={path('contact', lang)}>{t.nav.contact}</a></li>
+      </ul>
+    </nav>
+
+    <nav aria-label={t.footer.getInvolved}>
+      <h2>{t.footer.getInvolved}</h2>
+      <ul role="list">
+        <li><a href={path('volunteer', lang)}>{t.footer.becomeMentor}</a></li>
+        <li><a href={`${path('support', lang)}#padrinho`}>{t.footer.becomeSponsor}</a></li>
+        <li><a href={`${path('support', lang)}#irs`}>{t.footer.irs}</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <h2>{t.footer.follow}</h2>
+      <ul role="list" class="site-footer__social">
+        <li>
+          <a href={site.social.instagram.url} target="_blank" rel="noopener">
+            <Icon name="instagram" size={22} /> Instagram
+          </a>
+        </li>
+        <li>
+          <a href={site.social.linkedin.url} target="_blank" rel="noopener">
+            <Icon name="linkedin" size={22} /> LinkedIn
+          </a>
+        </li>
+        <li>
+          <a href={site.social.facebook.url} target="_blank" rel="noopener">
+            <Icon name="facebook" size={22} /> Facebook
+          </a>
+        </li>
+        <li>
+          <a href={`mailto:${site.email}`}>
+            <Icon name="mail" size={22} /> Email
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container site-footer__bottom">
+    <p class="site-footer__tagline">{t.footer.tagline}</p>
+    <p>© {year} {t.footer.rights}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: var(--space-2xl) var(--space-l);
+    overflow: hidden;
+  }
+  :global(.site-footer__doodle) {
+    width: clamp(10rem, 22vw, 18rem);
+    inset-block-start: -2rem;
+    inset-inline-end: -3rem;
+    opacity: 0.85;
+  }
+  .site-footer__grid {
+    display: grid;
+    gap: var(--space-xl);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+  }
+  .site-footer__brand {
+    grid-column: span 2;
+    max-width: 22rem;
+  }
+  @media (max-width: 40rem) {
+    .site-footer__brand {
+      grid-column: auto;
+    }
+  }
+  :global(.site-footer__logo) {
+    width: 11rem;
+    height: auto;
+    margin-block-end: var(--space-m);
+
+  }
+  .site-footer__brand p {
+    color: var(--text-soft);
+    font-size: var(--step--1);
+  }
+  h2 {
+    font-size: var(--step--1);
+    font-weight: 500;
+    color: var(--sun);
+    margin-block-end: var(--space-s);
+    letter-spacing: 0.02em;
+  }
+  ul {
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+  a {
+    text-decoration: none;
+    opacity: 0.92;
+  }
+  a:hover {
+    opacity: 1;
+    text-decoration: underline;
+    text-decoration-color: var(--orange);
+  }
+  .site-footer__social a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+  .site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-s);
+    margin-block-start: var(--space-2xl);
+    padding-block-start: var(--space-m);
+    border-block-start: 1px solid var(--orange);
+    font-size: var(--step--1);
+    color: var(--text-soft);
+  }
+  .site-footer__tagline {
+    color: var(--orange);
+    font-weight: 500;
+  }
+</style>

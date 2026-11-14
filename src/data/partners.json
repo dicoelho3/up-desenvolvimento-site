@@ -1,0 +1,14 @@
+{
+  "items": [
+    { "name": "Instituto Português do Desporto e Juventude", "logo": "ipdj.png", "url": "https://ipdj.gov.pt" },
+    { "name": "Teach For Portugal", "logo": "teach-for-portugal.png", "url": "https://teachforportugal.org" },
+    { "name": "Dona Ajuda", "logo": "dona-ajuda.png" },
+    { "name": "Técnico Lisboa", "logo": "tecnico-lisboa.png", "url": "https://tecnico.ulisboa.pt" },
+    { "name": "Oceanário de Lisboa", "logo": "oceanario.png", "url": "https://www.oceanario.pt" },
+    { "name": "Mostra Nacional de Jovens Empreendedores 2026", "logo": "mostra-jovens-empreendedores.png" },
+    { "name": "3 Milhões de Nós", "logo": "3-milhoes-de-nos.png" },
+    { "name": "Associação Azimute Radical", "logo": "azimute-radical.png" },
+    { "name": "Colégio Pedro Arrupe", "logo": "colegio-pedro-arrupe.png" },
+    { "name": "Jump Yard", "logo": "jump-yard.png" }
+  ]
+}

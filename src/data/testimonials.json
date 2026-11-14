@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "name": "Simão Chaves",
+      "role": { "pt": "Mentor", "en": "Mentor" },
+      "quote": {
+        "pt": "Abracei este projeto pois acredito que, com apenas 1h30min por semana, é possível fazer a diferença na vida de um jovem.",
+        "en": "I embraced this project because I believe that with just 1h30 a week, you can make a difference in a young person’s life."
+      }
+    },
+    {
+      "name": "Marta Lopes",
+      "role": { "pt": "Mentora", "en": "Mentor" },
+      "quote": {
+        "pt": "Juntei-me ao UP quase por acaso, para substituir um mentor numa quinta-feira. Dois anos depois, não podia estar mais feliz e orgulhosa das mentoradas que tenho acompanhado.",
+        "en": "I joined UP almost by chance, to cover for a mentor one Thursday. Two years later, I couldn’t be happier or prouder of the mentees I’ve been supporting."
+      }
+    },
+    {
+      "name": "Beatriz Sousa",
+      "role": { "pt": "Presidente e Coordenadora Geral dos Bairros", "en": "President and General Neighbourhood Coordinator" },
+      "quote": {
+        "pt": "O UP é um projeto transformador, enriquecedor e com uma missão única.",
+        "en": "UP is a transformative, enriching project with a unique mission."
+      }
+    }
+  ]
+}

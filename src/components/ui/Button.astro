@@ -1,0 +1,97 @@
+---
+/**
+ * Botão/link da marca.
+ * <Button href="/voluntario/">Saber mais</Button>
+ * <Button href={site.forms.volunteer} external variant="navy">Candidatar</Button>
+ */
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  href: string;
+  variant?: 'orange' | 'navy' | 'cream' | 'ghost';
+  external?: boolean;
+  arrow?: boolean;
+  class?: string;
+  lang?: Lang;
+}
+const { href, variant = 'orange', external = false, arrow = true, class: className, lang = 'pt' } = Astro.props;
+const newTabText = useTranslations(lang).common.opensNewTab;
+const externalAttrs = external ? { target: '_blank', rel: 'noopener' } : {};
+---
+
+<a href={href} class:list={['btn', `btn--${variant}`, className]} {...externalAttrs}>
+  <span><slot /></span>
+  {
+    arrow && (
+      <svg class="btn__arrow" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
+        {external ? (
+          <path d="M8 16 L16 8 M9 8 H16 V15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        ) : (
+          <path d="M4 12.5 C9 12, 14 11.6, 19 12 M14 7 L19.2 12 L14 17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        )}
+      </svg>
+    )
+  }
+  {external && <span class="visually-hidden"> {newTabText}</span>}
+</a>
+
+<style>
+  .btn {
+    --btn-bg: var(--orange);
+    --btn-fg: var(--navy-900);
+    --btn-shadow: var(--navy-900);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55em;
+    padding: 0.8em 1.35em 0.8em 1.5em;
+    border-radius: 999px;
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    font-weight: 500;
+    font-size: var(--step-0);
+    line-height: 1.1;
+    text-decoration: none;
+    border: 2px solid var(--btn-shadow);
+    box-shadow: 0 4px 0 var(--btn-shadow);
+    transition:
+      transform 0.18s var(--ease-out),
+      box-shadow 0.18s var(--ease-out);
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 var(--btn-shadow);
+  }
+  .btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 var(--btn-shadow);
+  }
+  .btn__arrow {
+    transition: transform 0.25s var(--ease-out);
+  }
+  .btn:hover .btn__arrow {
+    transform: translateX(3px);
+  }
+
+  .btn--navy {
+    --btn-bg: var(--navy);
+    --btn-fg: var(--white);
+    --btn-shadow: var(--navy-900);
+    border-color: var(--navy);
+  }
+  .btn--cream {
+    --btn-bg: var(--cream-50);
+    --btn-fg: var(--navy);
+    --btn-shadow: var(--navy-900);
+  }
+  .btn--ghost {
+    --btn-bg: transparent;
+    --btn-fg: currentColor;
+    --btn-shadow: transparent;
+    border-color: currentColor;
+    box-shadow: none;
+  }
+  .btn--ghost:hover {
+    box-shadow: none;
+    background: color-mix(in oklab, currentColor 8%, transparent);
+  }
+</style>

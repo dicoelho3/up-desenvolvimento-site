@@ -1,0 +1,41 @@
+---
+/**
+ * Mostra um texto com a mini-formatação do site:
+ *   *palavra*   → pincelada amarela (destaque da marca)
+ *   **palavra** → negrito
+ *
+ * <Rich text={t.home.hero.title} as="h1" />
+ */
+interface Props {
+  text: string;
+  as?: 'span' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'blockquote' | 'div';
+  class?: string;
+  [key: string]: unknown;
+}
+
+const { text, as: Tag = 'span', class: className, ...attrs } = Astro.props;
+
+const escape = (s: string) =>
+  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+const html = escape(text)
+  .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+  .replace(/\*(.+?)\*/g, '<mark class="brush">$1</mark>');
+---
+
+<Tag class={className} {...attrs} set:html={html} />
+
+<style is:global>
+  /* A pincelada amarela da marca, desenhada por trás da palavra */
+  mark.brush {
+    color: inherit;
+    background: url('/brand/brush.webp') no-repeat left 0 bottom -0.05em / 100% 0.55em;
+    padding-inline: 0.06em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  .paper--mustard mark.brush {
+    background-image: url('/brand/brush.webp');
+    filter: none;
+  }
+</style>

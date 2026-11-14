@@ -1,0 +1,127 @@
+---
+/**
+ * "Como medimos impacto?" — resultados dos questionários (src/data/survey.json).
+ * As barras enchem quando entram no ecrã.
+ */
+import Rich from '../ui/Rich.astro';
+import SectionLabel from '../ui/SectionLabel.astro';
+import { survey } from '../../data';
+import { pick, useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang).about.impact;
+const groups = [
+  { title: t.mentees, rows: survey.mentees },
+  { title: t.mentors, rows: survey.mentors },
+];
+---
+
+<section class="impact paper paper--navy" id="impacto">
+  <div class="container">
+    <SectionLabel text={t.label} />
+    <Rich as="h2" text={t.title} class="impact__title" />
+    <p class="impact__intro">{t.text}</p>
+
+    <div class="impact__grid">
+      {
+        groups.map((group) => (
+          <div class="panel" data-reveal>
+            <h3 class="panel__tab">{group.title}</h3>
+            <ul class="panel__rows" role="list">
+              {group.rows.map((row) => (
+                <li class="row">
+                  <Rich as="p" text={pick(row.text, lang)} class="row__text" />
+                  <div class="bar" role="img" aria-label={`${row.value}%`} style={`--value:${row.value}%`}>
+                    <span class="bar__fill">{row.value}%</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .impact__title {
+    font-size: var(--step-4);
+  }
+  .impact__intro {
+    max-width: 62ch;
+    margin-block: var(--space-m) var(--space-2xl);
+    color: var(--text-soft);
+  }
+  .impact__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+    gap: var(--space-xl) var(--space-l);
+  }
+  .panel__tab {
+    display: inline-block;
+    padding: 0.5em 1.4em 0.8em;
+    margin-block-end: -0.6em;
+    border-radius: var(--radius-s) var(--radius-s) 0 0;
+    background: var(--navy-600);
+    font-size: var(--step-0);
+    font-weight: 600;
+  }
+  .panel__rows {
+    display: grid;
+    gap: var(--space-m);
+    padding: var(--space-l);
+    border-radius: 0 var(--radius) var(--radius) var(--radius);
+    background: var(--cream-50);
+    color: var(--navy);
+    position: relative;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 9rem;
+    gap: var(--space-m);
+    align-items: center;
+  }
+  .row__text {
+    font-size: var(--step--1);
+    text-align: end;
+    line-height: 1.4;
+  }
+  @media (max-width: 30rem) {
+    .row {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xs);
+    }
+    .row__text {
+      text-align: start;
+    }
+  }
+  .bar {
+    height: 1.9rem;
+    border-radius: 999px;
+    background: var(--sun-200);
+    border: 1.5px solid var(--sun);
+    overflow: hidden;
+  }
+  .bar__fill {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: var(--value);
+    padding-inline-start: 0.7em;
+    border-radius: 999px;
+    background: var(--orange);
+    color: var(--white);
+    font-size: var(--step--1);
+    font-weight: 600;
+    transition: width 1.2s var(--ease-out) 0.2s;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .panel:not(.is-visible) .bar__fill {
+      width: 3.4rem;
+    }
+  }
+</style>
