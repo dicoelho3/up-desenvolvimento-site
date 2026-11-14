@@ -1,10 +1,13 @@
 ---
 /**
  * Mostra um texto com a mini-formatação do site:
- *   *palavra*   → pincelada amarela (destaque da marca)
+ *   *palavra*   → destaque da marca (pincelada por baixo nos títulos, marcador no texto corrido)
  *   **palavra** → negrito
  *
  * <Rich text={t.home.hero.title} as="h1" />
+ *
+ * A cor do destaque muda com o fundo (amarelo claro no papel claro/amarelo, azul céu no azul),
+ * tal como no Manual de Identidade (p. 5 e 21).
  */
 interface Props {
   text: string;
@@ -26,16 +29,19 @@ const html = escape(text)
 <Tag class={className} {...attrs} set:html={html} />
 
 <style is:global>
-  /* A pincelada amarela da marca, desenhada por trás da palavra */
+  /* Destaque base: marcador atrás do texto (texto corrido) */
   mark.brush {
     color: inherit;
-    background: url('/brand/brush.webp') no-repeat left 0 bottom -0.05em / 100% 0.55em;
-    padding-inline: 0.06em;
+    background: var(--hl-marker) no-repeat center / 100% 92%;
+    padding-inline: 0.2em;
+    margin-inline: -0.1em;
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
   }
-  .paper--mustard mark.brush {
-    background-image: url('/brand/brush.webp');
-    filter: none;
+  /* Nos títulos: pincelada por baixo da palavra (Manual, p. 3 e 7) */
+  :is(h1, h2, h3, h4, .is-display) mark.brush {
+    background: var(--hl) no-repeat left 0 bottom -0.08em / 100% 0.42em;
+    padding-inline: 0.04em;
+    margin-inline: 0;
   }
 </style>

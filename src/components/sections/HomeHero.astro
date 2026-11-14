@@ -4,6 +4,7 @@ import teamCircle from '../../assets/photos/team-circle.png';
 import Rich from '../ui/Rich.astro';
 import Button from '../ui/Button.astro';
 import Doodle from '../ui/Doodle.astro';
+import TitleArrow from '../ui/TitleArrow.astro';
 import { site } from '../../config/site';
 import { path, useTranslations, type Lang } from '../../i18n';
 
@@ -15,7 +16,7 @@ const t = useTranslations(lang);
 ---
 
 <section class="hero">
-  <Doodle variant="string-1" color="var(--sun)" class="hero__string" />
+  <Doodle name="strokes/traco-5" color="var(--orange)" class="hero__string" />
 
   <div class="container hero__grid">
     <div class="hero__copy">
@@ -23,7 +24,10 @@ const t = useTranslations(lang);
         <span class="hero__dot" aria-hidden="true"></span>
         {t.home.hero.eyebrow}
       </p>
-      <Rich as="h1" text={t.home.hero.title} class="hero__title" />
+      <h1 class="hero__title">
+        <Rich text={t.home.hero.title} />
+        <TitleArrow />
+      </h1>
       <p class="lead">{t.home.hero.lead}</p>
       <div class="hero__actions">
         <Button href={site.forms.volunteer} external lang={lang}>{t.common.applyMentor}</Button>
@@ -35,14 +39,14 @@ const t = useTranslations(lang);
       <Image
         src={teamCircle}
         alt=""
-        widths={[420, 640, 900]}
-        sizes="(min-width: 60rem) 40vw, 85vw"
+        widths={[420, 640, 900, 1200]}
+        sizes="(min-width: 60rem) 42vw, 90vw"
         loading="eager"
         fetchpriority="high"
         class="hero__photo"
       />
       <p class="hero__note hand" aria-hidden="true">{t.home.hero.note}</p>
-      <Doodle variant="loop-arrow" color="var(--navy)" class="hero__arrow" />
+      <Doodle name="arrows/seta-1" color="var(--navy)" class="hero__arrow" />
     </div>
   </div>
 </section>
@@ -55,10 +59,10 @@ const t = useTranslations(lang);
     padding-block: var(--space-xl) var(--space-3xl);
   }
   :global(.hero__string) {
-    width: clamp(12rem, 26vw, 22rem);
-    inset-block-start: -3rem;
-    inset-inline-end: -4rem;
-    rotate: 12deg;
+    width: clamp(12rem, 24vw, 21rem);
+    inset-block-start: -2rem;
+    inset-inline-end: -5rem;
+    rotate: 8deg;
   }
   .hero__grid {
     display: grid;
@@ -78,7 +82,7 @@ const t = useTranslations(lang);
     font-weight: 500;
     margin-block-end: var(--space-m);
   }
-  /* Um pequeno balão laranja, a "assinatura" da marca */
+  /* O balão laranja da marca */
   .hero__dot {
     width: 0.85em;
     height: 1em;
@@ -94,13 +98,12 @@ const t = useTranslations(lang);
     top: 100%;
     width: 1px;
     height: 0.6em;
-    background: var(--navy);
+    background: var(--orange);
   }
   .hero__title {
     font-size: var(--step-5);
-    font-weight: 600;
-    line-height: 1.02;
-    letter-spacing: -0.03em;
+    line-height: 1;
+    letter-spacing: -0.02em;
     margin-block-end: var(--space-l);
   }
   .hero__actions {
@@ -113,27 +116,26 @@ const t = useTranslations(lang);
   .hero__visual {
     position: relative;
     width: 100%;
-    max-width: 34rem;
+    max-width: 36rem;
     justify-self: center;
   }
   :global(.hero__photo) {
     width: 100%;
     height: auto;
-    rotate: 3deg;
   }
   .hero__note {
     position: absolute;
-    inset-block-end: -0.5rem;
+    inset-block-end: 0;
     inset-inline-start: -0.5rem;
-    rotate: -6deg;
-    font-size: var(--step-2);
+    rotate: -4deg;
+    font-size: var(--step-1);
     color: var(--navy);
   }
   :global(.hero__arrow) {
-    width: 6rem;
-    inset-block-end: 1.5rem;
-    inset-inline-start: 5.5rem;
-    rotate: -30deg;
+    width: 3.5rem;
+    inset-block-end: 2rem;
+    inset-inline-start: 1rem;
+    rotate: -10deg;
     z-index: 1;
   }
   @media (max-width: 30rem) {

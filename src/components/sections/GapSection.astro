@@ -4,7 +4,8 @@
  */
 import Rich from '../ui/Rich.astro';
 import SectionLabel from '../ui/SectionLabel.astro';
-import Icon from '../ui/Icon.astro';
+import BrandIcon from '../ui/BrandIcon.astro';
+import Doodle from '../ui/Doodle.astro';
 import { useTranslations, type Lang } from '../../i18n';
 
 interface Props {
@@ -22,19 +23,17 @@ const g = useTranslations(lang).about.gap;
     <div class="gap__grid">
       <div class="gap__side" data-reveal>
         <div class="gap__box">
-          <Icon name="map" size={48} strokeWidth={2} />
+          <BrandIcon name="map" tone="cream" size={68} />
           <h3>{g.left.title}</h3>
         </div>
         <Rich as="p" text={g.left.text} />
       </div>
 
-      <svg class="gap__thread" viewBox="0 0 200 80" aria-hidden="true" preserveAspectRatio="none">
-        <path d="M2 40 C 40 10, 60 70, 100 40 S 160 10, 198 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 9"></path>
-      </svg>
+      <Doodle name="strokes/traco-1" color="var(--navy)" inline class="gap__thread" />
 
       <div class="gap__side" data-reveal style="--reveal-delay:150ms">
         <div class="gap__box">
-          <Icon name="people" size={48} strokeWidth={2} />
+          <BrandIcon name="flag" tone="cream" size={68} />
           <h3>{g.right.title}</h3>
         </div>
         <Rich as="p" text={g.right.text} />
@@ -79,15 +78,14 @@ const g = useTranslations(lang).about.gap;
   .gap__side p {
     max-width: 40ch;
   }
-  .gap__thread {
+  :global(.gap__thread) {
     width: 100%;
-    height: 4rem;
     align-self: center;
-    margin-block-start: -6rem;
-    color: var(--navy);
+    margin-block-start: -5rem;
+    rotate: -8deg;
   }
   @media (max-width: 55.99rem) {
-    .gap__thread {
+    :global(.gap__thread) {
       display: none;
     }
   }

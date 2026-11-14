@@ -4,7 +4,7 @@
  */
 import SectionLabel from '../ui/SectionLabel.astro';
 import Button from '../ui/Button.astro';
-import Icon from '../ui/Icon.astro';
+import BrandIcon from '../ui/BrandIcon.astro';
 import Doodle from '../ui/Doodle.astro';
 import { path, useTranslations, type Lang } from '../../i18n';
 
@@ -20,16 +20,16 @@ const t = useTranslations(lang).home.join;
     <SectionLabel text={t.label} />
     <div class="join__grid">
       <article class="join-card join-card--navy" data-reveal>
-        <Icon name="people" size={52} strokeWidth={2} />
+        <BrandIcon name="handshake" tone="orange" size={64} />
         <h2>{t.mentor.title}</h2>
         <p>{t.mentor.text}</p>
         <Button href={path('volunteer', lang)} variant="orange">{t.mentor.cta}</Button>
       </article>
 
-      <Doodle variant="sparks" color="var(--orange)" class="join__sparks" />
+      <Doodle name="doodles/sparks" color="var(--orange)" class="join__sparks" />
 
       <article class="join-card join-card--mustard" data-reveal style="--reveal-delay:120ms">
-        <Icon name="heart" size={52} strokeWidth={2} />
+        <BrandIcon name="heart" tone="cream" size={64} />
         <h2>{t.sponsor.title}</h2>
         <p>{t.sponsor.text}</p>
         <Button href={path('support', lang)} variant="navy">{t.sponsor.cta}</Button>

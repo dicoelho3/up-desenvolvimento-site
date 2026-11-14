@@ -1,5 +1,5 @@
 /*
- * Estilos globais: reset, tipografia e as "texturas" da marca.
+ * Estilos globais: reset, tipografia e as texturas de papel da marca.
  * Estilos de cada componente ficam dentro do próprio componente (<style> no .astro).
  */
 @import './tokens.css';
@@ -21,12 +21,13 @@ html {
 }
 body {
   min-height: 100dvh;
+  overflow-x: clip;
   font-family: var(--font-sans);
   font-size: var(--step-0);
-  font-weight: 350;
-  line-height: 1.6;
+  font-weight: 400;
+  line-height: 1.55;
   color: var(--text);
-  background: var(--bg) url('/textures/paper-cream.webp') center / 1200px auto repeat;
+  background: var(--bg) url('/textures/paper-cream.webp') center / 1400px auto repeat;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -56,14 +57,24 @@ h4,
 li {
   overflow-wrap: break-word;
 }
+
+/* Títulos: fonte primária da marca (Hagrid / substituta) */
 h1,
 h2,
 h3,
 h4 {
-  line-height: 1.12;
-  font-weight: 600;
-  letter-spacing: -0.015em;
+  font-family: var(--font-display);
+  font-stretch: var(--font-display-stretch);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
   text-wrap: balance;
+}
+/* Títulos pequenos (cartões) mais leves para não pesarem */
+h3,
+h4 {
+  font-weight: 700;
+  letter-spacing: 0;
 }
 p {
   text-wrap: pretty;
@@ -119,7 +130,7 @@ ol[role='list'] {
 }
 
 /*
- * Secções com "papel" de cor — tal como os slides da apresentação.
+ * Secções com os fundos de papel oficiais (Bg_Amarelo, Bg_Azul, Bg_BrancoSuave).
  * Uso: <section class="paper paper--navy">.
  */
 .paper {
@@ -128,39 +139,44 @@ ol[role='list'] {
   isolation: isolate;
 }
 .paper--cream {
-  background: var(--cream) url('/textures/paper-cream.webp') center / 1200px auto repeat;
+  background: var(--papel-branco) url('/textures/paper-cream.webp') center / 1400px auto repeat;
   color: var(--navy);
 }
 .paper--mustard {
   --text-soft: var(--navy-900);
-  --line: rgb(21 35 77 / 0.25);
-  background: var(--mustard) url('/textures/paper-mustard.webp') center / 1200px auto repeat;
-  color: var(--navy-900);
+  --line: rgb(12 38 58 / 0.3);
+  /* Sobre o amarelo, o destaque passa a laranja-claro mais vivo para continuar visível */
+  --hl: url('/brand/highlights/brush-sun.svg');
+  background: var(--papel-amarelo) url('/textures/paper-mustard.webp') center / 1400px auto repeat;
+  color: var(--navy);
 }
 .paper--navy {
-  --text-soft: color-mix(in oklab, var(--cream) 82%, var(--navy));
-  --line: rgb(255 253 249 / 0.2);
-  background: var(--navy) url('/textures/paper-navy.webp') center / 1200px auto repeat;
-  color: var(--white);
+  --text-soft: color-mix(in oklab, var(--branco-suave) 82%, var(--navy));
+  --line: rgb(255 251 243 / 0.25);
+  /* No azul, o manual usa o destaque em Azul Céu */
+  --hl: url('/brand/highlights/brush-sky.svg');
+  --hl-marker: url('/brand/highlights/marker-double-sky.svg');
+  background: var(--papel-azul) url('/textures/paper-navy.webp') center / 1400px auto repeat;
+  color: var(--branco-suave);
 }
 .paper--tight {
   padding-block: var(--space-2xl);
 }
 
-/* Texto manuscrito usado em pequenas anotações */
+/* Notas curtas (legendas, anotações) — Afacad itálico, como no manual */
 .hand {
-  font-family: var(--font-hand);
-  font-weight: 600;
-  font-size: 1.35em;
-  line-height: 1;
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.2;
 }
 
 /* Lead / texto de introdução */
 .lead {
   font-size: var(--step-1);
-  line-height: 1.5;
+  line-height: 1.45;
   color: var(--text-soft);
-  max-width: 38ch;
+  max-width: 40ch;
 }
 
 /* — Animação de entrada (ativada por JS só quando o elemento entra no ecrã) — */
@@ -189,4 +205,30 @@ ol[role='list'] {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Etiqueta tipo "carimbo" (Manual, p. 5 — Eixos: "Qualidade", "Alcance"):
+   texto claro sobre uma mancha de pincel azul. Uso: <p class="brand-tag">Texto</p> */
+.brand-tag {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  padding: 0.2em 0.85em 0.25em;
+  color: var(--branco-suave);
+  font-size: var(--step-0);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.brand-tag::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--tag-bg, var(--navy));
+  -webkit-mask: url('/brand/highlights/marker-double.svg') center / 100% 100% no-repeat;
+  mask: url('/brand/highlights/marker-double.svg') center / 100% 100% no-repeat;
+}
+.brand-tag--orange {
+  --tag-bg: var(--orange);
+  color: var(--navy-900);
 }

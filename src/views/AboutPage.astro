@@ -12,7 +12,6 @@ import ImpactSurvey from '../components/sections/ImpactSurvey.astro';
 import Founders from '../components/sections/Founders.astro';
 import NeighborhoodsSection from '../components/sections/NeighborhoodsSection.astro';
 import PartnersSection from '../components/sections/PartnersSection.astro';
-import type { IconName } from '../components/ui/Icon.astro';
 import { photo } from '../data';
 import { useTranslations, type Lang } from '../i18n';
 
@@ -21,7 +20,7 @@ interface Props {
 }
 const { lang } = Astro.props;
 const a = useTranslations(lang).about;
-const methodIcons: IconName[] = ['map', 'megaphone', 'people', 'chart'];
+const methodIcons = ['map', 'doodles/megaphone', 'handshake', 'doodles/magnifier-chart'] as const;
 ---
 
 <BaseLayout lang={lang} route="about" title={a.title} description={a.description}>

@@ -1,43 +1,68 @@
 /*
- * Design tokens do UP.
- * Cores, tipografia e espaçamentos vivem aqui — os componentes só usam estas variáveis.
- * Quando chegarem as cores/fontes oficiais do brandbook, basta ajustar este ficheiro.
+ * Design tokens do UP — segundo o Manual de Identidade Visual.
+ * Cores, tipografia e espaçamentos vivem aqui; os componentes só usam estas variáveis.
  */
 :root {
-  /* — Cores da marca (aproximadas a partir da apresentação 2026) — */
-  --navy-900: #15234d;
-  --navy: #1f3366;
-  --navy-600: #2c4580;
-  --orange: #f0920a; /* balão */
-  --mustard: #df9420; /* fundos "papel kraft" */
-  --mustard-600: #c97f12;
-  --sun: #ffc45c; /* traços e sublinhados */
-  --sun-200: #ffe3ad;
-  --cream: #efe9e1; /* papel */
-  --cream-50: #fbf7f0; /* cartões */
-  --white: #fffdf9;
+  /* — Paleta oficial (Manual, p. 11) — */
+  /* Primário */
+  --azul-primario: #1d3467;
+  --laranja-primario: #f39200;
+  /* Secundário */
+  --azul-royal: #1b1b6c;
+  --marrom: #963903;
+  --amarelo-claro: #ffbe5e;
+  /* Complementar */
+  --azul-ceu: #64afe3;
+  --laranja: #ed7d31;
+  --branco-suave: #fffbf3;
+  --azul-intenso: #0c263a;
+
+  /* Cor média dos fundos de papel oficiais (usada por baixo da textura) */
+  --papel-amarelo: #d88912;
+  --papel-azul: #102555;
+  --papel-branco: #f0ebe3;
+
+  /* — Nomes curtos usados nos componentes — */
+  --navy: var(--azul-primario);
+  --navy-900: var(--azul-intenso);
+  --navy-600: #2c4a85; /* tom de apoio derivado do azul primário (abas dos questionários) */
+  --orange: var(--laranja-primario);
+  --mustard: var(--papel-amarelo);
+  --sun: var(--amarelo-claro);
+  --sun-200: color-mix(in oklab, var(--amarelo-claro) 45%, var(--branco-suave));
+  --sky: var(--azul-ceu);
+  --brown: var(--marrom);
+  --cream: var(--papel-branco);
+  --cream-50: var(--branco-suave);
+  --white: var(--branco-suave);
 
   /* — Papéis semânticos — */
   --bg: var(--cream);
   --surface: var(--cream-50);
   --text: var(--navy);
-  --text-soft: color-mix(in oklab, var(--navy) 78%, var(--cream));
+  --text-soft: color-mix(in oklab, var(--navy) 80%, var(--cream));
   --accent: var(--orange);
-  --line: color-mix(in oklab, var(--navy) 18%, transparent);
+  --line: color-mix(in oklab, var(--navy) 22%, transparent);
+  /* Cor do destaque (highlight) atrás das palavras — muda por fundo em base.css */
+  --hl: url('/brand/highlights/brush-sun.svg');
+  --hl-marker: url('/brand/highlights/marker-double-sun.svg');
 
-  /* — Tipografia — */
-  --font-sans: 'Lexend Variable', 'Lexend', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-hand: 'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
-  --font-wordmark: 'Montserrat', var(--font-sans);
+  /* — Tipografia (Manual, p. 13) —
+     Primária: Hagrid (títulos). Enquanto não houver licença web, usamos Archivo Expanded
+     como substituta temporária (ver PENDENTES.md). Quando chegar: trocar só --font-display.
+     Secundária: Afacad (texto). */
+  --font-display: 'Hagrid', 'Archivo Variable', 'Archivo', system-ui, sans-serif;
+  --font-display-stretch: 125%; /* largura da Archivo para se aproximar da Hagrid; pôr 100% com a Hagrid */
+  --font-sans: 'Afacad Variable', 'Afacad', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* Escala fluida: cresce suavemente entre ecrãs de 360px e 1280px */
-  --step--1: clamp(0.84rem, 0.82rem + 0.1vw, 0.9rem);
-  --step-0: clamp(1rem, 0.96rem + 0.18vw, 1.1rem);
-  --step-1: clamp(1.18rem, 1.1rem + 0.38vw, 1.4rem);
-  --step-2: clamp(1.4rem, 1.24rem + 0.75vw, 1.85rem);
-  --step-3: clamp(1.7rem, 1.4rem + 1.4vw, 2.6rem);
-  --step-4: clamp(2.1rem, 1.6rem + 2.4vw, 3.6rem);
-  --step-5: clamp(2.6rem, 1.8rem + 3.8vw, 5rem);
+  --step--1: clamp(0.9rem, 0.87rem + 0.12vw, 0.98rem);
+  --step-0: clamp(1.06rem, 1.02rem + 0.2vw, 1.18rem);
+  --step-1: clamp(1.22rem, 1.13rem + 0.4vw, 1.45rem);
+  --step-2: clamp(1.42rem, 1.26rem + 0.75vw, 1.85rem);
+  --step-3: clamp(1.66rem, 1.38rem + 1.35vw, 2.45rem);
+  --step-4: clamp(1.95rem, 1.5rem + 2.25vw, 3.3rem);
+  --step-5: clamp(2.3rem, 1.6rem + 3.5vw, 4.5rem);
 
   /* — Espaçamento fluido — */
   --space-2xs: clamp(0.25rem, 0.23rem + 0.1vw, 0.31rem);
@@ -57,8 +82,8 @@
   /* — Forma — */
   --radius-s: 0.6rem;
   --radius: 1.25rem;
-  --radius-l: 2rem;
-  --shadow: 0 1px 0 rgb(21 35 77 / 0.06), 0 10px 30px -18px rgb(21 35 77 / 0.35);
+  --radius-l: 1.75rem;
+  --shadow: 0 1px 0 rgb(12 38 58 / 0.06), 0 10px 30px -18px rgb(12 38 58 / 0.35);
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }

@@ -16,7 +16,7 @@ const t = useTranslations(lang);
 ---
 
 <section class="programs paper paper--navy">
-  <Doodle variant="string-2" color="var(--white)" class="programs__string" />
+  <Doodle name="strokes/traco-5" color="var(--sky)" class="programs__string" />
   <div class="container">
     <SectionLabel text={t.home.programs.label} />
     <h2 class="programs__title">{t.home.programs.title}</h2>
@@ -74,6 +74,8 @@ const t = useTranslations(lang);
     box-shadow: 0 12px 0 -4px var(--mustard);
   }
   .program__title {
+    font-family: var(--font-display);
+    font-stretch: var(--font-display-stretch);
     padding: var(--space-m) var(--space-l);
     border-radius: var(--radius) var(--radius) 0 0;
     background: var(--mustard) url('/textures/paper-mustard.webp') center / 900px;

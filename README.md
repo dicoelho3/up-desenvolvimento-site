@@ -68,6 +68,29 @@ Nos textos podes usar `*palavra*` para a pincelada amarela da marca e `**palavra
 Os bairros já têm coordenadas em `src/data/neighborhoods.json`. Um mapa entra como um componente novo em `src/components/sections/`
 (por exemplo com [Leaflet](https://leafletjs.com)) e só carrega JavaScript na página onde for usado.
 
+## Marca (Manual de Identidade Visual)
+
+O site segue o Manual de Identidade do UP:
+
+- **Cores e fontes**: `src/styles/tokens.css`. Títulos em Hagrid (por agora Archivo Expanded, ver `PENDENTES.md`), texto em Afacad.
+- **Elementos gráficos**: os ficheiros originais estão na pasta `ficheiros/Elementos Gráficos` (fora do repositório).
+  O script abaixo converte-os para a web (SVG recoloríveis, ícones e personagens cortados, texturas leves):
+
+  ```sh
+  node scripts/brand-assets.mjs
+  ```
+
+  Corre-o de novo sempre que chegarem elementos novos.
+- **Componentes da marca** (`src/components/ui/`):
+  - `Doodle`: traços livres, setas e doodles oficiais, em qualquer cor da paleta (`<Doodle name="strokes/traco-3" color="var(--orange)" />`)
+  - `BrandIcon`: ícones oficiais dentro de círculos (`<BrandIcon name="heart" tone="orange" />`)
+  - `Characters`: personagens ilustradas, a forma oficial de representar os jovens sem mostrar caras
+  - `SectionLabel`: a etiqueta "↘ Título" com linha fina; `TitleArrow`: a seta ↙ dos títulos
+  - Nos textos, `*palavra*` aplica o destaque da marca (pincelada nos títulos, marcador no texto)
+  - Classe `.brand-tag`: etiqueta tipo carimbo ("Qualidade", "Alcance")
+
+**Fotos:** nunca mostrar caras de jovens/mentorados. Usar as personagens por cima das caras (Manual, p. 15).
+
 ## Blog para quem não programa: Pages CMS
 
 O ficheiro `.pages.yml` configura o [Pages CMS](https://pagescms.org), um editor visual gratuito.

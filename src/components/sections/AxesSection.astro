@@ -4,7 +4,7 @@
  */
 import Rich from '../ui/Rich.astro';
 import SectionLabel from '../ui/SectionLabel.astro';
-import Icon from '../ui/Icon.astro';
+import BrandIcon from '../ui/BrandIcon.astro';
 import { useTranslations, type Lang } from '../../i18n';
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 }
 const { lang } = Astro.props;
 const a = useTranslations(lang).about.axes;
-const icons = ['spark', 'pin'] as const;
+const icons = ['idea', 'map'] as const;
 ---
 
 <section class="axes paper paper--cream">
@@ -23,11 +23,11 @@ const icons = ['spark', 'pin'] as const;
       {
         a.items.map((item, i) => (
           <article class="axis" data-reveal style={`--reveal-delay:${i * 120}ms`}>
-            <p class="axis__tag">{item.tag}</p>
+            <p class="brand-tag">{item.tag}</p>
             <h3>{item.title}</h3>
             <p class="axis__question">{item.question}</p>
             <p class="axis__text">{item.text}</p>
-            <Icon name={icons[i]!} size={64} strokeWidth={1.8} class="axis__icon" />
+            <BrandIcon name={icons[i]!} tone={i === 0 ? 'orange' : 'outline'} size={76} class="axis__icon" />
           </article>
         ))
       }
@@ -56,15 +56,6 @@ const icons = ['spark', 'pin'] as const;
     border: 2px solid var(--sun);
     border-radius: var(--radius-l);
     background: var(--cream-50);
-  }
-  .axis__tag {
-    padding: 0.15em 0.8em;
-    background: var(--navy);
-    color: var(--white);
-    font-size: var(--step--1);
-    font-weight: 500;
-    border-radius: 3px 8px 3px 10px;
-    rotate: -2deg;
   }
   .axis h3 {
     font-size: var(--step-2);

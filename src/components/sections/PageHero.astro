@@ -8,6 +8,8 @@ import Rich from '../ui/Rich.astro';
 import SectionLabel from '../ui/SectionLabel.astro';
 import Photo from '../ui/Photo.astro';
 import Doodle from '../ui/Doodle.astro';
+import TitleArrow from '../ui/TitleArrow.astro';
+import { Image } from 'astro:assets';
 
 interface Props {
   label: string;
@@ -16,16 +18,18 @@ interface Props {
   image?: ImageMetadata;
   imageAlt?: string;
   note?: string;
+  /** Foto já recortada com efeito da marca (balão, círculo…): mostra-se sem corte nem cantos. */
+  cutout?: boolean;
 }
-const { label, title, lead, image, imageAlt = '', note } = Astro.props;
+const { label, title, lead, image, imageAlt = '', note, cutout = false } = Astro.props;
 ---
 
 <section class:list={['page-hero', { 'page-hero--with-image': image }]}>
-  <Doodle variant="string-1" color="var(--sun)" class="page-hero__string" />
+  <Doodle name="strokes/traco-3" color="var(--orange)" class="page-hero__string" />
   <div class="container page-hero__grid">
     <div class="page-hero__copy">
       <SectionLabel text={label} />
-      <Rich as="h1" text={title} class="page-hero__title" />
+      <h1 class="page-hero__title"><Rich text={title} /><TitleArrow /></h1>
       {lead && <p class="lead">{lead}</p>}
       {
         Astro.slots.has('default') && (
@@ -36,7 +40,15 @@ const { label, title, lead, image, imageAlt = '', note } = Astro.props;
       }
     </div>
     {
-      image && (
+      image && cutout && (
+        <figure class="page-hero__cutout">
+          <Image src={image} alt={imageAlt} widths={[500, 800, 1200]} sizes="(min-width: 60rem) 42vw, 85vw" loading="eager" />
+          {note && <figcaption class="hand">{note}</figcaption>}
+        </figure>
+      )
+    }
+    {
+      image && !cutout && (
         <Photo
           src={image}
           alt={imageAlt}
@@ -87,12 +99,30 @@ const { label, title, lead, image, imageAlt = '', note } = Astro.props;
     line-height: 1.04;
     letter-spacing: -0.03em;
     margin-block-end: var(--space-l);
-    max-width: 16ch;
   }
   .page-hero__actions {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-s);
     margin-block-start: var(--space-xl);
+  }
+</style>
+
+<style>
+  .page-hero__cutout {
+    position: relative;
+    justify-self: center;
+    width: min(100%, 30rem);
+  }
+  .page-hero__cutout :global(img) {
+    width: 100%;
+    height: auto;
+  }
+  .page-hero__cutout figcaption {
+    position: absolute;
+    inset-block-end: 8%;
+    inset-inline-start: -0.5rem;
+    rotate: -4deg;
+    font-size: var(--step-1);
   }
 </style>

@@ -1,0 +1,67 @@
+---
+/**
+ * Ícone da marca dentro de um círculo (Manual, p. 17 — "Ícones").
+ *
+ * Ícones oficiais (public/brand/icons):
+ *   flat:        tools, shop, flag, handshake, audiobook, camera
+ *   hand drawn:  chat, heart, book, map, headset, idea
+ * Também aceita qualquer doodle (ex.: "doodles/open-book").
+ *
+ * Tons (como no manual):
+ *   orange  → círculo laranja, ícone branco suave
+ *   cream   → círculo branco suave, ícone azul
+ *   outline → contorno azul céu, ícone azul céu
+ *
+ * <BrandIcon name="heart" tone="orange" size={64} />
+ */
+export type BrandIconName =
+  | 'tools' | 'shop' | 'flag' | 'handshake' | 'audiobook' | 'camera'
+  | 'chat' | 'heart' | 'book' | 'map' | 'headset' | 'idea';
+
+interface Props {
+  name: BrandIconName | `doodles/${string}`;
+  tone?: 'orange' | 'cream' | 'outline';
+  size?: number;
+  class?: string;
+}
+const { name, tone = 'orange', size = 64, class: className } = Astro.props;
+const src = name.startsWith('doodles/') ? `/brand/${name}.svg` : `/brand/icons/${name}.png`;
+---
+
+<span
+  aria-hidden="true"
+  class:list={['brand-icon', `brand-icon--${tone}`, className]}
+  style={`--size:${size}px;--icon:url('${src}')`}
+>
+  <span class="brand-icon__glyph"></span>
+</span>
+
+<style>
+  .brand-icon {
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    width: var(--size);
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+  .brand-icon__glyph {
+    width: 58%;
+    aspect-ratio: 1;
+    background: var(--glyph);
+    -webkit-mask: var(--icon) center / contain no-repeat;
+    mask: var(--icon) center / contain no-repeat;
+  }
+  .brand-icon--orange {
+    background: var(--orange);
+    --glyph: var(--branco-suave);
+  }
+  .brand-icon--cream {
+    background: var(--branco-suave);
+    --glyph: var(--navy);
+  }
+  .brand-icon--outline {
+    border: max(2px, calc(var(--size) * 0.05)) solid var(--sky);
+    --glyph: var(--sky);
+  }
+</style>

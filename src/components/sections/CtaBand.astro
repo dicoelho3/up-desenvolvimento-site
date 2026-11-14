@@ -14,7 +14,7 @@ const { title, text, tone = 'mustard' } = Astro.props;
 ---
 
 <section class:list={['cta paper', `paper--${tone}`]}>
-  <Doodle variant="loop-arrow" color={tone === 'navy' ? 'var(--sun)' : 'var(--navy)'} class="cta__arrow" />
+  <Doodle name="arrows/seta-3" color={tone === "navy" ? "var(--orange)" : "var(--navy)"} class="cta__arrow" />
   <div class="container cta__inner" data-reveal>
     <Rich as="h2" text={title} class="cta__title" />
     {text && <p class="cta__text">{text}</p>}

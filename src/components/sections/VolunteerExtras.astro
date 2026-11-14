@@ -4,7 +4,9 @@
  * Nota: não usamos fotos dos jovens (menores) no site.
  */
 import SectionLabel from '../ui/SectionLabel.astro';
-import Icon, { type IconName } from '../ui/Icon.astro';
+import BrandIcon from '../ui/BrandIcon.astro';
+import Doodle, { type BrandGraphic } from '../ui/Doodle.astro';
+import Characters from '../ui/Characters.astro';
 import { useTranslations, type Lang } from '../../i18n';
 
 interface Props {
@@ -12,7 +14,8 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = useTranslations(lang).volunteer.extra;
-const icons: IconName[] = ['heart', 'hand', 'spark', 'compass', 'people'];
+// Doodles oficiais para cada atividade (marionetas, escalada, física, zoo, Dia do UP)
+const icons: BrandGraphic[] = ['doodles/heart', 'doodles/paper-plane', 'doodles/atom', 'doodles/leaf', 'doodles/sparks'];
 ---
 
 <section class="extras paper paper--cream">
@@ -21,7 +24,7 @@ const icons: IconName[] = ['heart', 'hand', 'spark', 'compass', 'people'];
 
     <div class="extras__grid">
       <article class="reading" data-reveal>
-        <Icon name="book" size={44} strokeWidth={2} />
+        <BrandIcon name="doodles/open-book" tone="orange" size={68} />
         <h2>{t.reading.title}</h2>
         <p class="reading__stat">
           <strong>{t.reading.stat}</strong>
@@ -31,6 +34,7 @@ const icons: IconName[] = ['heart', 'hand', 'spark', 'compass', 'people'];
       </article>
 
       <article class="psycho" data-reveal style="--reveal-delay:120ms">
+        <Characters faces={[19, 8, 13, 26, 4]} size={64} />
         <h2>{t.psycho.title}</h2>
         <p>{t.psycho.text}</p>
         <p class="psycho__note hand">{t.psycho.listNote} ↓</p>
@@ -38,7 +42,7 @@ const icons: IconName[] = ['heart', 'hand', 'spark', 'compass', 'people'];
           {
             t.psycho.list.map((item, i) => (
               <li>
-                <Icon name={icons[i % icons.length]!} size={28} strokeWidth={2.2} />
+                <Doodle name={icons[i % icons.length]!} color="currentColor" inline class="psycho__icon" />
                 {item}
               </li>
             ))
@@ -72,9 +76,6 @@ const icons: IconName[] = ['heart', 'hand', 'spark', 'compass', 'people'];
     color: var(--white);
     rotate: -1deg;
   }
-  .reading :global(.icon) {
-    color: var(--sun);
-  }
   .reading__stat {
     display: grid;
     gap: var(--space-2xs);
@@ -82,6 +83,8 @@ const icons: IconName[] = ['heart', 'hand', 'spark', 'compass', 'people'];
     border-block: 1px solid rgb(255 253 249 / 0.2);
   }
   .reading__stat strong {
+    font-family: var(--font-display);
+    font-stretch: var(--font-display-stretch);
     font-size: var(--step-5);
     line-height: 1;
     color: var(--orange);
@@ -127,7 +130,7 @@ const icons: IconName[] = ['heart', 'hand', 'spark', 'compass', 'people'];
     background: var(--navy) url('/textures/paper-navy.webp') center / 600px;
     color: var(--white);
   }
-  .psycho__list li:nth-child(even) :global(.icon) {
-    color: var(--sun);
+  :global(.psycho__icon) {
+    width: 1.5em;
   }
 </style>

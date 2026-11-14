@@ -1,0 +1,30 @@
+---
+/**
+ * A seta fina "↙" que acompanha os títulos de capa no Manual de Identidade (Fine Line).
+ * Usa-se dentro do <h1>, depois do texto: <h1>Título <TitleArrow /></h1>
+ */
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<svg class:list={['title-arrow', className]} aria-hidden="true" viewBox="0 0 40 40" fill="none">
+  <path d="M38 2 L4 36 M4 12 V36 H28" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+
+<style>
+  /* A seta ocupa "zero" largura na linha (margem negativa), por isso nunca força
+     o título a quebrar — fica sempre colada à última palavra, como no manual. */
+  .title-arrow {
+    display: inline-block;
+    width: 0.62em;
+    height: 0.62em;
+    margin-inline: 0.25em -0.87em;
+    vertical-align: baseline;
+    color: currentColor;
+  }
+  :global(h1:has(> .title-arrow)) {
+    padding-inline-end: 0.9em;
+  }
+</style>

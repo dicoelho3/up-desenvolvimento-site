@@ -1,80 +1,61 @@
 ---
 /**
- * Traços decorativos desenhados à mão (o "fio do balão" que atravessa a apresentação).
- * Usa uma máscara, por isso a cor vem de `color` — funciona em qualquer fundo.
+ * Elemento gráfico da marca (traço livre, seta, doodle, highlight…), pintado com qualquer cor.
+ * Os ficheiros vêm de public/brand/ (gerados por scripts/brand-assets.mjs a partir dos SVG oficiais).
  *
- * <Doodle variant="string-1" color="var(--sun)" class="pos" />
- * Posiciona-se com CSS no componente pai (é position: absolute).
+ * <Doodle name="strokes/traco-3" color="var(--sun)" class="hero__string" />
+ * <Doodle name="doodles/open-book" color="var(--orange)" inline />
+ *
+ * Por omissão é decorativo e fica em position:absolute (posiciona-se com CSS no componente pai,
+ * usando :global(.classe)). Com `inline` fica no fluxo normal da página.
  */
+import fs from 'node:fs';
+import path from 'node:path';
+
+type Stroke = `strokes/traco-${1 | 2 | 3 | 4 | 5 | 6}`;
+type Arrow = `arrows/seta-${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8}`;
+type DoodleName =
+  | 'atom' | 'paper-plane' | 'brush' | 'camera' | 'polaroid' | 'polaroids' | 'easel' | 'sparks-rough' | 'sparks'
+  | 'leaf' | 'headset' | 'heart' | 'keyboard' | 'magnifier-chart-bold' | 'magnifier-chart' | 'pencil' | 'portugal'
+  | 'megaphone' | 'open-book' | 'pen' | 'ruler' | 'protractor' | 'speaker' | 'glasses' | 'check' | 'exclamation'
+  | 'question' | 'magnifier' | 'music-1' | 'music-2' | 'bookmark' | 'warning';
+type Highlight = 'circle' | 'circle-thick' | 'circle-thin' | 'ellipse' | 'bubble' | 'box-outline';
+
+export type BrandGraphic = Stroke | Arrow | `doodles/${DoodleName}` | `highlights/${Highlight}`;
+
 interface Props {
-  variant?: 'string-1' | 'string-2' | 'arrow' | 'loop-arrow' | 'sparks';
+  name: BrandGraphic;
   color?: string;
+  inline?: boolean;
   class?: string;
   style?: string;
 }
-const { variant = 'string-1', color = 'var(--sun)', class: className, style = '' } = Astro.props;
-const isImage = variant === 'string-1' || variant === 'string-2';
+const { name, color = 'var(--sun)', inline = false, class: className, style = '' } = Astro.props;
+
+// Lê a proporção (viewBox) do SVG para a caixa ter sempre a forma certa.
+const file = path.join(process.cwd(), 'public/brand', `${name}.svg`);
+const viewBox = fs.readFileSync(file, 'utf8').match(/viewBox="([\d.\s-]+)"/)?.[1]?.trim().split(/\s+/).map(Number);
+const ratio = viewBox ? `${viewBox[2]} / ${viewBox[3]}` : '1';
 ---
 
-{
-  isImage ? (
-    <span
-      aria-hidden="true"
-      class:list={['doodle', 'doodle--mask', `doodle--${variant}`, className]}
-      style={`--doodle-color:${color};--doodle-src:url('/brand/${variant}.webp');${style}`}
-    />
-  ) : (
-    <svg
-      aria-hidden="true"
-      class:list={['doodle', `doodle--${variant}`, className]}
-      style={`color:${color};${style}`}
-      viewBox="0 0 120 90"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="3.2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      {variant === 'arrow' && (
-        <>
-          <path d="M6 70 C 30 30, 70 14, 110 20" />
-          <path d="M96 9 L111 20 L97 32" />
-        </>
-      )}
-      {variant === 'loop-arrow' && (
-        <>
-          <path d="M8 8 C 14 30, 30 44, 48 40 C 62 37, 62 20, 50 22 C 38 24, 40 46, 60 58 C 74 66, 92 70, 108 70" />
-          <path d="M96 60 L109 70 L95 80" />
-        </>
-      )}
-      {variant === 'sparks' && (
-        <>
-          <path d="M20 40 L8 30" />
-          <path d="M32 26 L28 8" />
-          <path d="M48 30 L60 16" />
-        </>
-      )}
-    </svg>
-  )
-}
+<span
+  aria-hidden="true"
+  class:list={['doodle', { 'doodle--inline': inline }, className]}
+  style={`--doodle-color:${color};--doodle-src:url('/brand/${name}.svg');aspect-ratio:${ratio};${style}`}
+></span>
 
 <style>
   .doodle {
     position: absolute;
+    display: block;
     pointer-events: none;
     z-index: -1;
-  }
-  .doodle--mask {
-    display: block;
-    aspect-ratio: 3 / 4;
     background: var(--doodle-color);
     -webkit-mask: var(--doodle-src) center / contain no-repeat;
     mask: var(--doodle-src) center / contain no-repeat;
   }
-  .doodle--string-1 {
-    aspect-ratio: 600 / 804;
-  }
-  .doodle--string-2 {
-    aspect-ratio: 600 / 761;
+  .doodle--inline {
+    position: relative;
+    z-index: auto;
   }
 </style>

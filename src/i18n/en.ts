@@ -119,7 +119,6 @@ export const en: typeof pt = {
       label: 'Volunteer',
       title: 'Become a UP *mentor*',
       lead: '1h30 a week. One young person. A whole school year growing side by side, with training and a community of volunteers behind you.',
-      note: 'volunteer training',
     },
     role: {
       label: 'What does a mentor do?',

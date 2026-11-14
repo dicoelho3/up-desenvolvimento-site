@@ -123,7 +123,6 @@ export const pt = {
       label: 'Voluntário',
       title: 'Torna-te *mentor* UP',
       lead: '1h30 por semana. Um jovem. Um ano letivo inteiro a crescer lado a lado, com formação e uma comunidade de voluntários contigo.',
-      note: 'formação de voluntários',
     },
     role: {
       label: 'O que faz um mentor?',

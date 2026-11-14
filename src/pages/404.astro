@@ -6,7 +6,7 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Rich from '../components/ui/Rich.astro';
 import Button from '../components/ui/Button.astro';
-import markOrange from '../assets/brand/mark-orange.png';
+import stickerBalloon from '../assets/brand/sticker-balloon.png';
 import { useTranslations } from '../i18n';
 
 const t = useTranslations('pt').notFound;
@@ -15,7 +15,7 @@ const en = useTranslations('en').notFound;
 
 <BaseLayout lang="pt" title={t.title}>
   <section class="not-found container--narrow">
-    <Image src={markOrange} alt="" width={160} class="not-found__balloon" />
+    <Image src={stickerBalloon} alt="" width={160} class="not-found__balloon" />
     <Rich as="h1" text={t.heading} />
     <p class="lead">{t.text}</p>
     <p class="not-found__en" lang="en">{en.text}</p>

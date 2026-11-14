@@ -15,10 +15,10 @@ const { label, text, aside } = Astro.props;
 ---
 
 <section class="question paper paper--navy">
-  <Doodle variant="string-2" color="var(--white)" class="question__string" />
+  <Doodle name="strokes/traco-4" color="var(--branco-suave)" class="question__string" />
   <div class="container">
     <SectionLabel text={label} />
-    <Rich as="p" text={text} class="question__text" data-reveal />
+    <Rich as="p" text={text} class="question__text is-display" data-reveal />
     {aside && <p class="question__aside hand" data-reveal style="--reveal-delay: 200ms">{aside}</p>}
   </div>
 </section>

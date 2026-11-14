@@ -3,7 +3,8 @@
  * As formas de apoiar: padrinho e IRS (cartões tipo "senha" com picotado), voluntariado e empresas.
  */
 import Button from '../ui/Button.astro';
-import Icon from '../ui/Icon.astro';
+import BrandIcon from '../ui/BrandIcon.astro';
+import Doodle from '../ui/Doodle.astro';
 import { site } from '../../config/site';
 import { path, useTranslations, type Lang } from '../../i18n';
 
@@ -19,7 +20,7 @@ const s = t.support;
   <div class="container support__tickets">
     <article class="ticket ticket--mustard" id="padrinho" data-reveal>
       <div class="ticket__main">
-        <p class="ticket__tag">{s.sponsor.tag}</p>
+        <p class="brand-tag">{s.sponsor.tag}</p>
         <h2>{s.sponsor.title}</h2>
         <p>{s.sponsor.text}</p>
         <p class="ticket__covers">{s.sponsor.covers}</p>
@@ -27,7 +28,7 @@ const s = t.support;
           {
             s.sponsor.items.map((item) => (
               <li>
-                <Icon name="check" size={20} strokeWidth={3.5} /> {item}
+                <Doodle name="doodles/check" color="var(--navy)" inline class="ticket__check" /> {item}
               </li>
             ))
           }
@@ -42,7 +43,7 @@ const s = t.support;
 
     <article class="ticket ticket--navy" id="irs" data-reveal style="--reveal-delay:120ms">
       <div class="ticket__main">
-        <p class="ticket__tag">{s.irs.tag}</p>
+        <p class="brand-tag brand-tag--orange">{s.irs.tag}</p>
         <h2>{s.irs.title}</h2>
         <p>{s.irs.text}</p>
         <ol class="ticket__steps">
@@ -67,15 +68,15 @@ const s = t.support;
 
   <div class="container support__more">
     <article class="more" data-reveal>
-      <Icon name="people" size={44} strokeWidth={2} />
-      <p class="ticket__tag">{s.volunteer.tag}</p>
+      <BrandIcon name="handshake" tone="orange" size={60} />
+      <p class="brand-tag">{s.volunteer.tag}</p>
       <h2>{s.volunteer.title}</h2>
       <p>{s.volunteer.text}</p>
       <Button href={path('volunteer', lang)} variant="ghost">{s.volunteer.cta}</Button>
     </article>
     <article class="more" data-reveal style="--reveal-delay:120ms">
-      <Icon name="hand" size={44} strokeWidth={2} />
-      <p class="ticket__tag">{s.companies.tag}</p>
+      <BrandIcon name="shop" tone="orange" size={60} />
+      <p class="brand-tag">{s.companies.tag}</p>
       <h2>{s.companies.title}</h2>
       <p>{s.companies.text}</p>
       <Button href={`mailto:${site.email}?subject=${lang === "pt" ? "Parceria" : "Partnership"}`} variant="ghost">{s.companies.cta}</Button>
@@ -104,17 +105,18 @@ const s = t.support;
   /* — Cartão "senha" com picotado — */
   .ticket {
     --notch: 1rem;
+    --stub: 9.5rem;
     position: relative;
     display: grid;
     grid-template-columns: 1fr auto;
     border-radius: var(--radius);
     /* Recortes semicirculares onde o canhoto se destaca */
     -webkit-mask:
-      radial-gradient(circle var(--notch) at calc(100% - 7.5rem) 0, transparent 98%, #000) top / 100% 51% no-repeat,
-      radial-gradient(circle var(--notch) at calc(100% - 7.5rem) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+      radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0, transparent 98%, #000) top / 100% 51% no-repeat,
+      radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
     mask:
-      radial-gradient(circle var(--notch) at calc(100% - 7.5rem) 0, transparent 98%, #000) top / 100% 51% no-repeat,
-      radial-gradient(circle var(--notch) at calc(100% - 7.5rem) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+      radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0, transparent 98%, #000) top / 100% 51% no-repeat,
+      radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
   }
   .ticket--mustard {
     background: var(--mustard) url('/textures/paper-mustard.webp') center / 1000px;
@@ -136,29 +138,21 @@ const s = t.support;
   .ticket h2 {
     font-size: var(--step-3);
   }
-  .ticket__tag {
-    padding: 0.2em 0.8em;
-    border-radius: 4px;
-    background: var(--navy);
-    color: var(--white);
-    font-size: var(--step--1);
-    font-weight: 500;
-    rotate: -2deg;
-  }
-  .ticket--navy .ticket__tag {
-    background: var(--orange);
-    color: var(--navy-900);
+  :global(.ticket__check) {
+    width: 1.1em;
   }
   .ticket__stub {
     display: grid;
     place-content: center;
     justify-items: center;
-    width: 7.5rem;
+    width: var(--stub);
     border-inline-start: 2px dashed currentColor;
     text-align: center;
   }
   .ticket__price {
-    font-size: var(--step-4);
+    font-family: var(--font-display);
+    font-stretch: var(--font-display-stretch);
+    font-size: var(--step-3);
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.03em;
@@ -238,13 +232,10 @@ const s = t.support;
     border: 2px solid var(--navy);
     border-radius: var(--radius-l);
   }
-  .more :global(.icon) {
-    color: var(--orange);
-  }
   .more h2 {
     font-size: var(--step-2);
   }
-  .more > p:not(.ticket__tag) {
+  .more > p:not(.brand-tag) {
     color: var(--text-soft);
     margin-block-end: var(--space-xs);
   }

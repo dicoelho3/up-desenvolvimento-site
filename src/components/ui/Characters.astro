@@ -1,0 +1,43 @@
+---
+/**
+ * Grupo de personagens ilustradas (Manual, p. 18).
+ * São a forma oficial de representar crianças e jovens mentorados sem mostrar caras reais.
+ *
+ * <Characters faces={[1, 10, 16, 20]} size={56} />
+ *
+ * Personagens disponíveis: 1–27 em public/brand/characters
+ * (1–6, 10–15, 19–24 em amarelo/laranja; 7–9, 16–18, 25–27 em azul céu).
+ */
+interface Props {
+  faces?: number[];
+  size?: number;
+  label?: string;
+  class?: string;
+}
+const { faces = [1, 16, 10, 25, 20], size = 56, label, class: className } = Astro.props;
+const file = (n: number) => `/brand/characters/${String(n).padStart(2, '0')}.webp`;
+---
+
+<div class:list={['characters', className]} style={`--size:${size}px`} role={label ? 'img' : undefined} aria-label={label} aria-hidden={label ? undefined : 'true'}>
+  {faces.map((n, i) => <img src={file(n)} alt="" width={size} height={size} loading="lazy" style={`--i:${i}`} />)}
+</div>
+
+<style>
+  .characters {
+    display: flex;
+    align-items: center;
+  }
+  .characters img {
+    width: var(--size);
+    height: var(--size);
+    margin-inline-start: calc(var(--size) * -0.22);
+    rotate: calc((var(--i) - 2) * 4deg);
+    transition: transform 0.3s var(--ease-out);
+  }
+  .characters img:first-child {
+    margin-inline-start: 0;
+  }
+  .characters img:hover {
+    transform: translateY(-4px) scale(1.06);
+  }
+</style>

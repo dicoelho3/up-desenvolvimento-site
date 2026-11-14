@@ -5,12 +5,12 @@
  */
 import Rich from '../ui/Rich.astro';
 import SectionLabel from '../ui/SectionLabel.astro';
-import Icon, { type IconName } from '../ui/Icon.astro';
+import BrandIcon, { type BrandIconName } from '../ui/BrandIcon.astro';
 
 interface Item {
   title: string;
   text: string;
-  icon?: IconName;
+  icon?: BrandIconName | `doodles/${string}`;
 }
 interface Props {
   label: string;
@@ -33,7 +33,7 @@ const { label, title, items, tone = 'cream', look = 'plain', id } = Astro.props;
         items.map((item, i) => (
           <li class="feature" data-reveal style={`--reveal-delay:${i * 80}ms`}>
             {item.icon ? (
-              <Icon name={item.icon} size={48} strokeWidth={2} class="feature__icon" />
+              <BrandIcon name={item.icon} tone={look === 'cards' ? 'cream' : tone === 'mustard' ? 'cream' : 'orange'} size={60} class="feature__icon" />
             ) : (
               <span class="feature__num hand" aria-hidden="true">
                 {String(i + 1).padStart(2, '0')}
@@ -72,6 +72,10 @@ const { label, title, items, tone = 'cream', look = 'plain', id } = Astro.props;
     color: var(--text-soft);
   }
   .feature__num {
+    font-family: var(--font-display);
+    font-stretch: var(--font-display-stretch);
+    font-style: normal;
+    font-weight: 800;
     font-size: var(--step-3);
     color: var(--orange);
   }
@@ -79,11 +83,7 @@ const { label, title, items, tone = 'cream', look = 'plain', id } = Astro.props;
     color: var(--navy);
   }
   :global(.feature__icon) {
-    color: var(--orange);
     margin-block-end: var(--space-2xs);
-  }
-  .paper--mustard :global(.feature__icon) {
-    color: var(--navy);
   }
 
   /* Estilo "cartões" — como a Metodologia UP da apresentação */
@@ -103,8 +103,5 @@ const { label, title, items, tone = 'cream', look = 'plain', id } = Astro.props;
   }
   .features--cards .feature p {
     color: color-mix(in oklab, var(--white) 80%, var(--navy));
-  }
-  .features--cards :global(.feature__icon) {
-    color: var(--white);
   }
 </style>

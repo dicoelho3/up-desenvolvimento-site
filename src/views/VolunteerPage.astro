@@ -11,7 +11,7 @@ import Testimonials from '../components/sections/Testimonials.astro';
 import Faq from '../components/sections/Faq.astro';
 import CtaBand from '../components/sections/CtaBand.astro';
 import Button from '../components/ui/Button.astro';
-import type { IconName } from '../components/ui/Icon.astro';
+import type { BrandIconName } from '../components/ui/BrandIcon.astro';
 import { site } from '../config/site';
 import { photo } from '../data';
 import { useTranslations, type Lang } from '../i18n';
@@ -23,8 +23,8 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 const v = t.volunteer;
 
-const roleIcons: IconName[] = ['clock', 'heart', 'compass'];
-const getsIcons: IconName[] = ['book', 'hand', 'people', 'spark'];
+const roleIcons: BrandIconName[] = ['book', 'handshake', 'map'];
+const getsIcons: BrandIconName[] = ['idea', 'chat', 'heart', 'audiobook'];
 ---
 
 <BaseLayout lang={lang} route="volunteer" title={v.title} description={v.description}>
@@ -32,8 +32,8 @@ const getsIcons: IconName[] = ['book', 'hand', 'people', 'spark'];
     label={v.hero.label}
     title={v.hero.title}
     lead={v.hero.lead}
-    image={photo('comunidade-teach.jpg')}
-    note={v.hero.note}
+    image={photo('hands-balloon.png')}
+    cutout
   >
     <Button href={site.forms.volunteer} external lang={lang}>{t.common.applyMentor}</Button>
   </PageHero>
