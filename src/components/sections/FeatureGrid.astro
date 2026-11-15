@@ -50,7 +50,7 @@ const { label, title, items, tone = 'cream', look = 'plain', id } = Astro.props;
 
 <style>
   .features__title {
-    font-size: var(--step-4);
+    font-size: var(--title-section);
     margin-block-end: var(--space-2xl);
     max-width: 18ch;
   }
@@ -73,7 +73,7 @@ const { label, title, items, tone = 'cream', look = 'plain', id } = Astro.props;
     align-self: start;
   }
   .feature h3 {
-    font-size: var(--step-1);
+    font-size: var(--title-card);
   }
   .feature p {
     color: var(--text-soft);
@@ -94,19 +94,27 @@ const { label, title, items, tone = 'cream', look = 'plain', id } = Astro.props;
   }
 
   /* Estilo "cartões" — como a Metodologia UP da apresentação.
-     Grelha fixa (1 → 2 → todas numa linha) para nunca ficar um cartão sozinho. */
+     Grelha fixa (1 → 2 → todas numa linha a partir de 1200px) para nunca ficar um cartão sozinho. */
   .features--cards .features__grid {
     grid-template-columns: 1fr;
   }
   @media (min-width: 36rem) {
     .features--cards .features__grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
-  @media (min-width: 64rem) {
+  @media (min-width: 75rem) {
     .features--cards .features__grid {
-      grid-template-columns: repeat(var(--count), 1fr);
+      grid-template-columns: repeat(var(--count), minmax(0, 1fr));
     }
+  }
+  /* Colunas sempre iguais. O título segue o mapa (--title-card); só encolhe um pouco se uma
+     palavra longa (ex. "Acompanhamento") não couber na coluna — e aí encolhe igual em todos. */
+  .features--cards .feature {
+    container-type: inline-size;
+  }
+  .features--cards .feature h3 {
+    font-size: min(var(--title-card), 8.6cqi);
   }
   .features--cards .feature {
     justify-items: center;
@@ -121,11 +129,6 @@ const { label, title, items, tone = 'cream', look = 'plain', id } = Astro.props;
   }
   .features--cards .feature:nth-child(even) {
     rotate: 0.8deg;
-  }
-  /* Nos cartões (4 colunas) o título é mais pequeno para caber numa coluna estreita */
-  .features--cards .feature h3 {
-    font-size: clamp(1rem, 0.85rem + 0.3vw, 1.12rem);
-    letter-spacing: -0.01em;
   }
   .features--cards .feature p {
     color: color-mix(in oklab, var(--white) 80%, var(--navy));

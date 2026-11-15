@@ -37,12 +37,12 @@ const { title, text, tone = 'mustard' } = Astro.props;
     rotate: 8deg;
   }
   @media (max-width: 50rem) {
-    :global(.cta__arrow) {
+    section :global(.cta__arrow) {
       display: none;
     }
   }
   .cta__title {
-    font-size: var(--step-4);
+    font-size: var(--title-section);
     max-width: 20ch;
     margin-inline: auto;
   }

@@ -92,12 +92,17 @@ const { label, title, lead, image, imageAlt = '', note, cutout = false } = Astro
     align-items: start;
   }
   @media (min-width: 60rem) {
+    /* O texto fica com mais espaço do que a foto, para o título não partir palavra a palavra */
     .page-hero--with-image .page-hero__grid {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.25fr 0.75fr;
+    }
+    /* a foto (não recortada) fica centrada ao lado do texto */
+    .page-hero--with-image .page-hero__grid > :last-child:not(.page-hero__cutout) {
+      align-self: center;
     }
   }
   .page-hero__title {
-    font-size: var(--step-5);
+    font-size: var(--title-page);
     line-height: 1.04;
     letter-spacing: -0.03em;
     margin-block-end: var(--space-l);

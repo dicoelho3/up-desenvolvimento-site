@@ -44,7 +44,7 @@ const g = useTranslations(lang).about.gap;
 
 <style>
   .gap__title {
-    font-size: var(--step-4);
+    font-size: var(--title-section);
     max-width: 22ch;
     margin-block-end: var(--space-2xl);
   }
@@ -73,7 +73,7 @@ const g = useTranslations(lang).about.gap;
     text-align: center;
   }
   .gap__box h3 {
-    font-size: var(--step-2);
+    font-size: var(--title-block);
   }
   .gap__side p {
     max-width: 40ch;
@@ -84,8 +84,9 @@ const g = useTranslations(lang).about.gap;
     margin-block-start: -5rem;
     rotate: -8deg;
   }
+  /* Em ecrã estreito o fio passaria por cima do texto: esconde-se */
   @media (max-width: 55.99rem) {
-    :global(.gap__thread) {
+    section :global(.gap__thread) {
       display: none;
     }
   }
