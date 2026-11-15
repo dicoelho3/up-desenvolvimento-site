@@ -1,0 +1,79 @@
+---
+/**
+ * Páginas legais (Política de Privacidade, Termos & Condições) — o texto vem de
+ * src/content/legal/<pt|en>/<privacidade|termos>.md (editável também no Pages CMS).
+ */
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionLabel from '../components/ui/SectionLabel.astro';
+import { formatDate, useTranslations, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  doc: 'privacidade' | 'termos';
+}
+const { lang, doc } = Astro.props;
+const t = useTranslations(lang).legal;
+const entry = await getEntry('legal', `${lang}/${doc}`);
+if (!entry) throw new Error(`Falta o texto legal ${lang}/${doc}`);
+const { Content } = await render(entry);
+const { title, description, updated } = entry.data;
+---
+
+<BaseLayout lang={lang} route={doc === 'privacidade' ? 'privacy' : 'terms'} title={title} description={description}>
+  <article class="legal">
+    <header class="container--narrow legal__header">
+      <SectionLabel text={t.label} />
+      <h1 class="legal__title">{title}</h1>
+      <p class="legal__meta">
+        {t.updated} <time datetime={updated.toISOString()}>{formatDate(updated, lang)}</time>
+      </p>
+    </header>
+    <div class="container--narrow legal__body flow">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .legal {
+    padding-block: var(--space-xl) var(--space-3xl);
+  }
+  .legal__header {
+    margin-block-end: var(--space-xl);
+  }
+  .legal__title {
+    font-size: var(--title-page);
+    margin-block-end: var(--space-s);
+  }
+  .legal__meta {
+    color: var(--text-soft);
+    font-size: var(--step--1);
+  }
+  /* Texto corrido (vem do Markdown) — mesmas regras dos artigos do blog */
+  .legal__body {
+    --flow-space: 1em;
+    line-height: 1.7;
+  }
+  .legal__body :global(h2) {
+    --flow-space: 2em;
+    font-size: var(--title-block);
+  }
+  .legal__body :global(ul) {
+    padding-inline-start: 1.3em;
+  }
+  .legal__body :global(li + li) {
+    margin-block-start: 0.3em;
+  }
+  .legal__body :global(li::marker) {
+    color: var(--orange);
+  }
+  .legal__body :global(a) {
+    text-decoration-color: var(--orange);
+    text-decoration-thickness: 2px;
+    overflow-wrap: anywhere;
+  }
+  .legal__body :global(em) {
+    color: var(--text-soft);
+  }
+</style>

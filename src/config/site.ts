@@ -8,7 +8,7 @@ export const site = {
   email: 'up.desenvolvimento.geral@gmail.com',
 
   /** NIF da associação — quando preenchido, aparece na secção da consignação do IRS. */
-  nif: null as string | null,
+  nif: '517 259 532' as string | null,
 
   forms: {
     /** Formulário de candidatura a voluntário/mentor. */

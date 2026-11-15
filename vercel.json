@@ -6,6 +6,10 @@
     { "source": "/voluntário", "destination": "/voluntario/", "permanent": true },
     { "source": "/sobre-n%C3%B3s", "destination": "/sobre-nos/", "permanent": true },
     { "source": "/sobre-nós", "destination": "/sobre-nos/", "permanent": true },
+    { "source": "/pol%C3%ADtica-de-privacidade", "destination": "/politica-de-privacidade/", "permanent": true },
+    { "source": "/política-de-privacidade", "destination": "/politica-de-privacidade/", "permanent": true },
+    { "source": "/termos-e-condi%C3%A7%C3%B5es", "destination": "/termos-e-condicoes/", "permanent": true },
+    { "source": "/termos-e-condições", "destination": "/termos-e-condicoes/", "permanent": true },
     { "source": "/post/:slug*", "destination": "/blog/", "permanent": true },
     { "source": "/blog/categories/:slug*", "destination": "/blog/", "permanent": true }
   ]

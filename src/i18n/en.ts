@@ -24,6 +24,14 @@ export const en: typeof pt = {
     switchLang: 'Ver em português',
   },
 
+  legal: {
+    label: 'Legal information',
+    updated: 'Last updated:',
+    privacy: 'Privacy Policy',
+    terms: 'Terms & Conditions',
+    nif: 'Tax no. (NIF)',
+  },
+
   footer: {
     tagline: 'Lifting young people. Transforming communities.',
     about: 'A non-profit association founded by young people in 2021, in Lisbon.',
@@ -241,6 +249,8 @@ export const en: typeof pt = {
         'Enter UP Desenvolvimento’s tax number (NIF) and confirm.',
       ],
       nifLabel: 'UP’s NIF',
+      copyNif: 'Copy NIF',
+      copied: 'Copied!',
       guide: 'See the step-by-step guide',
       highlight: 'Last year, IRS allocations were UP’s largest source of funding.',
     },

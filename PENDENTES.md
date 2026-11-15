@@ -44,9 +44,10 @@ Coisas a resolver antes (ou depois) de pôr o site no ar.
 - [ ] Rever a tradução inglesa (`src/i18n/en.ts` e `src/content/blog/en/`). Para esconder o inglês: `showLanguageSwitch: false` em `src/config/site.ts`
 
 ## 4. Faltam dados
-- [ ] **NIF** da associação para a consignação do IRS → `src/config/site.ts` (`nif`)
+- [x] **NIF** (517 259 532) — no cartão do IRS (com botão "Copiar NIF") e no rodapé
 - [ ] Contas de YouTube/TikTok (o site atual tem links genéricos) — acrescentar em `src/config/site.ts` se existirem
-- [ ] Política de Privacidade e Termos & Condições (existem no site Wix, não foram copiados)
+- [x] Política de Privacidade e Termos & Condições — páginas `/politica-de-privacidade/` e `/termos-e-condicoes/` (+ EN), texto em `src/content/legal/` (editável no Pages CMS)
+- [ ] **Validar os textos legais** (de preferência com alguém da área jurídica). Em relação ao texto do Wix: trocou-se o Wix pelo Vercel (alojamento) e Google (formulários/email); a secção de cookies diz agora que o site **não usa cookies**; acrescentou-se o direito de reclamar à CNPD; corrigiram-se erros (frase dos direitos de autor fora do sítio, secção 3 sem número, título "Ligações Externas" repetido → "Responsabilidade"). A versão inglesa é tradução, com a nota de que prevalece a portuguesa. **Se um dia ativarem estatísticas de visitas ou outro serviço, a secção 9 tem de ser atualizada.**
 
 ## 5. Formulários e donativos (ficou como está, por agora)
 - [ ] O formulário de padrinhos é o mesmo do voluntariado — criar um próprio? → `src/config/site.ts`

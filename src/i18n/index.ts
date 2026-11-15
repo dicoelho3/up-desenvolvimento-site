@@ -40,6 +40,8 @@ export const routes = {
   about: { pt: '/sobre-nos/', en: '/en/about/' },
   blog: { pt: '/blog/', en: '/en/blog/' },
   contact: { pt: '/contactos/', en: '/en/contact/' },
+  privacy: { pt: '/politica-de-privacidade/', en: '/en/privacy-policy/' },
+  terms: { pt: '/termos-e-condicoes/', en: '/en/terms/' },
 } as const satisfies Record<string, Localized>;
 
 export type RouteKey = keyof typeof routes;

@@ -58,6 +58,25 @@ content:
       fields: [title, date, draft]
     fields: *blogFields
 
+  - name: legal-pt
+    label: Textos legais (Português)
+    description: Política de Privacidade e Termos & Condições. Ao alterar, atualiza também a data.
+    type: collection
+    path: src/content/legal/pt
+    filename: '{primary}.md'
+    fields: &legalFields
+      - { name: title, label: Título, type: string, required: true }
+      - { name: description, label: Resumo (para o Google), type: text, required: true }
+      - { name: updated, label: Data da última atualização, type: date, required: true }
+      - { name: body, label: Texto, type: rich-text }
+
+  - name: legal-en
+    label: Textos legais (English)
+    type: collection
+    path: src/content/legal/en
+    filename: '{primary}.md'
+    fields: *legalFields
+
   - name: numeros
     label: Números de impacto
     type: file

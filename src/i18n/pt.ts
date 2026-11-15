@@ -28,6 +28,14 @@ export const pt = {
     switchLang: 'Ver em inglês',
   },
 
+  legal: {
+    label: 'Informação legal',
+    updated: 'Última atualização:',
+    privacy: 'Política de Privacidade',
+    terms: 'Termos & Condições',
+    nif: 'NIF',
+  },
+
   footer: {
     tagline: 'Elevar jovens. Transformar comunidades.',
     about: 'Associação sem fins lucrativos, criada por jovens em 2021, em Lisboa.',
@@ -245,6 +253,8 @@ export const pt = {
         'Indica o NIF do UP Desenvolvimento e confirma.',
       ],
       nifLabel: 'NIF do UP',
+      copyNif: 'Copiar NIF',
+      copied: 'Copiado!',
       guide: 'Ver o guia passo a passo',
       highlight: 'No último ano, a consignação do IRS foi a maior fonte de financiamento do UP.',
     },

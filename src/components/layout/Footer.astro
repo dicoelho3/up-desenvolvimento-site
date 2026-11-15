@@ -13,6 +13,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const year = new Date().getFullYear();
+const legal = t.legal;
 ---
 
 <footer class="site-footer paper paper--navy">
@@ -71,6 +72,11 @@ const year = new Date().getFullYear();
 
   <div class="container site-footer__bottom">
     <p class="site-footer__tagline">{t.footer.tagline}</p>
+    <ul class="site-footer__legal" role="list">
+      <li><a href={path('privacy', lang)}>{legal.privacy}</a></li>
+      <li><a href={path('terms', lang)}>{legal.terms}</a></li>
+      {site.nif && <li>{legal.nif} {site.nif}</li>}
+    </ul>
     <p>© {year} {t.footer.rights}</p>
   </div>
 </footer>
@@ -136,6 +142,15 @@ const year = new Date().getFullYear();
     display: inline-flex;
     align-items: center;
     gap: 0.5em;
+  }
+  .site-footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em 1.4em;
+    padding: 0;
+  }
+  .site-footer__legal a {
+    color: inherit;
   }
   .site-footer__bottom {
     display: flex;

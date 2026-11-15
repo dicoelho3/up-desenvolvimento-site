@@ -3,6 +3,7 @@
  * As formas de apoiar: padrinho e IRS (cartões tipo "senha" com picotado), voluntariado e empresas.
  */
 import Button from '../ui/Button.astro';
+import CopyButton from '../ui/CopyButton.astro';
 import BrandIcon from '../ui/BrandIcon.astro';
 import Doodle from '../ui/Doodle.astro';
 import { site } from '../../config/site';
@@ -53,6 +54,7 @@ const s = t.support;
           site.nif && (
             <p class="ticket__nif">
               {s.irs.nifLabel}: <strong>{site.nif}</strong>
+              <CopyButton text={site.nif.replace(/s/g, '')} label={s.irs.copyNif} done={s.irs.copied} class="ticket__copy" />
             </p>
           )
         }
@@ -189,6 +191,18 @@ const s = t.support;
     font-size: var(--step-2);
     rotate: -1deg;
     margin-block: var(--space-xs);
+  }
+  .ticket__nif {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4em 0.8em;
+  }
+  /* no cartão azul, o "Copiado!" fica laranja (o azul não se via) */
+  .ticket--navy :global(.copy-btn.is-done) {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: var(--navy-900);
   }
   .ticket__nif strong {
     font-size: var(--step-1);
