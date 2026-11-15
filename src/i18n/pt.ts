@@ -78,6 +78,16 @@ export const pt = {
       text: 'De que forma as tuas *oportunidades* moldaram **o teu caminho?**',
       aside: 'Nem toda a gente começa com as mesmas. Foi por isso que o UP nasceu.',
     },
+    video: {
+      label: 'Em vídeo',
+      title: 'O UP, *contado por nós*',
+      text: 'Quem somos, o que fazemos nos bairros e porque é que vale a pena. Em poucos minutos.',
+      note: 'carrega para ver',
+      play: 'Ver o vídeo',
+      onYoutube: 'Ver no YouTube',
+      posterLine1: 'Elevar jovens.',
+      posterLine2: 'Transformar comunidades.',
+    },
     mission: {
       label: 'Quem somos?',
       title: 'De jovens. *Para jovens.*',
@@ -100,6 +110,8 @@ export const pt = {
       label: 'Atuamos em parceria com',
       title: 'Associações em *bairros* vulneráveis',
       text: 'Não chegamos de fora com respostas feitas. Trabalhamos com quem já conhece cada bairro por dentro, e as mentorias acontecem nas sedes destas associações.',
+      mapAlt: 'Mapa da área de Lisboa com os bairros onde o UP atua',
+      mapHint: 'Toca num bairro para ver a associação',
     },
     join: {
       label: 'Queres fazer parte?',
@@ -309,6 +321,16 @@ export const pt = {
           question: 'Como expandir o UP através de núcleos liderados por associações de jovens?',
           text: 'Chegar a todos os bairros em contexto vulnerável de Portugal, para que todos os seus jovens tenham boas oportunidades.',
         },
+      ],
+    },
+    values: {
+      label: 'O que nos guia?',
+      title: 'Os nossos *valores*',
+      items: [
+        { title: 'Confiança', text: 'Construir relações autênticas, seguras e consistentes, onde o jovem se sente visto, ouvido e valorizado. A confiança é a base que permite aprendizagem, autonomia e mudança.' },
+        { title: 'Proximidade', text: 'Estar presente no território, de forma regular e acessível. A intervenção nasce da convivência e da escuta, não de modelos externos impostos. Agir com proximidade significa respeitar ritmos, histórias e realidades.' },
+        { title: 'Transformação social', text: 'Acreditar na mudança construída de jovem para jovem. Quando um jovem desenvolve capacidades e se sente capaz, torna-se fonte de inspiração e referência para outros, criando ciclos sustentáveis de impacto.' },
+        { title: 'Comunidade', text: 'Mentores, mentorados, parceiros, famílias e voluntários formam uma rede viva. A transformação torna-se possível quando é partilhada, quando todos se reconhecem como parte do mesmo movimento.' },
       ],
     },
     method: {

@@ -1,7 +1,10 @@
 ---
 /**
  * Bairros e associações parceiras — dados em src/data/neighborhoods.json.
- * As coordenadas já estão nos dados: um mapa interativo pode substituir/complementar esta grelha.
+ * Mapa interativo: cada bairro tem um marcador, posicionado a partir das coordenadas.
+ * Para acrescentar um bairro basta juntá-lo ao JSON; só se ficar fora da zona do mapa é
+ * preciso gerar o mapa de novo (node scripts/build-map.mjs).
+ * Mapa e cartões estão ligados: passar o rato / tocar num destaca o outro.
  */
 import { Image } from 'astro:assets';
 import Rich from '../ui/Rich.astro';
@@ -9,6 +12,10 @@ import LineIcon from '../ui/LineIcon.astro';
 import SectionLabel from '../ui/SectionLabel.astro';
 import Doodle from '../ui/Doodle.astro';
 import { neighborhoods, partnerLogo } from '../../data';
+import LineIconCmp from '../ui/LineIcon.astro';
+import map from '../../data/map.json';
+import landmarksJson from '../../data/map-landmarks.json';
+import type { LineIconName } from '../../lib/line-icons';
 import { useTranslations, type Lang } from '../../i18n';
 
 interface Props {
@@ -16,6 +23,23 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+
+// Posição de cada marcador (em % da imagem do mapa), pela mesma projeção do gerador
+const scale = 2 ** map.zoom * 256;
+const toPct = (lat: number, lng: number) => {
+  const r = (lat * Math.PI) / 180;
+  const x = ((lng + 180) / 360) * scale - map.x0;
+  const y = ((1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2) * scale - map.y0;
+  return { left: (x / map.width) * 100, top: (y / map.height) * 100 };
+};
+const pins = neighborhoods.map((h) => ({ ...h, pos: toPct(h.coords.lat, h.coords.lng) }));
+// Referências para orientação (Lisboa, Tejo, aeroporto…) — src/data/map-landmarks.json
+const landmarks = landmarksJson.items.map((l) => ({
+  ...l,
+  label: l.name[lang],
+  icon: (l as { icon?: LineIconName }).icon,
+  pos: toPct(l.lat, l.lng),
+}));
 ---
 
 <section class="hoods paper paper--mustard" id="bairros">
@@ -29,10 +53,49 @@ const t = useTranslations(lang);
       <p>{t.home.neighborhoods.text}</p>
     </div>
 
+    <div class="hoods__layout" data-hoods>
+      <figure class="hoods__map" data-reveal>
+        <div class="hoods__canvas" style={`aspect-ratio:${map.width} / ${map.height}`}>
+          <img src={map.image} alt={t.home.neighborhoods.mapAlt} width={map.width} height={map.height} loading="lazy" decoding="async" />
+          {
+            landmarks.map((l) => (
+              <span
+                class:list={['landmark', `landmark--${l.kind}`]}
+                aria-hidden="true"
+                style={`left:${l.pos.left.toFixed(2)}%;top:${l.pos.top.toFixed(2)}%`}
+              >
+                {l.icon && <LineIconCmp name={l.icon} size="1.15em" />}
+                {l.label}
+              </span>
+            ))
+          }
+          {
+            pins.map((pin) => (
+              <button
+                type="button"
+                class:list={["pin", { "pin--left": pin.pos.left > 60 }]}
+                data-hood={pin.id}
+                aria-controls={`bairro-${pin.id}`}
+                style={`left:${pin.pos.left.toFixed(2)}%;top:${pin.pos.top.toFixed(2)}%`}
+              >
+                <span class="pin__dot" aria-hidden="true" />
+                <span class="pin__label">
+                  {pin.name}
+                  {pin.municipality && pin.municipality !== pin.name && <small>{pin.municipality}</small>}
+                </span>
+              </button>
+            ))
+          }
+        </div>
+        <figcaption class="hoods__credit">
+          {t.home.neighborhoods.mapHint} · Esri · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>
+        </figcaption>
+      </figure>
+
     <ul class="hoods__grid" role="list">
       {
         neighborhoods.map((hood, i) => (
-          <li class="hood" data-reveal style={`--reveal-delay:${i * 90}ms`}>
+          <li class="hood" id={`bairro-${hood.id}`} data-hood={hood.id} tabindex="-1" data-reveal style={`--reveal-delay:${i * 90}ms`}>
             <h3 class="hood__name">
               <LineIcon name="pin" />
               {hood.name}
@@ -50,8 +113,37 @@ const t = useTranslations(lang);
         ))
       }
     </ul>
+    </div>
   </div>
 </section>
+
+<script>
+  // Liga marcadores e cartões: o "ativo" fica destacado nos dois
+  document.querySelectorAll<HTMLElement>('[data-hoods]').forEach((root) => {
+    const all = root.querySelectorAll<HTMLElement>('[data-hood]');
+    const setActive = (id: string | null) => {
+      root.toggleAttribute('data-has-active', !!id);
+      all.forEach((el) => el.classList.toggle('is-active', el.dataset.hood === id));
+    };
+    all.forEach((el) => {
+      el.addEventListener('pointerenter', () => setActive(el.dataset.hood!));
+      el.addEventListener('pointerleave', () => setActive(null));
+      el.addEventListener('focusin', () => setActive(el.dataset.hood!));
+      el.addEventListener('focusout', () => setActive(null));
+    });
+    // Tocar num marcador: destaca e leva ao cartão (útil no telemóvel, onde o cartão fica por baixo)
+    root.querySelectorAll<HTMLButtonElement>('.pin').forEach((pin) => {
+      pin.addEventListener('click', () => {
+        setActive(pin.dataset.hood!);
+        const card = root.querySelector<HTMLElement>(`#bairro-${pin.dataset.hood}`);
+        if (card && card.getBoundingClientRect().top > innerHeight * 0.6) {
+          const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+          card.scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'center' });
+        }
+      });
+    });
+  });
+</script>
 
 <style>
   .hoods {
@@ -78,6 +170,172 @@ const t = useTranslations(lang);
   .hoods__title {
     font-size: var(--title-section);
   }
+  /* — Mapa + cartões — */
+  .hoods__layout {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+  @media (min-width: 60rem) {
+    .hoods__layout {
+      grid-template-columns: 1fr 1fr;
+    }
+    .hoods__map {
+      position: sticky;
+      top: 6rem;
+    }
+  }
+  .hoods__map {
+    display: grid;
+    gap: var(--space-2xs);
+    rotate: -0.8deg;
+  }
+  .hoods__canvas {
+    position: relative;
+    overflow: hidden;
+    border: 6px solid var(--cream-50);
+    border-radius: var(--radius-l);
+    box-shadow:
+      0 14px 0 -6px var(--navy),
+      var(--shadow);
+    background: var(--cream);
+  }
+  .hoods__canvas img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hoods__credit {
+    justify-self: end;
+    font-size: 0.75rem;
+    color: var(--text-soft);
+  }
+  .hoods__credit a {
+    color: inherit;
+  }
+
+  /* Referências de orientação (não clicáveis) */
+  .landmark {
+    position: absolute;
+    translate: -50% -50%;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    white-space: nowrap;
+    pointer-events: none;
+    color: var(--navy);
+  }
+  .landmark--city {
+    font-family: var(--font-display);
+    font-stretch: var(--font-display-stretch);
+    font-weight: 800;
+    font-size: clamp(1.1rem, 0.8rem + 1.4vw, 1.9rem);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.4;
+  }
+  .landmark--town {
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+  .landmark--water {
+    font-family: var(--font-hand);
+    font-weight: 600;
+    font-size: var(--step-2);
+    color: var(--azul-intenso);
+    opacity: 0.55;
+    rotate: -28deg;
+  }
+  .landmark--place {
+    font-size: var(--step--1);
+    font-weight: 500;
+    opacity: 0.7;
+  }
+
+  /* Marcador: ponto laranja + nome; o ativo cresce e fica amarelo */
+  .pin {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 0.35em;
+    translate: -0.55em -50%;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .pin__dot {
+    flex: none;
+    width: 1.1em;
+    aspect-ratio: 1;
+    border: 3px solid var(--navy-900);
+    border-radius: 50%;
+    background: var(--orange);
+    box-shadow: 0 0 0 4px rgb(255 251 243 / 0.85);
+    transition:
+      transform 0.25s var(--ease-out),
+      background-color 0.2s;
+  }
+  .pin__label {
+    display: grid;
+    line-height: 1.15;
+    padding: 0.25em 0.7em;
+    border-radius: 0.7em;
+    border-radius: 999px;
+    background: var(--navy);
+    color: var(--white);
+    font-size: var(--step--1);
+    font-weight: 600;
+    white-space: nowrap;
+    transform-origin: left center;
+    transition:
+      transform 0.25s var(--ease-out),
+      background-color 0.2s;
+  }
+  /* perto da borda direita, o nome fica à esquerda do ponto (para não ser cortado) */
+  .pin--left {
+    flex-direction: row-reverse;
+    translate: calc(-100% + 0.55em) -50%;
+  }
+  .pin--left .pin__label {
+    transform-origin: right center;
+  }
+  .pin__label small {
+    font-size: 0.78em;
+    font-weight: 400;
+    opacity: 0.8;
+  }
+  .pin.is-active {
+    z-index: 2;
+  }
+  .pin.is-active .pin__dot {
+    transform: scale(1.4);
+    background: var(--sun);
+  }
+  .pin.is-active .pin__label {
+    transform: scale(1.12);
+    background: var(--navy-900);
+  }
+  /* quando um está ativo, os outros recuam um pouco */
+  [data-has-active] .pin:not(.is-active) {
+    opacity: 0.55;
+  }
+  .hood {
+    scroll-margin-block: 6rem;
+  }
+  .hood.is-active {
+    transform: translateY(-4px) rotate(-0.6deg);
+    box-shadow:
+      0 0 0 3px var(--navy),
+      var(--shadow);
+  }
+
   .hoods__grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));

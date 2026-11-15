@@ -21,6 +21,7 @@ interface Props {
 const { lang } = Astro.props;
 const a = useTranslations(lang).about;
 // Ícones de linha desenhados à mão (a mesma família em todo o site)
+const valueIcons = ['line/heart', 'line/pin', 'line/chart-growth', 'line/users'] as const;
 const methodIcons = ['line/pin', 'line/open-book', 'line/users', 'line/chart-growth'] as const;
 ---
 
@@ -28,6 +29,12 @@ const methodIcons = ['line/pin', 'line/open-book', 'line/users', 'line/chart-gro
   <PageHero label={a.hero.label} title={a.hero.title} lead={a.hero.lead} image={photo('comunidade-reuniao.jpg')} />
   <GapSection lang={lang} />
   <AxesSection lang={lang} />
+  <FeatureGrid
+    label={a.values.label}
+    title={a.values.title}
+    tone="navy"
+    items={a.values.items.map((item, i) => ({ ...item, icon: valueIcons[i] }))}
+  />
   <FeatureGrid
     label={a.method.label}
     title={a.method.title}

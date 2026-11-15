@@ -46,7 +46,9 @@ const schemas = {
         partner: z.string(),
         logo: z.string(),
         since: z.string(),
-        /** Coordenadas aproximadas — prontas para um futuro mapa. */
+        /** Concelho (aparece no mapa, ao lado do nome do bairro). */
+        municipality: z.string().optional(),
+        /** Coordenadas do marcador no mapa (latitude, longitude). */
         coords: z.object({ lat: z.number(), lng: z.number() }),
       }),
     ),

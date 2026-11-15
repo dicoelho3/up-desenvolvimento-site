@@ -1,0 +1,215 @@
+---
+/**
+ * Vídeo do YouTube "leve": mostra uma capa desenhada com a marca (texto + foto recortada,
+ * feita em código — nítida em qualquer ecrã) e só carrega o leitor do
+ * YouTube quando a pessoa carrega em reproduzir. Assim a página fica rápida e sem cookies nem
+ * pedidos ao Google para quem não vê o vídeo (ver Política de Privacidade, ponto 9).
+ * Usa o domínio youtube-nocookie.com (modo de privacidade reforçada).
+ *
+ * <VideoSection lang={lang} video={site.videos.home} />
+ */
+import { Image } from 'astro:assets';
+import Rich from '../ui/Rich.astro';
+import SectionLabel from '../ui/SectionLabel.astro';
+import Doodle from '../ui/Doodle.astro';
+import { photo } from '../../data';
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+  video: { id: string; title: string };
+}
+const { lang, video } = Astro.props;
+const t = useTranslations(lang).home.video;
+---
+
+<section class="video paper paper--cream">
+  <div class="container video__grid">
+    <div class="video__copy">
+      <SectionLabel text={t.label} />
+      <Rich as="h2" text={t.title} class="video__title" />
+      <p class="video__text">{t.text}</p>
+      <p class="video__note hand" aria-hidden="true">
+        {t.note}
+        <Doodle name="arrows/seta-1" color="var(--navy)" inline class="video__arrow" />
+      </p>
+    </div>
+
+    <div class="video__frame" data-reveal>
+      <div class="video__player" data-yt={video.id} data-yt-title={video.title}>
+        <div class="video__poster" aria-hidden="true">
+          <Doodle name="pencil/fio-3" color="var(--orange)" class="video__poster-string" />
+          <p class="video__poster-title">
+            <span>{t.posterLine1}</span>
+            <span class="video__poster-accent">{t.posterLine2}</span>
+          </p>
+          <Image src={photo('hands-balloon.png')} alt="" widths={[300, 600]} sizes="(min-width: 60rem) 22vw, 40vw" class="video__poster-photo" />
+        </div>
+        <button type="button" class="video__play">
+          <span class="visually-hidden">{t.play}: {video.title}</span>
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M18 14 L36 24 L18 34 Z" fill="currentColor" /></svg>
+        </button>
+      </div>
+      <a class="video__yt" href={`https://www.youtube.com/watch?v=${video.id}`} target="_blank" rel="noopener">{t.onYoutube} ↗</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-yt]').forEach((player) => {
+    player.querySelector('button')?.addEventListener('click', () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${player.dataset.yt}?autoplay=1&rel=0&modestbranding=1`;
+      iframe.title = player.dataset.ytTitle ?? 'YouTube';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.allowFullscreen = true;
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      player.replaceChildren(iframe);
+      iframe.focus();
+    });
+  });
+</script>
+
+<style>
+  .video__grid {
+    display: grid;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+  @media (min-width: 60rem) {
+    .video__grid {
+      grid-template-columns: 0.8fr 1.2fr;
+    }
+  }
+  .video__title {
+    font-size: var(--title-section);
+    margin-block-end: var(--space-m);
+  }
+  .video__text {
+    max-width: 38ch;
+    font-size: var(--step-1);
+    color: var(--text-soft);
+  }
+  .video__note {
+    display: none;
+  }
+  @media (min-width: 60rem) {
+    .video__note {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      gap: 0.3em;
+      margin-block-start: var(--space-xl);
+      font-size: var(--step-2);
+      rotate: -3deg;
+    }
+  }
+  :global(.video__arrow) {
+    width: 3rem;
+    margin-block-end: 0.3em;
+    /* a seta original aponta para cima-direita: um pouco mais deitada, aponta para o vídeo */
+    rotate: 25deg;
+  }
+
+  .video__frame {
+    display: grid;
+    gap: var(--space-xs);
+    justify-items: end;
+    rotate: 1deg;
+  }
+  .video__player {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border: 6px solid var(--cream-50);
+    border-radius: var(--radius-l);
+    background: var(--navy-900);
+    box-shadow:
+      0 14px 0 -6px var(--orange),
+      var(--shadow);
+  }
+  .video__player :global(img),
+  .video__player :global(iframe) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    object-fit: cover;
+  }
+  /* — Capa desenhada (as medidas acompanham o tamanho do leitor: unidades cqi) — */
+  .video__player {
+    container-type: inline-size;
+  }
+  .video__poster {
+    position: absolute;
+    inset: 0;
+    isolation: isolate; /* o fio a lápis fica por cima do fundo, por baixo do texto */
+    background: var(--navy) url('/textures/paper-navy.webp') center / 900px;
+    color: var(--white);
+  }
+  :global(.video__poster-string) {
+    width: 34cqi;
+    inset-block-start: -6cqi;
+    inset-inline-start: 30cqi;
+    rotate: 15deg;
+    opacity: 0.8;
+  }
+  .video__poster-title {
+    position: absolute;
+    inset-inline-start: 7cqi;
+    inset-block-start: 11cqi;
+    display: grid;
+    gap: 0.1em;
+    max-width: 52cqi;
+    font-family: var(--font-display);
+    font-stretch: var(--font-display-stretch);
+    font-weight: 800;
+    font-size: 5.6cqi;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+  }
+  .video__poster-accent {
+    color: var(--orange);
+  }
+  .video__player :global(.video__poster-photo) {
+    inset: auto -3cqi -9cqi auto;
+    width: 40cqi;
+    height: auto;
+    object-fit: contain;
+    rotate: 6deg;
+  }
+  .video__play {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: end start;
+    padding: 0 0 9cqi 7cqi;
+    width: 100%;
+    border: 0;
+    background: none;
+    color: var(--navy-900);
+    cursor: pointer;
+  }
+  .video__play svg {
+    width: clamp(3.2rem, 13cqi, 5.5rem);
+    padding: 0.9rem 0.8rem 0.9rem 1rem;
+    border: 3px solid var(--navy-900);
+    border-radius: 50%;
+    background: var(--orange);
+    box-shadow: 0 5px 0 var(--navy-900);
+    transition:
+      transform 0.25s var(--ease-out),
+      box-shadow 0.25s var(--ease-out);
+  }
+  .video__play:hover svg,
+  .video__play:focus-visible svg {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 0 var(--navy-900);
+  }
+  .video__yt {
+    font-size: var(--step--1);
+    font-weight: 500;
+  }
+</style>

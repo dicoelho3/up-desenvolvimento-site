@@ -41,7 +41,7 @@ O tratamento dos dados pessoais baseia-se:
 Os dados poderão ser tratados por plataformas externas utilizadas pela Associação UP Desenvolvimento, que atuam como subcontratantes, de acordo com o Regulamento Geral sobre a Proteção de Dados (RGPD):
 
 - **Vercel Inc.**, responsável pelo alojamento do website
-- **Google** (Google Forms e Gmail), utilizado nos formulários de candidatura e no email
+- **Google** (Google Forms, Gmail e YouTube), utilizado nos formulários de candidatura, no email e no vídeo da página inicial
 
 A Associação UP Desenvolvimento **não vende nem partilha dados pessoais para fins comerciais.**
 
@@ -68,7 +68,9 @@ Para exercer qualquer destes direitos, deverá contactar-nos através do email i
 
 Este website **não utiliza cookies** nem ferramentas de rastreio ou publicidade. As fontes de letra estão alojadas no próprio website, sem pedidos a serviços de terceiros. Por razões de segurança, o serviço de alojamento pode registar dados técnicos das visitas (como o endereço IP).
 
-As ligações para redes sociais (Instagram, LinkedIn, Facebook) e para os formulários levam a websites de terceiros, que têm as suas próprias políticas de privacidade.
+O vídeo da página inicial está alojado no YouTube e **só é carregado quando carrega em reproduzir**, no modo de privacidade reforçada (youtube-nocookie.com). A partir desse momento aplica-se a política de privacidade da Google.
+
+As ligações para redes sociais (Instagram, LinkedIn, Facebook, YouTube) e para os formulários levam a websites de terceiros, que têm as suas próprias políticas de privacidade.
 
 ## 10. Segurança
 

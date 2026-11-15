@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import markNavy from '../../assets/brand/mark-navy.png';
+import markColor from '../../assets/brand/mark-color.png'; // logótipo reduzido, balão laranja (preferido pelo manual, p. 8)
 import { site } from '../../config/site';
 import { path, useTranslations, type Lang, type RouteKey } from '../../i18n';
 
@@ -28,7 +28,7 @@ const links: { key: RouteKey; label: string }[] = [
 <header class="site-header" data-header>
   <div class="container site-header__inner">
     <a href={path('home', lang)} class="site-header__logo">
-      <Image src={markNavy} alt="" height={56} widths={[56, 112]} sizes="56px" loading="eager" />
+      <Image src={markColor} alt="" height={56} widths={[40, 80, 120]} sizes="37px" loading="eager" />
       <span class="visually-hidden">UP Desenvolvimento — {t.nav.home}</span>
     </a>
 

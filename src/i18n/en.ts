@@ -74,6 +74,16 @@ export const en: typeof pt = {
       text: 'How have your *opportunities* shaped **your path?**',
       aside: 'Not everyone starts with the same ones. That is why UP was born.',
     },
+    video: {
+      label: 'On video',
+      title: 'UP, *in our own words*',
+      text: 'Who we are, what we do in the neighbourhoods and why it matters. In just a few minutes.',
+      note: 'press play',
+      play: 'Watch the video',
+      onYoutube: 'Watch on YouTube',
+      posterLine1: 'Lifting young people.',
+      posterLine2: 'Transforming communities.',
+    },
     mission: {
       label: 'Who are we?',
       title: 'By young people. *For young people.*',
@@ -96,6 +106,8 @@ export const en: typeof pt = {
       label: 'We work together with',
       title: 'Associations in vulnerable *neighbourhoods*',
       text: 'We don’t arrive with ready-made answers. We partner with people who already know each neighbourhood from the inside, and sessions take place at their premises.',
+      mapAlt: 'Map of the Lisbon area showing the neighbourhoods where UP works',
+      mapHint: 'Tap a neighbourhood to see its partner',
     },
     join: {
       label: 'Want to be part of it?',
@@ -305,6 +317,16 @@ export const en: typeof pt = {
           question: 'How do we grow UP through hubs led by youth associations?',
           text: 'Reach every vulnerable neighbourhood in Portugal, so that all their young people have good opportunities.',
         },
+      ],
+    },
+    values: {
+      label: 'What guides us?',
+      title: 'Our *values*',
+      items: [
+        { title: 'Trust', text: 'Building authentic, safe and consistent relationships, where young people feel seen, heard and valued. Trust is the foundation for learning, autonomy and change.' },
+        { title: 'Closeness', text: 'Being present in the neighbourhood, regularly and accessibly. Our work grows out of living alongside people and listening, not from models imposed from outside. Being close means respecting each pace, story and reality.' },
+        { title: 'Social change', text: 'Believing in change built from young person to young person. When young people develop their abilities and feel capable, they become an inspiration and a role model for others, creating lasting cycles of impact.' },
+        { title: 'Community', text: 'Mentors, mentees, partners, families and volunteers form a living network. Change becomes possible when it is shared, when everyone sees themselves as part of the same movement.' },
       ],
     },
     method: {

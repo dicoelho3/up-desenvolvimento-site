@@ -7,6 +7,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import HomeHero from '../components/sections/HomeHero.astro';
 import QuestionBand from '../components/sections/QuestionBand.astro';
 import MissionSection from '../components/sections/MissionSection.astro';
+import VideoSection from '../components/sections/VideoSection.astro';
 import ProgramsSection from '../components/sections/ProgramsSection.astro';
 import StatsSection from '../components/sections/StatsSection.astro';
 import NeighborhoodsSection from '../components/sections/NeighborhoodsSection.astro';
@@ -15,6 +16,7 @@ import QuoteSection from '../components/sections/QuoteSection.astro';
 import LatestPosts from '../components/sections/LatestPosts.astro';
 import PartnersSection from '../components/sections/PartnersSection.astro';
 import { testimonials } from '../data';
+import { site } from '../config/site';
 import { pick, useTranslations, type Lang } from '../i18n';
 
 interface Props {
@@ -29,6 +31,7 @@ const featured = testimonials[0];
   <HomeHero lang={lang} />
   <QuestionBand label={t.home.question.label} text={t.home.question.text} aside={t.home.question.aside} />
   <MissionSection lang={lang} />
+  <VideoSection lang={lang} video={site.videos.home} />
   <ProgramsSection lang={lang} />
   <StatsSection lang={lang} />
   <NeighborhoodsSection lang={lang} />

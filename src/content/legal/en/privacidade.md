@@ -43,7 +43,7 @@ The processing of personal data is based on:
 Data may be processed by external platforms used by Associação UP Desenvolvimento, acting as processors under the General Data Protection Regulation (GDPR):
 
 - **Vercel Inc.**, which hosts the website
-- **Google** (Google Forms and Gmail), used for the application forms and email
+- **Google** (Google Forms, Gmail and YouTube), used for the application forms, email and the homepage video
 
 Associação UP Desenvolvimento **does not sell or share personal data for commercial purposes.**
 
@@ -70,7 +70,9 @@ To exercise any of these rights, contact us at the email above. You also have th
 
 This website **does not use cookies** or any tracking or advertising tools. Fonts are hosted on the website itself, with no requests to third-party services. For security reasons, the hosting provider may log technical visit data (such as IP addresses).
 
-Links to social networks (Instagram, LinkedIn, Facebook) and to the forms lead to third-party websites, which have their own privacy policies.
+The homepage video is hosted on YouTube and **only loads when you press play**, in privacy-enhanced mode (youtube-nocookie.com). From then on, Google’s privacy policy applies.
+
+Links to social networks (Instagram, LinkedIn, Facebook, YouTube) and to the forms lead to third-party websites, which have their own privacy policies.
 
 ## 10. Security
 

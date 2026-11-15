@@ -6,7 +6,11 @@
       "partner": "Programa Escolhas",
       "logo": "programa-escolhas.png",
       "since": "2021",
-      "coords": { "lat": 38.8125, "lng": -9.1236 }
+      "municipality": "Loures",
+      "coords": {
+        "lat": 38.8125,
+        "lng": -9.1236
+      }
     },
     {
       "id": "sao-joao-da-talha",
@@ -14,7 +18,11 @@
       "partner": "Escolinha de Rugby de São João da Talha",
       "logo": "rugby-sao-joao-da-talha.png",
       "since": "2022",
-      "coords": { "lat": 38.8297, "lng": -9.0947 }
+      "municipality": "Loures",
+      "coords": {
+        "lat": 38.8297,
+        "lng": -9.0947
+      }
     },
     {
       "id": "damaia",
@@ -22,7 +30,11 @@
       "partner": "Centro Social 6 de Maio",
       "logo": "centro-social-6-maio.png",
       "since": "2026",
-      "coords": { "lat": 38.7445, "lng": -9.2165 }
+      "municipality": "Amadora",
+      "coords": {
+        "lat": 38.7445,
+        "lng": -9.2165
+      }
     },
     {
       "id": "bairro-alto",
@@ -30,7 +42,11 @@
       "partner": "Projeto + Skillz",
       "logo": "mais-skillz.png",
       "since": "2025",
-      "coords": { "lat": 38.7127, "lng": -9.1446 }
+      "municipality": "Lisboa",
+      "coords": {
+        "lat": 38.7127,
+        "lng": -9.1446
+      }
     }
   ]
 }

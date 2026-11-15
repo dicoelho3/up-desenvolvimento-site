@@ -1,0 +1,12 @@
+{
+  "_comment": "Referências desenhadas por cima do mapa dos bairros, para quem não conhece Lisboa se orientar. kind: city | town | water | place. icon (opcional): nome de um ícone de linha.",
+  "items": [
+    { "name": { "pt": "Lisboa", "en": "Lisbon" }, "kind": "city", "lat": 38.743, "lng": -9.122 },
+    { "name": { "pt": "Rio Tejo", "en": "Tagus River" }, "kind": "water", "lat": 38.705, "lng": -9.075 },
+    { "name": { "pt": "Aeroporto", "en": "Airport" }, "kind": "place", "icon": "plane", "lat": 38.7742, "lng": -9.1342 },
+    { "name": { "pt": "Ponte 25 de Abril", "en": "25 de Abril Bridge" }, "kind": "place", "lat": 38.6835, "lng": -9.1772 },
+    { "name": { "pt": "Amadora", "en": "Amadora" }, "kind": "town", "lat": 38.766, "lng": -9.236 },
+    { "name": { "pt": "Loures", "en": "Loures" }, "kind": "town", "lat": 38.842, "lng": -9.205 },
+    { "name": { "pt": "Odivelas", "en": "Odivelas" }, "kind": "town", "lat": 38.792, "lng": -9.185 }
+  ]
+}

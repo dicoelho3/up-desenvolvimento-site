@@ -19,6 +19,14 @@ export const site = {
       'https://docs.google.com/forms/d/e/1FAIpQLSccKp_n2QsJNH5svSWs5GVu304RuF4phlUWFiDxW_JcUFVJ5w/viewform',
   },
 
+  /**
+   * Vídeos do YouTube mostrados no site. Para trocar: mudar o id (o que vem depois de "v=" no link).
+   * A capa é desenhada pelo site (componente VideoSection), não é a imagem do YouTube.
+   */
+  videos: {
+    home: { id: 'Opp_4KPy5q0', title: 'Elevar jovens. Transformar comunidades | UP Desenvolvimento' },
+  },
+
   /** Publicação do Instagram com o guia da consignação do IRS. */
   irsGuide: 'https://www.instagram.com/p/DWmMJESAPmJ/',
 
@@ -26,6 +34,7 @@ export const site = {
     instagram: { label: '@up_desenvolvimento_', url: 'https://www.instagram.com/up_desenvolvimento_/' },
     linkedin: { label: 'UP Desenvolvimento', url: 'https://www.linkedin.com/company/associacao-up-desenvolvimento/' },
     facebook: { label: 'UP Desenvolvimento', url: 'https://www.facebook.com/profile.php?id=61550473344816' },
+    youtube: { label: '@UPDesenvolvimento', url: 'https://www.youtube.com/@UPDesenvolvimento' },
   },
 
   /** Mostra o seletor PT/EN no menu. Põe `false` para esconder a versão inglesa. */

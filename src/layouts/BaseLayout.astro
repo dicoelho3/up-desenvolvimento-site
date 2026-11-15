@@ -52,7 +52,9 @@ const ogImage = new URL(image, Astro.site);
     <link rel="alternate" hreflang={otherLang} href={alternate} />
     <link rel="alternate" hreflang="x-default" href={lang === 'pt' ? canonical : alternate} />
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- Ícones: logótipo reduzido com balão laranja (Manual, p. 7–8) -->
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#1f3366" />
 
