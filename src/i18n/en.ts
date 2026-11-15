@@ -49,6 +49,7 @@ export const en: typeof pt = {
     oneOff: 'As needed',
     since: 'since',
     opensNewTab: '(opens in a new tab)',
+    emailCopied: 'Email copied',
   },
 
   home: {
@@ -354,6 +355,8 @@ export const en: typeof pt = {
     lead: 'We answer every message, usually within a week. We’re volunteers, so bear with us.',
     emailTitle: 'Email',
     emailText: 'Questions, partnerships, press, or just to say hello.',
+    copyEmail: 'Copy email',
+    copied: 'Copied!',
     socialTitle: 'Social media',
     socialText: 'Instagram is where you’ll see day-to-day life in the neighbourhoods.',
     volunteerTitle: 'Want to volunteer?',

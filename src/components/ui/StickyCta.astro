@@ -1,0 +1,74 @@
+---
+/**
+ * Botão de ação fixo no fundo do ecrã, só no telemóvel.
+ * Aparece depois de passar o topo da página e esconde-se quando a faixa final (.cta)
+ * ou o rodapé estão à vista — para nunca haver dois botões iguais no ecrã.
+ *
+ * <StickyCta><Button …>Quero ser mentor</Button></StickyCta>
+ */
+---
+
+<div class="sticky-cta" data-sticky-cta aria-hidden="true">
+  <slot />
+</div>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-sticky-cta]');
+  const hero = document.querySelector('.page-hero, .hero');
+  const ends = document.querySelectorAll('.cta, .site-footer');
+  if (bar && hero) {
+    let pastHero = false;
+    const atEnd = new Set<Element>();
+    const update = () => {
+      const show = pastHero && atEnd.size === 0;
+      bar.classList.toggle('is-shown', show);
+      bar.setAttribute('aria-hidden', String(!show));
+      bar.querySelectorAll('a, button').forEach((el) => el.setAttribute('tabindex', show ? '0' : '-1'));
+    };
+    new IntersectionObserver(([e]) => {
+      pastHero = !e!.isIntersecting && e!.boundingClientRect.top < 0;
+      update();
+    }).observe(hero);
+    const endIo = new IntersectionObserver((entries) => {
+      for (const e of entries) e.isIntersecting ? atEnd.add(e.target) : atEnd.delete(e.target);
+      update();
+    });
+    ends.forEach((el) => endIo.observe(el));
+    update();
+  }
+</script>
+
+<style>
+  .sticky-cta {
+    display: none;
+  }
+  @media (max-width: 49.99rem) {
+    .sticky-cta {
+      position: fixed;
+      z-index: 50;
+      inset-inline: 0;
+      inset-block-end: 0;
+      display: flex;
+      justify-content: center;
+      padding: var(--space-s) var(--gutter) calc(var(--space-s) + env(safe-area-inset-bottom));
+      background: color-mix(in oklab, var(--cream) 92%, transparent);
+      backdrop-filter: blur(6px);
+      border-block-start: 1px solid color-mix(in oklab, var(--navy) 15%, transparent);
+      translate: 0 110%;
+      transition: translate 0.35s var(--ease-out);
+    }
+    .sticky-cta.is-shown {
+      translate: 0 0;
+    }
+    .sticky-cta :global(.btn) {
+      width: 100%;
+      max-width: 22rem;
+      justify-content: center;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sticky-cta {
+      transition: none;
+    }
+  }
+</style>

@@ -53,6 +53,7 @@ export const pt = {
     oneOff: 'Pontual',
     since: 'desde',
     opensNewTab: '(abre numa nova janela)',
+    emailCopied: 'Email copiado',
   },
 
   home: {
@@ -358,6 +359,8 @@ export const pt = {
     lead: 'Respondemos a todas as mensagens. Normalmente em menos de uma semana, mas somos voluntários, por isso dá-nos algum desconto.',
     emailTitle: 'Email',
     emailText: 'Para dúvidas, parcerias, imprensa ou só para dizer olá.',
+    copyEmail: 'Copiar email',
+    copied: 'Copiado!',
     socialTitle: 'Redes sociais',
     socialText: 'É no Instagram que vês o dia a dia dos bairros.',
     volunteerTitle: 'Queres ser voluntário?',

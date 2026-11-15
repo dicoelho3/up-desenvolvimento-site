@@ -1,0 +1,83 @@
+---
+/**
+ * Botão que copia um texto (ex. o email) com um clique e confirma "Copiado!".
+ * Útil porque o link mailto: não faz nada em computadores sem programa de email configurado.
+ *
+ * <CopyButton text={site.email} label="Copiar email" done="Copiado!" />
+ */
+import LineIcon from './LineIcon.astro';
+
+interface Props {
+  text: string;
+  label: string;
+  done: string;
+  class?: string;
+}
+const { text, label, done, class: className } = Astro.props;
+---
+
+<button type="button" class:list={['copy-btn', className]} data-copy={text} data-done={done}>
+  <LineIcon name="clipboard" size="1.2em" />
+  <span class="copy-btn__label" aria-live="polite">{label}</span>
+</button>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) => {
+    const label = btn.querySelector<HTMLElement>('.copy-btn__label')!;
+    const original = label.textContent;
+    let timer: number | undefined;
+    btn.addEventListener('click', async () => {
+      const text = btn.dataset.copy!;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        // Navegadores antigos / sem permissão: copia através de um campo escondido
+        const area = Object.assign(document.createElement('textarea'), { value: text });
+        area.style.cssText = 'position:fixed;opacity:0';
+        document.body.append(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+      }
+      label.textContent = btn.dataset.done!;
+      btn.classList.add('is-done');
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        label.textContent = original;
+        btn.classList.remove('is-done');
+      }, 2200);
+    });
+  });
+</script>
+
+<style>
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    padding: 0.45em 1em;
+    border: 1.5px solid currentColor;
+    border-radius: 999px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: var(--step--1);
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      background-color 0.2s,
+      color 0.2s,
+      transform 0.15s var(--ease-out);
+  }
+  .copy-btn:hover {
+    background: color-mix(in oklab, currentColor 10%, transparent);
+  }
+  .copy-btn:active {
+    transform: scale(0.97);
+  }
+  .copy-btn.is-done {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--white);
+  }
+</style>

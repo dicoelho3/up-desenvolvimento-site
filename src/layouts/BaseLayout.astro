@@ -12,6 +12,7 @@ import '../styles/motion.css';
 
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
+import EmailCopy from '../components/ui/EmailCopy.astro';
 import { site } from '../config/site';
 import { path, useTranslations, type Lang, type RouteKey } from '../i18n';
 
@@ -74,6 +75,7 @@ const ogImage = new URL(image, Astro.site);
       <slot />
     </main>
     <Footer lang={lang} />
+    <EmailCopy lang={lang} />
 
     <script>
       // Marca com .is-visible os elementos animados quando entram no ecrã

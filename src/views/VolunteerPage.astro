@@ -11,6 +11,7 @@ import Testimonials from '../components/sections/Testimonials.astro';
 import Faq from '../components/sections/Faq.astro';
 import CtaBand from '../components/sections/CtaBand.astro';
 import Button from '../components/ui/Button.astro';
+import StickyCta from '../components/ui/StickyCta.astro';
 import type { LineIconName } from '../lib/line-icons';
 import { site } from '../config/site';
 import { photo } from '../data';
@@ -69,4 +70,9 @@ const stepIcons: LineIconName[] = ['note-edit', 'chat-dots', 'presentation', 'ha
   <CtaBand title={v.cta.title} text={v.cta.text} tone="navy">
     <Button href={site.forms.volunteer} external lang={lang}>{t.common.applyMentor}</Button>
   </CtaBand>
+
+  <!-- No telemóvel: botão de candidatura sempre à mão enquanto se lê a página -->
+  <StickyCta>
+    <Button href={site.forms.volunteer} external lang={lang}>{t.common.applyMentor}</Button>
+  </StickyCta>
 </BaseLayout>

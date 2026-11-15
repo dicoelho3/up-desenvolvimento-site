@@ -59,11 +59,12 @@ Coisas a resolver antes (ou depois) de pôr o site no ar.
   - **Agora:** manter o domínio na Wix e, nas definições de DNS da Wix, apontar para o Vercel (registos A/CNAME que o Vercel indicar)
   - **Depois:** transferir o domínio para outro registrador (Cloudflare, Namecheap, Vercel…) — desbloquear na Wix e pedir o código de transferência
 - [ ] Cancelar o plano Wix do site **só depois** de o novo site estar no ar (o domínio pode ter renovação ligada ao plano)
+- [ ] Depois de o site estar no ar: registar o domínio no **Google Search Console** (grátis) e submeter `https://www.updesenvolvimento.com/sitemap.xml` — permite ver se o Google já indexou as páginas e com que pesquisas as pessoas chegam ao site
 - [ ] Configurar o Pages CMS e dar acesso no GitHub a quem escreve no blog; testar a criação de um artigo
 
 ## 7. Melhorias futuras
 - [ ] Mapa interativo dos bairros (coordenadas já estão em `src/data/neighborhoods.json`; o doodle do mapa de Portugal está em `public/brand/doodles/portugal.svg`)
 - [ ] Analytics respeitador de privacidade (ex.: Vercel Analytics ou Plausible)
-- [ ] Sitemap (`@astrojs/sitemap`)
+- [x] Sitemap e robots.txt — gerados automaticamente em `/sitemap.xml` e `/robots.txt` (`src/pages/sitemap.xml.ts`, `src/pages/robots.txt.ts`)
 - [ ] Otimizar os SVG grandes da marca (ex.: com SVGO) — alguns têm 100–300 KB
 - [ ] Mover o projeto para fora do OneDrive (a pasta `node_modules` tem milhares de ficheiros e torna a sincronização lenta)

@@ -86,9 +86,23 @@ const links: { key: RouteKey; label: string }[] = [
   document.addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(false));
   matchMedia('(min-width: 60rem)').addEventListener('change', () => setOpen(false));
 
-  // Linha por baixo do header quando se faz scroll.
-  const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 8);
+  // Linha por baixo do header quando se faz scroll; e a barra esconde-se ao descer
+  // (mais espaço para ler) e volta assim que se sobe um pouco.
+  let lastY = window.scrollY;
+  const onScroll = () => {
+    if (!header) return;
+    const y = window.scrollY;
+    header.classList.toggle('is-scrolled', y > 8);
+    if (header.classList.contains('is-open')) return; // menu aberto: nunca esconder
+    const delta = y - lastY;
+    if (y < header.offsetHeight * 2) header.classList.remove('is-hidden');
+    else if (delta > 6) header.classList.add('is-hidden');
+    else if (delta < -6) header.classList.remove('is-hidden');
+    if (Math.abs(delta) > 6 || y < header.offsetHeight * 2) lastY = y;
+  };
   addEventListener('scroll', onScroll, { passive: true });
+  // Ao navegar com o teclado, a barra volta sempre que algo nela recebe foco
+  header?.addEventListener('focusin', () => header.classList.remove('is-hidden'));
   onScroll();
 </script>
 
@@ -98,7 +112,17 @@ const links: { key: RouteKey; label: string }[] = [
     top: 0;
     z-index: 50;
     background: var(--cream) url('/textures/paper-cream.webp') center / 1200px auto;
-    transition: box-shadow 0.3s;
+    transition:
+      box-shadow 0.3s,
+      translate 0.35s var(--ease-out);
+  }
+  .site-header.is-hidden {
+    translate: 0 -100%;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-header {
+      transition: none;
+    }
   }
   .site-header.is-scrolled {
     box-shadow: 0 1px 0 var(--line);

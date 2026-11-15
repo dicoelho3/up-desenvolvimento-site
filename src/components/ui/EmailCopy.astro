@@ -1,0 +1,91 @@
+---
+/**
+ * Todos os links de email do site (href="mailto:…") COPIAM o endereço em vez de tentarem abrir
+ * um programa de email (que em muitos computadores não existe e "não faz nada" ou salta para
+ * outra página). Por cima do link aparece, por um instante, uma etiqueta "✓ Email copiado".
+ * Sem JavaScript, o link mailto: continua a funcionar como sempre.
+ */
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const t = useTranslations(Astro.props.lang).common;
+---
+
+<span class="copied-tip" data-copied-tip aria-hidden="true">✓ {t.emailCopied}</span>
+<span class="visually-hidden" role="status" aria-live="polite" data-copied-status data-text={t.emailCopied}></span>
+
+<script>
+  const tip = document.querySelector<HTMLElement>('[data-copied-tip]')!;
+  const status = document.querySelector<HTMLElement>('[data-copied-status]')!;
+  let timer: number | undefined;
+
+  const copy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const area = Object.assign(document.createElement('textarea'), { value: text });
+      area.style.cssText = 'position:fixed;opacity:0';
+      document.body.append(area);
+      area.select();
+      document.execCommand('copy');
+      area.remove();
+    }
+  };
+
+  document.addEventListener('click', async (event) => {
+    const link = (event.target as Element).closest<HTMLAnchorElement>('a[href^="mailto:"]');
+    if (!link) return;
+    event.preventDefault();
+    await copy(decodeURIComponent(new URL(link.href).pathname));
+
+    // Etiqueta centrada por cima do link (ou por baixo, se não houver espaço em cima)
+    const r = link.getBoundingClientRect();
+    const above = r.top > 60;
+    tip.style.left = `${r.left + r.width / 2}px`;
+    tip.style.top = above ? `${r.top - 8}px` : `${r.bottom + 8}px`;
+    tip.classList.toggle('is-below', !above);
+    tip.classList.remove('is-on');
+    void tip.offsetWidth; // reinicia a animação se se clicar outra vez
+    tip.classList.add('is-on');
+    status.textContent = status.dataset.text!;
+    clearTimeout(timer);
+    timer = window.setTimeout(() => {
+      tip.classList.remove('is-on');
+      status.textContent = '';
+    }, 1600);
+  });
+</script>
+
+<style>
+  .copied-tip {
+    position: fixed;
+    z-index: 70;
+    translate: -50% calc(-100% + 4px);
+    padding: 0.3em 0.75em;
+    border-radius: 999px;
+    background: var(--navy-900);
+    color: var(--white);
+    font-size: var(--step--1);
+    font-weight: 500;
+    white-space: nowrap;
+    pointer-events: none;
+    /* contorno claro: vê-se tanto no papel claro como nos fundos azuis */
+    box-shadow: 0 0 0 1.5px color-mix(in oklab, var(--white) 35%, transparent);
+    opacity: 0;
+    transition:
+      opacity 0.2s ease,
+      translate 0.25s var(--ease-out);
+  }
+  .copied-tip.is-below {
+    translate: -50% -4px;
+  }
+  .copied-tip.is-on {
+    opacity: 1;
+    translate: -50% -100%;
+  }
+  .copied-tip.is-below.is-on {
+    translate: -50% 0;
+  }
+</style>
