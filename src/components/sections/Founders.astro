@@ -100,6 +100,35 @@ const t = useTranslations(lang).about.founders;
     gap: var(--space-s);
     padding: var(--space-l);
   }
+  /* No telemóvel: foto pequena e redonda ao lado do nome; a citação ocupa a largura toda */
+  @media (max-width: 35.99rem) {
+    .person {
+      display: grid;
+      grid-template-columns: 5.5rem 1fr;
+      column-gap: var(--space-m);
+      row-gap: var(--space-xs);
+      padding: var(--space-l);
+    }
+    .person__body {
+      display: contents;
+    }
+    :global(.person__photo) {
+      grid-row: span 2;
+      align-self: center;
+      border-radius: 50%;
+      border: 2px solid var(--sun);
+    }
+    .person__name {
+      align-self: end;
+    }
+    .person__studies {
+      align-self: start;
+    }
+    blockquote {
+      grid-column: 1 / -1;
+      margin-block-start: var(--space-xs);
+    }
+  }
   .person__name {
     font-size: var(--title-card);
     line-height: 1.25;

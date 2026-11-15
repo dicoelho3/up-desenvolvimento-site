@@ -147,7 +147,8 @@ ol[role='list'] {
   --line: rgb(12 38 58 / 0.3);
   --hl: url('/brand/highlights/scribble-sun.webp');
   background: var(--papel-amarelo) url('/textures/paper-mustard.webp') center / 1400px auto repeat;
-  color: var(--navy);
+  /* Azul intenso (paleta oficial): o azul primário sobre mostarda fica abaixo do contraste mínimo de leitura */
+  color: var(--navy-900);
 }
 .paper--navy {
   --text-soft: color-mix(in oklab, var(--branco-suave) 82%, var(--navy));

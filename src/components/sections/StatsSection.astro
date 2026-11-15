@@ -105,10 +105,17 @@ const t = useTranslations(lang).home.stats;
     color: var(--navy);
     font-weight: 500;
   }
+  /* 2×2 no telemóvel (4 cartões altos empilhados obrigavam a muito scroll); 4 numa linha no ecrã largo */
   .stats__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
-    gap: var(--space-m);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-s);
+  }
+  @media (min-width: 50rem) {
+    .stats__grid {
+      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+      gap: var(--space-m);
+    }
   }
   .stat {
     display: flex;
@@ -116,7 +123,8 @@ const t = useTranslations(lang).home.stats;
     justify-content: center;
     gap: var(--space-xs);
     min-height: 11rem;
-    padding: var(--space-l);
+    padding: var(--space-l) var(--space-s);
+    container-type: inline-size;
     border-radius: var(--radius);
     background: var(--mustard) url('/textures/paper-mustard.webp') center / 900px;
     color: var(--navy-900);
@@ -131,7 +139,8 @@ const t = useTranslations(lang).home.stats;
   .stat dd {
     font-family: var(--font-display);
     font-stretch: var(--font-display-stretch);
-    font-size: var(--step-3);
+    /* o número encolhe se o cartão for estreito (ex. "100.000€" no telemóvel) */
+    font-size: min(var(--step-3), 15cqi);
     font-weight: 800;
     line-height: 1;
     letter-spacing: -0.02em;

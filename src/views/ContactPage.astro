@@ -29,7 +29,7 @@ const partnerSubject = lang === 'pt' ? 'Parceria' : 'Partnership';
         <LineIcon name="mail-open" size="3.4rem" />
         <h2>{c.emailTitle}</h2>
         <p>{c.emailText}</p>
-        <a class="contact-card__big" href={`mailto:${site.email}`}>{site.email}</a>
+        <a class="contact-card__big" href={`mailto:${site.email}`}>{site.email.split('@')[0]}<wbr />@{site.email.split('@')[1]}</a>
         <CopyButton text={site.email} label={c.copyEmail} done={c.copied} />
       </article>
 
@@ -125,7 +125,8 @@ const partnerSubject = lang === 'pt' ? 'Parceria' : 'Partnership';
   .contact-card__big {
     font-size: var(--step-1);
     font-weight: 600;
-    overflow-wrap: anywhere;
+    /* só parte antes do "@" (nunca a meio do endereço) */
+    overflow-wrap: normal;
     text-decoration-color: var(--navy);
   }
   .contact-card__social {

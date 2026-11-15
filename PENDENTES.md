@@ -15,7 +15,7 @@ Coisas a resolver antes (ou depois) de pôr o site no ar.
 - [ ] Fotos originais em boa resolução, só de voluntários/adultos → `src/assets/photos/`
 - [ ] Logos dos parceiros em boa qualidade → `src/assets/partners/`
 - [ ] **Regra: nunca mostrar a cara de jovens/mentorados (menores).**
-- [ ] Voltar a pôr fotos das mentorias e atividades com a cara dos jovens **tapada** com as **personagens ilustradas** da marca
+- [ ] **PRIORIDADE — Mais fotos no site:** fotos das mentorias e atividades com a cara dos jovens **tapada** com os **stickers / personagens ilustradas** da marca (hoje o site tem poucas fotos por causa da regra dos menores). Enviar já editadas, ou as originais + indicação de quem tapar → `src/assets/photos/`
   (como no Manual, p. 15). Editar as imagens antes de as pôr no site (tapar na própria imagem, não só por CSS). As personagens estão em `public/brand/characters/`.
 - [ ] Imagem de partilha nas redes (`public/og-image.jpg`) — a atual é provisória
 - [x] Folha de ícones de linha (`Icons_2.svg`, 84 ícones) cortada para `public/brand/line-icons/` e usada nos números, programas, bairros, passos, percurso, blog, contactos e rodapé. Nos números, programas e percurso, o ícone escolhe-se nos dados (campo `icon`)
@@ -27,6 +27,7 @@ Coisas a resolver antes (ou depois) de pôr o site no ar.
 - [ ] Notas curtas/legendas em letra manuscrita **Caveat** (Google Fonts, gratuita) — reposta a pedido da equipa; o manual só prevê Hagrid + Afacad
 - [ ] Etiqueta tipo carimbo ("Qualidade", "Apadrinhamento"…) como mancha sólida torta em vez de pincelada com riscas — as riscas cortavam o texto
 - [ ] Ícones: todo o site usa os ícones de linha desenhados à mão (Icons_2.svg); os ícones chapados de Icons.svg ficaram de fora para não misturar estilos
+- [ ] Texto laranja sobre fundos claros (títulos dos Eixos e da cronologia, nomes manuscritos) mantido por decisão da equipa, como no manual — tem contraste baixo (2,3; o recomendado para títulos é 3). Alternativa acessível: marrom da paleta
 - [ ] Seta fina ↙ a seguir aos títulos principais de cada página (inspirada nas capas do manual)
 - [ ] Fios decorativos a **lápis** (os da primeira versão, tirados da apresentação) em vez dos traços de marcador do manual — escolha da equipa; os traços do manual continuam disponíveis em `public/brand/strokes`
 - [ ] Os fios a lápis **desenham-se** ao entrar no ecrã (animação; o percurso de cada fio está em `src/lib/pencil-paths.ts` — se trocarem a imagem de um fio, é preciso retraçar o percurso). Quem tem "reduzir movimento" ligado vê o fio já desenhado
