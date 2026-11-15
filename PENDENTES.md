@@ -65,7 +65,7 @@ Coisas a resolver antes (ou depois) de pôr o site no ar.
 
 ## 7. Melhorias futuras
 - [x] Mapa interativo dos bairros (página inicial e Sobre nós). Novo bairro: acrescentar em `src/data/neighborhoods.json`; se ficar fora da zona do mapa, correr `node scripts/build-map.mjs`
-  - Mapa base: Esri Light Gray Base (dados OpenStreetMap), recolorido com as cores da marca e guardado no site; a atribuição aparece no mapa. Se um dia a Esri restringir este uso, dá para trocar por outro mapa base em `scripts/build-map.mjs`
+  - Mapa desenhado a partir de dados abertos do OpenStreetMap (recorte de Lisboa do BBBike + serviço Overpass), com as cores da marca; a atribuição "© OpenStreetMap" aparece no mapa. Sem serviços externos para os visitantes
 - [ ] **Formulário de contacto no site** (ideia aprovada, para mais tarde): Web3Forms, grátis até 250 mensagens/mês — falta alguém registar o Gmail do UP em web3forms.com e passar a chave
 - [ ] Analytics respeitador de privacidade (ex.: Vercel Analytics ou Plausible)
 - [x] Sitemap e robots.txt — gerados automaticamente em `/sitemap.xml` e `/robots.txt` (`src/pages/sitemap.xml.ts`, `src/pages/robots.txt.ts`)

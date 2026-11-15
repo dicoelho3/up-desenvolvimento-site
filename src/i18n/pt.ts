@@ -111,7 +111,8 @@ export const pt = {
       title: 'Associações em *bairros* vulneráveis',
       text: 'Não chegamos de fora com respostas feitas. Trabalhamos com quem já conhece cada bairro por dentro, e as mentorias acontecem nas sedes destas associações.',
       mapAlt: 'Mapa da área de Lisboa com os bairros onde o UP atua',
-      mapHint: 'Toca num bairro para ver a associação',
+      prev: 'Bairro anterior',
+      next: 'Bairro seguinte',
     },
     join: {
       label: 'Queres fazer parte?',

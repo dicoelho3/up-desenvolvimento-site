@@ -107,7 +107,8 @@ export const en: typeof pt = {
       title: 'Associations in vulnerable *neighbourhoods*',
       text: 'We don’t arrive with ready-made answers. We partner with people who already know each neighbourhood from the inside, and sessions take place at their premises.',
       mapAlt: 'Map of the Lisbon area showing the neighbourhoods where UP works',
-      mapHint: 'Tap a neighbourhood to see its partner',
+      prev: 'Previous neighbourhood',
+      next: 'Next neighbourhood',
     },
     join: {
       label: 'Want to be part of it?',
