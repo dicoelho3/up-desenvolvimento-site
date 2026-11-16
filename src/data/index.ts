@@ -17,6 +17,7 @@ import foundersJson from './founders.json';
 import timelineJson from './timeline.json';
 import surveyJson from './survey.json';
 import testimonialsJson from './testimonials.json';
+import teamJson from './team.json';
 
 const localized = z.object({ pt: z.string(), en: z.string() });
 const localizedList = z.object({ pt: z.array(z.string()), en: z.array(z.string()) });
@@ -35,6 +36,9 @@ const schemas = {
         details: localizedList,
         frequency: z.enum(['weekly', 'monthly', 'oneOff']),
         highlight: localized,
+        /** Foto do cartão (src/assets/photos) — caras de menores sempre tapadas */
+        photo: z.string().optional(),
+        photoAlt: localized.optional(),
       }),
     ),
   }),
@@ -65,6 +69,13 @@ const schemas = {
     mentors: z.array(z.object({ value: z.number().min(0).max(100), text: localized })),
   }),
   testimonials: z.object({ items: z.array(z.object({ name: z.string(), role: localized, quote: localized })) }),
+  team: z.object({
+    direction: z.array(
+      z.object({ name: z.string(), role: localized, area: localized.optional(), photo: z.string().optional() }),
+    ),
+    assembly: z.array(z.object({ name: z.string(), role: localized })),
+    fiscal: z.array(z.object({ name: z.string(), role: localized })),
+  }),
 };
 
 function load<T extends z.ZodType>(name: string, schema: T, data: unknown): z.infer<T> {
@@ -83,6 +94,7 @@ export const founders = load('founders', schemas.founders, foundersJson).items;
 export const timeline = load('timeline', schemas.timeline, timelineJson).items;
 export const survey = load('survey', schemas.survey, surveyJson);
 export const testimonials = load('testimonials', schemas.testimonials, testimonialsJson).items;
+export const team = load('team', schemas.team, teamJson);
 
 export type Program = (typeof programs)[number];
 

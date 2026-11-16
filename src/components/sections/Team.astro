@@ -1,0 +1,170 @@
+---
+/**
+ * "Quem faz o UP hoje" — a Direção, com foto, cargo e área de cada um.
+ * Dados em src/data/team.json. Sem foto, aparecem as iniciais num círculo com as cores da marca;
+ * com foto (src/assets/photos/…), recorta-se em círculo com a moldura da marca — todas iguais.
+ */
+import { Image } from 'astro:assets';
+import Rich from '../ui/Rich.astro';
+import SectionLabel from '../ui/SectionLabel.astro';
+import Doodle from '../ui/Doodle.astro';
+import { team, photo } from '../../data';
+import { pick, useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang).about.team;
+const initials = (name: string) =>
+  name
+    .split(' ')
+    .filter(Boolean)
+    .map((w) => w[0])
+    .filter((_, i, a) => i === 0 || i === a.length - 1)
+    .join('');
+const tones = ['navy', 'orange', 'sky', 'mustard'];
+---
+
+<section class="team paper paper--navy" id="equipa">
+  <Doodle name="pencil/fio-3" color="var(--sky)" class="team__string" />
+  <div class="container">
+    <div class="team__head">
+      <SectionLabel text={t.label} />
+      <Rich as="h2" text={t.title} class="team__title" />
+      <p class="team__text">{t.text}</p>
+    </div>
+
+    <ul class="team__grid" role="list">
+      {
+        team.direction.map((p, i) => (
+          <li class="member" data-reveal style={`--reveal-delay:${i * 60}ms`}>
+            <span class:list={['member__avatar', `member__avatar--${tones[i % tones.length]}`]}>
+              {p.photo ? (
+                <Image src={photo(p.photo)} alt="" widths={[160, 320]} sizes="112px" />
+              ) : (
+                <span aria-hidden="true">{initials(p.name)}</span>
+              )}
+            </span>
+            <h3 class="member__name">{p.name}</h3>
+            <p class="member__role">{pick(p.role, lang)}</p>
+            {p.area && <p class="member__area">{pick(p.area, lang)}</p>}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .team {
+    overflow: clip;
+  }
+  :global(.team__string) {
+    width: clamp(9rem, 16vw, 14rem);
+    inset-block-start: -3rem;
+    inset-inline-end: -2rem;
+    opacity: 0.6;
+  }
+  .team__head {
+    margin-block-end: var(--space-2xl);
+  }
+  .team__title {
+    font-size: var(--title-section);
+    margin-block-end: var(--space-m);
+  }
+  .team__text {
+    max-width: 46ch;
+    color: var(--text-soft);
+  }
+
+  /* 7 pessoas: linhas centradas (4 + 3 no ecrã largo, 2 a 2 no telemóvel) */
+  .team__grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-l) var(--space-m);
+    padding: 0;
+  }
+  .member {
+    display: grid;
+    justify-items: center;
+    align-content: start;
+    gap: 0.35em;
+    width: min(100%, 15rem);
+    padding: var(--space-l) var(--space-m);
+    border-radius: var(--radius);
+    background: var(--cream-50);
+    color: var(--navy);
+    text-align: center;
+    box-shadow: 0 8px 0 -3px var(--orange);
+  }
+  .member:nth-child(odd) {
+    rotate: -0.8deg;
+  }
+  .member:nth-child(even) {
+    rotate: 0.8deg;
+  }
+  @media (max-width: 35.99rem) {
+    .member {
+      width: calc(50% - var(--space-m) / 2);
+      padding: var(--space-m) var(--space-xs);
+    }
+  }
+  .member__avatar {
+    display: grid;
+    place-items: center;
+    width: clamp(4.5rem, 3.6rem + 3vw, 7rem);
+    aspect-ratio: 1;
+    margin-block-end: var(--space-xs);
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 4px var(--cream-50),
+      0 0 0 7px var(--sun);
+    font-family: var(--font-display);
+    font-stretch: var(--font-display-stretch);
+    font-weight: 800;
+    font-size: clamp(1.3rem, 1rem + 1vw, 2rem);
+    letter-spacing: -0.02em;
+  }
+  .member__avatar :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+  .member__avatar--navy {
+    background: var(--navy) url('/textures/paper-navy.webp') center / 600px;
+    color: var(--sun);
+  }
+  .member__avatar--orange {
+    background: var(--orange);
+    color: var(--navy-900);
+  }
+  .member__avatar--sky {
+    background: var(--sky);
+    color: var(--navy-900);
+  }
+  .member__avatar--mustard {
+    background: var(--mustard) url('/textures/paper-mustard.webp') center / 600px;
+    color: var(--navy-900);
+  }
+  .member__name {
+    font-size: var(--title-card);
+    line-height: 1.15;
+  }
+  .member__role {
+    padding: 0.1em 0.7em;
+    border-radius: 999px;
+    background: var(--navy);
+    color: var(--white);
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+  .member__area {
+    font-size: var(--step--1);
+    color: color-mix(in oklab, var(--navy) 75%, var(--cream));
+    line-height: 1.35;
+  }
+</style>

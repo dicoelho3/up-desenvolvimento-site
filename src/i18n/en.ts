@@ -85,6 +85,8 @@ export const en: typeof pt = {
       posterLine2: 'Transforming communities.',
     },
     mission: {
+      photo1Alt: 'A large group of UP volunteers in front of a glass-block wall, with the UP roll-up banner',
+      photo2Alt: 'UP volunteers next to a tower of orange and blue balloons',
       label: 'Who are we?',
       title: 'By young people. *For young people.*',
       kicker: 'Our mission',
@@ -160,6 +162,16 @@ export const en: typeof pt = {
         },
       ],
     },
+    photos: {
+      caption1: 'volunteer training',
+      caption2: 'meeting the neighbourhoods',
+      caption3: 'sharing in a circle',
+      caption4: 'case studies',
+      training1: 'UP volunteers at a training session',
+      training2: 'A trainer presenting at a volunteer session',
+      training3: 'Volunteers sitting in a circle during training',
+      training4: 'Volunteers’ hands holding envelopes with case studies during training',
+    },
     gets: {
       label: 'What’s in it for you?',
       title: 'You won’t be *alone*',
@@ -187,6 +199,16 @@ export const en: typeof pt = {
         stat: '23,000',
         statText: 'children in Portugal are “at risk of future difficulties” because of their reading level.',
         text: 'We created a board game that gets mentees reading more, and enjoying it. On UP Day there are prizes for the keenest readers.',
+      },
+      photos: {
+        science: 'Science workshop: a mentor with two mentees in lab coats and gloves',
+        scienceCaption: 'science workshop',
+        planting: 'A mentor and a mentee at a tree-planting day',
+        plantingCaption: 'tree planting',
+        outing: 'Mentors and mentees seen from behind, on a trip to the Padrão dos Descobrimentos',
+        outingCaption: 'trip to Belém',
+        pottery: 'Clay mugs made by mentees at a pottery workshop',
+        potteryCaption: 'pottery',
       },
       psycho: {
         title: 'Psychosocial activities',
@@ -236,6 +258,7 @@ export const en: typeof pt = {
     description:
       'Sponsor a young person, allocate your IRS or bring your company on board. All the ways to support UP Desenvolvimento.',
     hero: {
+      imageAlt: 'A UP volunteer sitting with orange balloons',
       label: 'Support',
       title: 'There are many ways to *lend a hand*',
       lead: 'UP runs on volunteers, but sessions, transport and activities have costs. Every contribution goes straight to the young people.',
@@ -246,6 +269,7 @@ export const en: typeof pt = {
       price: '€40',
       period: 'per year',
       text: 'You cover a young person’s yearly enrolment at UP. Throughout the year we send you news from the neighbourhoods and invite you to our events.',
+      photoAlt: 'A mentor with his mentee on an outdoor trip',
       covers: 'What it covers',
       items: ['School supplies', 'Learning resources', 'Transport', 'Monthly activities'],
       cta: 'Become a sponsor',
@@ -286,6 +310,7 @@ export const en: typeof pt = {
     description:
       'The story, mission and team behind UP Desenvolvimento. Born in 2021 in Apelação to help one girl get into secondary school.',
     hero: {
+      imageAlt: 'UP volunteers at a recruitment stand, next to the UP roll-up banner',
       label: 'How did it start?',
       title: 'It all began with *one* girl’s dream',
       lead: 'In 2021, a group of university students came together to help a girl from Bairro da Apelação get into secondary school. Today we are an association with dozens of volunteers and four partner neighbourhoods.',
@@ -351,9 +376,15 @@ export const en: typeof pt = {
       mentees: 'Mentees',
       mentors: 'Mentors',
     },
+    team: {
+      label: 'The team',
+      title: 'Who runs UP *today*',
+      text: 'UP’s board for 2026/27 and what each of them looks after. These are the people you’ll talk to when you join us.',
+      members: 'Members',
+    },
     founders: {
-      label: 'Our community',
-      title: 'Co-founders',
+      label: 'Where it all began',
+      title: 'The *co-founders*',
     },
     governance: {
       label: 'How we are organised',
@@ -385,6 +416,7 @@ export const en: typeof pt = {
     description: 'Get in touch with UP Desenvolvimento: email, Instagram, LinkedIn and Facebook.',
     label: 'Contact',
     heading: 'Get in *touch*',
+    heroAlt: 'A UP volunteer blowing up an orange balloon',
     lead: 'We answer every message, usually within a week. We’re volunteers, so bear with us.',
     emailTitle: 'Email',
     emailText: 'Questions, partnerships, press, or just to say hello.',

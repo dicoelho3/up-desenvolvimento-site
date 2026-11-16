@@ -1,0 +1,22 @@
+{
+  "_comment": "Órgãos sociais (Plano de Atividades 2026/27). photo: nome do ficheiro em src/assets/photos (opcional — sem foto aparecem as iniciais). Atualizar a cada mandato.",
+  "direction": [
+    { "name": "Beatriz Sousa", "role": { "pt": "Presidente", "en": "President" }, "area": { "pt": "Mentorias, apoio ao estudo e bairros", "en": "Mentoring, study support and neighbourhoods" } },
+    { "name": "Marta Dias", "role": { "pt": "Vice-presidente", "en": "Vice-president" }, "area": { "pt": "Recrutamento de voluntários", "en": "Volunteer recruitment" } },
+    { "name": "Gonçalo Miguel", "role": { "pt": "Tesoureiro", "en": "Treasurer" }, "area": { "pt": "Gestão financeira e administrativa", "en": "Finance and administration" } },
+    { "name": "Dinis Monteiro", "role": { "pt": "Secretário", "en": "Secretary" }, "area": { "pt": "Programas psicossociais", "en": "Psychosocial programmes" } },
+    { "name": "Joana Martinho", "role": { "pt": "Vogal", "en": "Board member" }, "area": { "pt": "Programas psicossociais", "en": "Psychosocial programmes" } },
+    { "name": "Diogo Faroleiro", "role": { "pt": "Vogal", "en": "Board member" }, "area": { "pt": "Parcerias, bolsas e eventos", "en": "Partnerships, grants and events" } },
+    { "name": "Diogo Borbinha", "role": { "pt": "Vogal", "en": "Board member" }, "area": { "pt": "Parcerias, bolsas e eventos", "en": "Partnerships, grants and events" } }
+  ],
+  "assembly": [
+    { "name": "Gabriel Vieira", "role": { "pt": "Presidente", "en": "Chair" } },
+    { "name": "Matilde Ribeiro", "role": { "pt": "Vice-presidente", "en": "Vice-chair" } },
+    { "name": "Rodrigo Lopes", "role": { "pt": "Secretário", "en": "Secretary" } }
+  ],
+  "fiscal": [
+    { "name": "Marta Lopes", "role": { "pt": "Presidente", "en": "Chair" } },
+    { "name": "André Santos", "role": { "pt": "Vice-presidente", "en": "Vice-chair" } },
+    { "name": "Tomás Silva", "role": { "pt": "Relator", "en": "Rapporteur" } }
+  ]
+}

@@ -2,11 +2,13 @@
 /**
  * As formas de apoiar: padrinho e IRS (cartões tipo "senha" com picotado), voluntariado e empresas.
  */
+import { Image } from 'astro:assets';
 import Button from '../ui/Button.astro';
 import CopyButton from '../ui/CopyButton.astro';
 import BrandIcon from '../ui/BrandIcon.astro';
 import Doodle from '../ui/Doodle.astro';
 import { site } from '../../config/site';
+import { photo } from '../../data';
 import { path, useTranslations, type Lang } from '../../i18n';
 
 interface Props {
@@ -21,6 +23,7 @@ const s = t.support;
   <div class="container support__tickets">
     <article class="ticket ticket--mustard" id="padrinho" data-reveal>
       <div class="ticket__main">
+        <Image src={photo('plantacao-1.jpg')} alt={s.sponsor.photoAlt} widths={[400, 700]} sizes="(min-width: 60rem) 30vw, 85vw" class="ticket__photo" />
         <p class="brand-tag">{s.sponsor.tag}</p>
         <h2>{s.sponsor.title}</h2>
         <p>{s.sponsor.text}</p>
@@ -126,6 +129,16 @@ const s = t.support;
     background: var(--navy) url('/textures/paper-navy.webp') center / 1000px;
     color: var(--white);
     rotate: 0.6deg;
+  }
+  :global(.ticket__photo) {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: center 55%;
+    border-radius: var(--radius-s);
+    margin-block-end: var(--space-xs);
+    rotate: -1deg;
+    box-shadow: var(--shadow);
   }
   .ticket__main {
     display: grid;

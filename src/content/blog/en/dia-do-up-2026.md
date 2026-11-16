@@ -2,6 +2,8 @@
 title: 'UP Day 2026: ending the year on a high'
 description: 'Rugby, a shared lunch and the Reading Game awards. That’s how another school year came to an end.'
 date: 2026-06-10
+cover: /images/uploads/bancas-baloes.jpg
+coverAlt: 'UP volunteers with a tower of orange and blue balloons'
 ---
 
 On 7 June we brought together young people and volunteers from every neighbourhood at **Jardim Álvaro Roxo**, in São João da Talha, for UP Day. It’s how we celebrate the end of the school year, and probably the most awaited day of all.

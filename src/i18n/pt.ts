@@ -89,6 +89,8 @@ export const pt = {
       posterLine2: 'Transformar comunidades.',
     },
     mission: {
+      photo1Alt: 'Grande grupo de voluntários do UP em frente a uma parede de vidro, com o roll-up do UP',
+      photo2Alt: 'Voluntários do UP ao lado de uma torre de balões laranja e azuis',
       label: 'Quem somos?',
       title: 'De jovens. *Para jovens.*',
       kicker: 'A nossa missão',
@@ -164,6 +166,16 @@ export const pt = {
         },
       ],
     },
+    photos: {
+      caption1: 'formação de voluntários',
+      caption2: 'apresentação dos bairros',
+      caption3: 'partilha em roda',
+      caption4: 'casos práticos',
+      training1: 'Voluntários do UP numa sessão de formação',
+      training2: 'Uma formadora a apresentar numa sessão para voluntários',
+      training3: 'Voluntários sentados em roda numa formação',
+      training4: 'Mãos de voluntários a segurar envelopes com casos práticos numa formação',
+    },
     gets: {
       label: 'E tu, o que levas?',
       title: 'Não vais estar *sozinho*',
@@ -191,6 +203,16 @@ export const pt = {
         stat: '23 mil',
         statText: 'crianças em Portugal estão "em risco de dificuldades futuras" devido ao seu nível de leitura.',
         text: 'Criámos um jogo de tabuleiro que leva os mentorados a ler mais, e a gostar disso. No Dia do UP há prémios para quem lê mais.',
+      },
+      photos: {
+        science: 'Oficina de ciência: uma mentora com dois mentorados de bata e luvas',
+        scienceCaption: 'oficina de ciência',
+        planting: 'Uma mentora e uma mentorada numa ação de plantação',
+        plantingCaption: 'plantação na serra',
+        outing: 'Mentores e mentorados de costas, numa saída ao Padrão dos Descobrimentos',
+        outingCaption: 'saída a Belém',
+        pottery: 'Canecas de barro feitas pelos mentorados numa oficina de cerâmica',
+        potteryCaption: 'cerâmica',
       },
       psycho: {
         title: 'Atividades psicossociais',
@@ -240,6 +262,7 @@ export const pt = {
     description:
       'Apadrinha um jovem, consigna o teu IRS ou junta a tua empresa ao UP. Todas as formas de apoiar o UP Desenvolvimento.',
     hero: {
+      imageAlt: 'Uma voluntária do UP sentada com balões laranja',
       label: 'Apoiar',
       title: 'Há várias formas de *dar a mão*',
       lead: 'O UP é feito por voluntários, mas as mentorias, as deslocações e as atividades têm custos. Cada apoio chega diretamente aos jovens.',
@@ -250,6 +273,7 @@ export const pt = {
       price: '40€',
       period: 'por ano',
       text: 'Cobres a inscrição anual de um jovem no UP. Ao longo do ano enviamos-te notícias do que se passa nos bairros e convidamos-te para os nossos eventos.',
+      photoAlt: 'Um mentor com o seu mentorado numa saída ao ar livre',
       covers: 'O que está incluído',
       items: ['Materiais escolares', 'Recursos educativos', 'Transporte', 'Atividades mensais'],
       cta: 'Quero ser padrinho',
@@ -290,6 +314,7 @@ export const pt = {
     description:
       'A história, a missão e a equipa do UP Desenvolvimento. Nascemos em 2021, na Apelação, para ajudar uma jovem a entrar no secundário.',
     hero: {
+      imageAlt: 'Voluntárias do UP numa banca de recrutamento, ao lado do roll-up do UP',
       label: 'Como nasceu esta ideia?',
       title: 'Tudo começou com o sonho de *uma* jovem',
       lead: 'Em 2021, um grupo de universitários juntou-se para ajudar uma jovem do Bairro da Apelação a entrar no Ensino Secundário. Hoje somos uma associação com dezenas de voluntários e quatro bairros parceiros.',
@@ -355,9 +380,15 @@ export const pt = {
       mentees: 'Mentorados',
       mentors: 'Mentores',
     },
+    team: {
+      label: 'A equipa',
+      title: 'Quem faz o UP *hoje*',
+      text: 'A Direção do UP em 2026/27 e as áreas de que cada um trata. É com estas pessoas que vais falar quando te juntares a nós.',
+      members: 'Mesa',
+    },
     founders: {
-      label: 'A nossa comunidade',
-      title: 'Co-fundadores',
+      label: 'Onde tudo começou',
+      title: 'Os *co-fundadores*',
     },
     governance: {
       label: 'Como nos organizamos',
@@ -389,6 +420,7 @@ export const pt = {
     description: 'Fala com o UP Desenvolvimento: email, Instagram, LinkedIn e Facebook.',
     label: 'Contactos',
     heading: 'Fala *connosco*',
+    heroAlt: 'Uma voluntária do UP a encher um balão laranja',
     lead: 'Respondemos a todas as mensagens. Normalmente em menos de uma semana, mas somos voluntários, por isso dá-nos algum desconto.',
     emailTitle: 'Email',
     emailText: 'Para dúvidas, parcerias, imprensa ou só para dizer olá.',

@@ -2,6 +2,8 @@
 title: 'O ano letivo 2025/26 em números'
 description: 'Quantas horas de mentoria, quantas atividades e o que aprendemos com elas.'
 date: 2026-07-15
+cover: /images/uploads/oficina-ciencia-1.jpg
+coverAlt: 'Uma mentorada sorridente numa oficina de ciência, com a cara tapada por um boneco do UP'
 ---
 
 Todos os anos fechamos o ano letivo a olhar para trás com rigor. Estes são alguns dos números de 2025/26.

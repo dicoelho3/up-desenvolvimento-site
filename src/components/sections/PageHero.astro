@@ -18,10 +18,13 @@ interface Props {
   image?: ImageMetadata;
   imageAlt?: string;
   note?: string;
+  /** Formato da foto (ex. "4/5" para mais alta) e ponto de foco do recorte (ex. "center 70%"). */
+  imageAspect?: string;
+  imageFocus?: string;
   /** Foto já recortada com efeito da marca (balão, círculo…): mostra-se sem corte nem cantos. */
   cutout?: boolean;
 }
-const { label, title, lead, image, imageAlt = '', note, cutout = false } = Astro.props;
+const { label, title, lead, image, imageAlt = '', note, cutout = false, imageAspect = '5/4', imageFocus } = Astro.props;
 ---
 
 <section class:list={['page-hero', { 'page-hero--with-image': image }]}>
@@ -54,7 +57,8 @@ const { label, title, lead, image, imageAlt = '', note, cutout = false } = Astro
           alt={imageAlt}
           tilt="right"
           note={note}
-          aspect="5/4"
+          aspect={imageAspect}
+          focus={imageFocus}
           loading="eager"
           sizes="(min-width: 60rem) 45vw, 90vw"
           widths={[500, 800, 1200]}
@@ -97,7 +101,7 @@ const { label, title, lead, image, imageAlt = '', note, cutout = false } = Astro
       grid-template-columns: 1.25fr 0.75fr;
     }
     /* a foto (não recortada) fica centrada ao lado do texto */
-    .page-hero--with-image .page-hero__grid > :last-child:not(.page-hero__cutout) {
+    .page-hero--with-image .page-hero__grid > :global(:last-child:not(.page-hero__cutout)) {
       align-self: center;
     }
   }

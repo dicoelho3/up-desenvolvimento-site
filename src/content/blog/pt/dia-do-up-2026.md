@@ -2,6 +2,8 @@
 title: 'Dia do UP 2026: fechar o ano em grande'
 description: 'Rugby, almoço partilhado e os prémios do Jogo da Leitura. Assim terminou mais um ano letivo.'
 date: 2026-06-10
+cover: /images/uploads/bancas-baloes.jpg
+coverAlt: 'Voluntários do UP com uma torre de balões laranja e azuis'
 ---
 
 No dia 7 de junho juntámos jovens e voluntários de todos os bairros no **Jardim Álvaro Roxo**, em São João da Talha, para o Dia do UP. É o dia em que celebramos o fim do ano letivo, e é provavelmente o dia mais esperado do ano.

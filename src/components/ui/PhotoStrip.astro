@@ -1,0 +1,63 @@
+---
+/**
+ * Fila de fotos estilo polaroid, ligeiramente inclinadas, com legenda manuscrita opcional.
+ * <PhotoStrip photos={[{ file: 'plantacao-2.jpg', alt: '…', caption: 'plantação' }]} />
+ * Fotos em src/assets/photos. Regra: caras de menores sempre tapadas (ver PENDENTES).
+ */
+import { Image } from 'astro:assets';
+import { photo } from '../../data';
+
+interface Props {
+  photos: { file: string; alt: string; caption?: string }[];
+  class?: string;
+}
+const { photos, class: className } = Astro.props;
+const tilts = [-2.5, 1.8, -1.2, 2.4];
+---
+
+<ul class:list={['strip', className]} role="list">
+  {
+    photos.map((p, i) => (
+      <li class="strip__item" data-reveal style={`--tilt:${tilts[i % tilts.length]}deg;--reveal-delay:${i * 90}ms`}>
+        <figure>
+          <Image src={photo(p.file)} alt={p.alt} widths={[400, 700, 1000]} sizes="(min-width: 60rem) 30vw, 85vw" />
+          {p.caption && <figcaption class="hand">{p.caption}</figcaption>}
+        </figure>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: var(--space-l);
+    padding: 0;
+  }
+  .strip__item figure {
+    padding: 0.6rem 0.6rem 0;
+    background: var(--white);
+    box-shadow: var(--shadow);
+    rotate: var(--tilt);
+    transition: rotate 0.3s var(--ease-out);
+  }
+  .strip__item figure:hover {
+    rotate: 0deg;
+  }
+  .strip__item :global(img) {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .strip__item figcaption {
+    padding: 0.4em 0.2em 0.5em;
+    color: var(--navy);
+    font-size: var(--step-1);
+    text-align: center;
+  }
+  .strip__item figure:not(:has(figcaption)) {
+    padding-block-end: 0.6rem;
+  }
+</style>

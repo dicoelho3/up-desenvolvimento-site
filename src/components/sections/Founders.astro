@@ -1,8 +1,10 @@
 ---
 /**
- * Co-fundadores — dados em src/data/founders.json, fotos em src/assets/photos.
+ * Co-fundadores ("Onde tudo começou") — bloco compacto, a seguir à história.
+ * Dados em src/data/founders.json, fotos em src/assets/photos.
  */
 import { Image } from 'astro:assets';
+import Rich from '../ui/Rich.astro';
 import SectionLabel from '../ui/SectionLabel.astro';
 import Doodle from '../ui/Doodle.astro';
 import { founders, photo } from '../../data';
@@ -15,10 +17,10 @@ const { lang } = Astro.props;
 const t = useTranslations(lang).about.founders;
 ---
 
-<section class="founders paper paper--navy">
+<section class="founders paper paper--cream">
   <div class="container">
     <SectionLabel text={t.label} />
-    <h2 class="founders__title">{t.title}</h2>
+    <Rich as="h2" text={t.title} class="founders__title" />
 
     <div class="founders__wrap">
     <Doodle name="doodles/sparks" color="var(--orange)" class="founders__sparks" />
@@ -28,7 +30,7 @@ const t = useTranslations(lang).about.founders;
           const [first, ...rest] = person.name.split(' ');
           return (
             <li class="person" data-reveal style={`--reveal-delay:${i * 90}ms`}>
-              <Image src={photo(person.photo)} alt={person.name} widths={[300, 600]} sizes="(min-width: 60rem) 22vw, 80vw" class="person__photo" />
+              <Image src={photo(person.photo)} alt={person.name} widths={[300, 600]} sizes="96px" class="person__photo" />
               <div class="person__body">
                 <h3 class="person__name">
                   {first}
@@ -50,92 +52,77 @@ const t = useTranslations(lang).about.founders;
 </section>
 
 <style>
-  /* Tracinhos a sair do canto superior direito do último cartão (espelhados) */
+  /* Tracinhos a sair do canto superior direito do bloco (espelhados) */
   .founders__wrap {
     position: relative;
   }
+  /* Brilhos a sair do canto superior direito: o ponto de onde os traços irradiam
+     (20% da largura, 85% da altura do desenho espelhado) fica em cima do canto */
   :global(.founders__sparks) {
-    width: 3.6rem;
-    inset-block-start: -2.6rem;
-    inset-inline-end: -2.4rem;
+    --w: 3rem;
+    width: var(--w);
+    inset-inline-end: auto;
+    inset-inline-start: calc(100% - var(--w) * 0.2 + 0.15rem);
+    inset-block-start: calc(var(--w) * -0.652 - 0.15rem);
     scale: -1 1;
     z-index: 1;
   }
+  /* telemóvel: o canto está perto da borda do ecrã — brilhos mais pequenos */
   @media (max-width: 49.99rem) {
     :global(.founders__sparks) {
-      width: 2.8rem;
-      inset-block-start: -2rem;
-      inset-inline-end: -0.4rem;
+      --w: 1.5rem;
+      inset-inline-start: calc(100% - var(--w) * 0.2 - 0.35rem);
     }
   }
   .founders__title {
     font-size: var(--title-section);
-    margin-block-end: var(--space-2xl);
+    margin-block-end: var(--space-xl);
   }
+  /* 2 colunas no ecrã largo; cartões horizontais (foto pequena ao lado do nome) */
   .founders__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
-    gap: var(--space-l);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+    gap: var(--space-m);
     padding: 0;
   }
   .person {
     --text-soft: color-mix(in oklab, var(--navy) 78%, var(--cream));
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    column-gap: var(--space-m);
+    row-gap: var(--space-2xs);
+    align-items: center;
+    padding: var(--space-m) var(--space-l);
     border: 2px solid var(--sun);
     border-radius: var(--radius);
     background: var(--cream-50);
     color: var(--navy);
-    overflow: hidden;
-  }
-  :global(.person__photo) {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    object-position: top;
   }
   .person__body {
-    display: grid;
-    align-content: start;
-    gap: var(--space-s);
-    padding: var(--space-l);
+    display: contents;
   }
-  /* No telemóvel: foto pequena e redonda ao lado do nome; a citação ocupa a largura toda */
-  @media (max-width: 35.99rem) {
-    .person {
-      display: grid;
-      grid-template-columns: 5.5rem 1fr;
-      column-gap: var(--space-m);
-      row-gap: var(--space-xs);
-      padding: var(--space-l);
-    }
-    .person__body {
-      display: contents;
-    }
-    :global(.person__photo) {
-      grid-row: span 2;
-      align-self: center;
-      border-radius: 50%;
-      border: 2px solid var(--sun);
-    }
-    .person__name {
-      align-self: end;
-    }
-    .person__studies {
-      align-self: start;
-    }
-    blockquote {
-      grid-column: 1 / -1;
-      margin-block-start: var(--space-xs);
-    }
+  :global(.person__photo) {
+    grid-row: span 2;
+    width: 5rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
+    box-shadow: 0 0 0 3px var(--sun);
   }
   .person__name {
+    align-self: end;
     font-size: var(--title-card);
-    line-height: 1.25;
+    line-height: 1.2;
   }
   .person__studies {
+    align-self: start;
     font-size: var(--step--1);
     font-weight: 600;
+  }
+  blockquote {
+    grid-column: 1 / -1;
+    margin-block-start: var(--space-xs);
   }
   blockquote p {
     font-size: var(--step--1);

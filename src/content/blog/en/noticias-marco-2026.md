@@ -2,8 +2,8 @@
 title: 'UP News: March 2026'
 description: 'A new partner neighbourhood in Damaia, a new visual identity and an afternoon of training at Casa do Impacto.'
 date: 2026-03-31
-cover: /images/uploads/comunidade-teach.jpg
-coverAlt: 'UP volunteers in a training room, with the Teach For Portugal logo on screen'
+cover: /images/uploads/formacao-apresentacao.jpg
+coverAlt: 'A volunteer training session, with a UP roll-up banner beside the speaker'
 ---
 
 March was a busy month. Here are the three things that stood out.

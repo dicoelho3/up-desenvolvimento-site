@@ -3,62 +3,128 @@
     {
       "id": "mentorias",
       "icon": "open-book",
-      "title": { "pt": "Mentorias Académicas", "en": "Academic Mentoring" },
+      "title": {
+        "pt": "Mentorias Académicas",
+        "en": "Academic Mentoring"
+      },
       "text": {
         "pt": "Ajudar um jovem a superar os seus **desafios académicos e pessoais**, através de mentorias individuais ou em dupla com um mentor.",
         "en": "Helping a young person overcome their **academic and personal challenges** through one-to-one or paired mentoring."
       },
       "details": {
-        "pt": ["Sessões individuais", "1h30, horário pós-laboral"],
-        "en": ["One-to-one sessions", "1h30, after working hours"]
+        "pt": [
+          "Sessões individuais",
+          "1h30, horário pós-laboral"
+        ],
+        "en": [
+          "One-to-one sessions",
+          "1h30, after working hours"
+        ]
       },
       "frequency": "weekly",
-      "highlight": { "pt": "+7.000 horas de mentoria", "en": "7,000+ mentoring hours" }
+      "highlight": {
+        "pt": "+7.000 horas de mentoria",
+        "en": "7,000+ mentoring hours"
+      },
+      "photo": "mentoria-estudo-1.jpg",
+      "photoAlt": {
+        "pt": "Mentor e mentorada a estudar juntos",
+        "en": "A mentor and mentee studying together"
+      }
     },
     {
       "id": "psicossocial",
       "icon": "chats",
-      "title": { "pt": "Atividades Psicossociais", "en": "Psychosocial Activities" },
+      "title": {
+        "pt": "Atividades Psicossociais",
+        "en": "Psychosocial Activities"
+      },
       "text": {
         "pt": "Atividades lúdicas que desenvolvem **competências psicossociais** fora do contexto da sala de aula e do bairro.",
         "en": "Playful activities that build **psychosocial skills** outside the classroom and the neighbourhood."
       },
       "details": {
-        "pt": ["Programa em grupo", "Manhã ou tarde, ao fim de semana"],
-        "en": ["Group programme", "Weekend mornings or afternoons"]
+        "pt": [
+          "Programa em grupo",
+          "Manhã ou tarde, ao fim de semana"
+        ],
+        "en": [
+          "Group programme",
+          "Weekend mornings or afternoons"
+        ]
       },
       "frequency": "monthly",
-      "highlight": { "pt": "+12 programas realizados", "en": "12+ programmes run" }
+      "highlight": {
+        "pt": "+12 programas realizados",
+        "en": "12+ programmes run"
+      },
+      "photo": "oficina-ciencia-3.jpg",
+      "photoAlt": {
+        "pt": "Oficina de ciência com mentorados e uma mentora",
+        "en": "A science workshop with mentees and a mentor"
+      }
     },
     {
       "id": "apoio-ao-estudo",
       "icon": "note-edit",
-      "title": { "pt": "Apoio ao Estudo", "en": "Study Support" },
+      "title": {
+        "pt": "Apoio ao Estudo",
+        "en": "Study Support"
+      },
       "text": {
         "pt": "Um **ciclo de transformação social**: mentorados UP mais velhos dinamizam sessões de estudo com os mais novos.",
         "en": "A **cycle of social change**: older UP mentees lead study sessions with younger ones."
       },
       "details": {
-        "pt": ["Sessões em grupo", "1h30, horário pós-laboral"],
-        "en": ["Group sessions", "1h30, after working hours"]
+        "pt": [
+          "Sessões em grupo",
+          "1h30, horário pós-laboral"
+        ],
+        "en": [
+          "Group sessions",
+          "1h30, after working hours"
+        ]
       },
       "frequency": "weekly",
-      "highlight": { "pt": "Projeto-piloto", "en": "Pilot project" }
+      "highlight": {
+        "pt": "Projeto-piloto",
+        "en": "Pilot project"
+      },
+      "photo": "mentoria-estudo-2.jpg",
+      "photoAlt": {
+        "pt": "Sessão de estudo com cadernos e livros na mesa",
+        "en": "A study session with notebooks and books on the table"
+      }
     },
     {
       "id": "bolsas",
       "icon": "award",
-      "title": { "pt": "Bolsas Sociais", "en": "Social Grants" },
+      "title": {
+        "pt": "Bolsas Sociais",
+        "en": "Social Grants"
+      },
       "text": {
         "pt": "Remover barreiras, identificando e **apoiando casos vulneráveis** com parceiros externos: legais, financeiros ou administrativos.",
         "en": "Removing barriers by identifying and **supporting vulnerable cases** with external partners: legal, financial or administrative."
       },
       "details": {
-        "pt": ["Quando necessário"],
-        "en": ["When needed"]
+        "pt": [
+          "Quando necessário"
+        ],
+        "en": [
+          "When needed"
+        ]
       },
       "frequency": "oneOff",
-      "highlight": { "pt": "3 jovens apoiados", "en": "3 young people supported" }
+      "highlight": {
+        "pt": "3 jovens apoiados",
+        "en": "3 young people supported"
+      },
+      "photo": "mentora-e-mentoradas.jpg",
+      "photoAlt": {
+        "pt": "Uma mentora abraçada a duas mentoradas",
+        "en": "A mentor hugging two mentees"
+      }
     }
   ]
 }

@@ -23,10 +23,10 @@
   }
 
   /* — Etiqueta de secção: a linha fina chega da margem e a seta "aterra" — */
+  /* revelada por recorte (e não esticada): a linha tem sempre a mesma espessura */
   .js .section-label::after {
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 1s var(--ease-out);
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 1s var(--ease-out);
   }
   .js .section-label > svg {
     opacity: 0;
@@ -36,7 +36,7 @@
       transform 0.5s var(--ease-out) 0.45s;
   }
   .js .section-label.is-visible::after {
-    transform: none;
+    clip-path: inset(0 0 0 0);
   }
   .js .section-label.is-visible > svg {
     opacity: 1;

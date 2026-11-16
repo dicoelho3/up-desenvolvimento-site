@@ -2,6 +2,8 @@
 title: 'The 2025/26 school year in numbers'
 description: 'How many mentoring hours, how many activities and what we learned from them.'
 date: 2026-07-15
+cover: /images/uploads/oficina-ciencia-1.jpg
+coverAlt: 'A smiling mentee at a science workshop, face covered by a UP character'
 ---
 
 Every year we close the school year by looking back carefully. These are some of the numbers from 2025/26.

@@ -1,13 +1,14 @@
 ---
 /**
  * "Para além das mentorias": Projeto de Leitura + Atividades psicossociais.
- * Nota: não usamos fotos dos jovens (menores) no site.
+ * Fotos com jovens: sempre com as caras tapadas pelos bonecos da marca.
  */
 import SectionLabel from '../ui/SectionLabel.astro';
 import BrandIcon from '../ui/BrandIcon.astro';
 import LineIcon from '../ui/LineIcon.astro';
 import type { LineIconName } from '../../lib/line-icons';
 import Characters from '../ui/Characters.astro';
+import PhotoStrip from '../ui/PhotoStrip.astro';
 import { useTranslations, type Lang } from '../../i18n';
 
 interface Props {
@@ -51,10 +52,23 @@ const icons: LineIconName[] = ['image', 'compass', 'idea', 'flower', 'trophy'];
         </ul>
       </article>
     </div>
+
+    <PhotoStrip
+      class="extras__photos"
+      photos={[
+        { file: 'oficina-ciencia-2.jpg', alt: t.photos.science, caption: t.photos.scienceCaption },
+        { file: 'plantacao-2.jpg', alt: t.photos.planting, caption: t.photos.plantingCaption },
+        { file: 'saida-padrao.jpg', alt: t.photos.outing, caption: t.photos.outingCaption },
+        { file: 'oficina-ceramica.jpg', alt: t.photos.pottery, caption: t.photos.potteryCaption },
+      ]}
+    />
   </div>
 </section>
 
 <style>
+  :global(.extras__photos) {
+    margin-block-start: var(--space-2xl);
+  }
   .extras__grid {
     display: grid;
     gap: var(--space-xl);

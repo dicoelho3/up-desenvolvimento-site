@@ -11,6 +11,7 @@ import Testimonials from '../components/sections/Testimonials.astro';
 import Faq from '../components/sections/Faq.astro';
 import CtaBand from '../components/sections/CtaBand.astro';
 import Button from '../components/ui/Button.astro';
+import PhotoStrip from '../components/ui/PhotoStrip.astro';
 import StickyCta from '../components/ui/StickyCta.astro';
 import type { LineIconName } from '../lib/line-icons';
 import { site } from '../config/site';
@@ -54,6 +55,18 @@ const stepIcons: LineIconName[] = ['note-edit', 'chat-dots', 'presentation', 'ha
     look="cards"
     items={v.gets.items.map((item, i) => ({ ...item, icon: `line/${getsIcons[i]!}` as const }))}
   />
+  <section class="paper paper--cream vol-photos">
+    <div class="container">
+      <PhotoStrip
+        photos={[
+          { file: 'formacao-voluntarios-1.jpg', alt: v.photos.training1, caption: v.photos.caption1 },
+          { file: 'formacao-apresentacao.jpg', alt: v.photos.training2, caption: v.photos.caption2 },
+          { file: 'formacao-voluntarios-2.jpg', alt: v.photos.training3, caption: v.photos.caption3 },
+          { file: 'formacao-envelopes.jpg', alt: v.photos.training4, caption: v.photos.caption4 },
+        ]}
+      />
+    </div>
+  </section>
 
   <Steps
     label={v.steps.label}
@@ -76,3 +89,11 @@ const stepIcons: LineIconName[] = ['note-edit', 'chat-dots', 'presentation', 'ha
     <Button href={site.forms.volunteer} external lang={lang}>{t.common.applyMentor}</Button>
   </StickyCta>
 </BaseLayout>
+
+<style>
+  /* as polaroids continuam a secção anterior (mesmo fundo): sobem para junto dos cartões */
+  .vol-photos {
+    padding-block-start: 0;
+    margin-block-start: calc(var(--space-2xl) * -1);
+  }
+</style>

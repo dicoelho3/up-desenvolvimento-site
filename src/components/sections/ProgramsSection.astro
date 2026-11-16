@@ -2,11 +2,12 @@
 /**
  * "Quatro programas de impacto" — dados em src/data/programs.json.
  */
+import { Image } from 'astro:assets';
 import Rich from '../ui/Rich.astro';
 import LineIcon from '../ui/LineIcon.astro';
 import SectionLabel from '../ui/SectionLabel.astro';
 import Doodle from '../ui/Doodle.astro';
-import { programs } from '../../data';
+import { programs, photo } from '../../data';
 import { pick, useTranslations, type Lang } from '../../i18n';
 
 interface Props {
@@ -26,6 +27,15 @@ const t = useTranslations(lang);
       {
         programs.map((program, i) => (
           <li class="program" data-reveal style={`--reveal-delay:${i * 90}ms`}>
+            {program.photo && (
+              <Image
+                src={photo(program.photo)}
+                alt={program.photoAlt ? pick(program.photoAlt, lang) : ''}
+                widths={[360, 640]}
+                sizes="(min-width: 64rem) 22vw, (min-width: 40rem) 45vw, 90vw"
+                class="program__photo"
+              />
+            )}
             <h3 class="program__title">
               {program.icon && <LineIcon name={program.icon} size="1.6em" />}
               {pick(program.title, lang)}
@@ -76,6 +86,16 @@ const t = useTranslations(lang);
     background: var(--cream-50);
     color: var(--navy);
     box-shadow: 0 12px 0 -4px var(--mustard);
+  }
+  :global(.program__photo) {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  :global(.program__photo) + .program__title {
+    border-radius: 0;
   }
   .program__title {
     font-family: var(--font-display);

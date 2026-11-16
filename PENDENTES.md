@@ -15,7 +15,8 @@ Coisas a resolver antes (ou depois) de pôr o site no ar.
 - [ ] Fotos originais em boa resolução, só de voluntários/adultos → `src/assets/photos/`
 - [ ] Logos dos parceiros em boa qualidade → `src/assets/partners/`
 - [ ] **Regra: nunca mostrar a cara de jovens/mentorados (menores).**
-- [ ] **PRIORIDADE — Mais fotos no site:** fotos das mentorias e atividades com a cara dos jovens **tapada** com os **stickers / personagens ilustradas** da marca (hoje o site tem poucas fotos por causa da regra dos menores). Enviar já editadas, ou as originais + indicação de quem tapar → `src/assets/photos/`
+- [x] **Mais fotos no site** (Banco Geral de Fotos): 20 fotos escolhidas, caras de menores tapadas com os bonecos da marca, sem metadados (GPS). Nos programas, Voluntário (formações e atividades), Apoiar, Contactos e capas do blog. Regra mantida: **qualquer foto nova com jovens tem de ter as caras tapadas e ser revista antes de publicar**
+- [ ] Rever no site as fotos com caras tapadas (oficinas de ciência, robótica, plantação, mentorias) antes de publicar
   (como no Manual, p. 15). Editar as imagens antes de as pôr no site (tapar na própria imagem, não só por CSS). As personagens estão em `public/brand/characters/`.
 - [x] Imagem de partilha (`public/og-image.jpg`): fundo azul do manual + logótipo claro com balão laranja + foto da equipa
 - [x] Folha de ícones de linha (`Icons_2.svg`, 84 ícones) cortada para `public/brand/line-icons/` e usada nos números, programas, bairros, passos, percurso, blog, contactos e rodapé. Nos números, programas e percurso, o ícone escolhe-se nos dados (campo `icon`)
@@ -40,7 +41,9 @@ Coisas a resolver antes (ou depois) de pôr o site no ar.
 - [ ] Data de início da parceria na Damaia (2026?) e no Bairro Alto (2025?) → `src/data/neighborhoods.json`
 - [ ] **Confirmar a localização dos bairros no mapa** (as coordenadas são aproximadas e agora aparecem no mapa da página inicial / Sobre nós) → `src/data/neighborhoods.json`
 - [ ] Os 3 artigos do blog foram escritos com base no Relatório 2025/26 — rever ou trocar pelos artigos originais do Wix
-- [ ] Mostrar a Direção atual na página "Sobre nós"? (nomes estão no Plano de Atividades, confirmar se podem ser públicos)
+- [x] Direção no Sobre nós ("Quem faz o UP hoje"), com cargo e área de cada um; Mesa da AG e Conselho Fiscal com nomes em "Uma associação a sério". Dados em `src/data/team.json` (atualizar a cada mandato)
+- [ ] **Fotos da Direção** (7) → `src/assets/photos/` + o nome do ficheiro em `team.json` ("photo"). Até lá aparecem as iniciais. Confirmar que todos autorizam foto e nome no site
+- [ ] Confirmar nomes e cargos 2026/27 (ex.: "Marta Dias" no organigrama vs "Marta Pina Dias" nos Colaboradores Internos)
 - [ ] Rever a tradução inglesa (`src/i18n/en.ts` e `src/content/blog/en/`). Para esconder o inglês: `showLanguageSwitch: false` em `src/config/site.ts`
 
 ## 4. Faltam dados

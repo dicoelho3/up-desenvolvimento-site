@@ -2,8 +2,8 @@
 title: 'Notícias UP: março de 2026'
 description: 'Um novo bairro parceiro na Damaia, uma nova identidade visual e uma tarde de formação na Casa do Impacto.'
 date: 2026-03-31
-cover: /images/uploads/comunidade-teach.jpg
-coverAlt: 'Voluntários do UP numa sala de formação, com o logo da Teach For Portugal no ecrã'
+cover: /images/uploads/formacao-apresentacao.jpg
+coverAlt: 'Uma sessão de formação para voluntários, com um roll-up do UP ao lado'
 ---
 
 Março foi um mês cheio. Ficam aqui as três novidades que mais nos marcaram.

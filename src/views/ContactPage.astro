@@ -9,6 +9,7 @@ import LineIcon from '../components/ui/LineIcon.astro';
 import Button from '../components/ui/Button.astro';
 import CopyButton from '../components/ui/CopyButton.astro';
 import { site } from '../config/site';
+import { photo } from '../data';
 import { useTranslations, type Lang } from '../i18n';
 
 interface Props {
@@ -21,7 +22,7 @@ const partnerSubject = lang === 'pt' ? 'Parceria' : 'Partnership';
 ---
 
 <BaseLayout lang={lang} route="contact" title={c.title} description={c.description}>
-  <PageHero label={c.label} title={c.heading} lead={c.lead} />
+  <PageHero label={c.label} title={c.heading} lead={c.lead} image={photo('voluntaria-balao.jpg')} imageAlt={c.heroAlt} />
 
   <section class="contact">
     <div class="container contact__grid">

@@ -10,10 +10,11 @@ import FeatureGrid from '../components/sections/FeatureGrid.astro';
 import Timeline from '../components/sections/Timeline.astro';
 import ImpactSurvey from '../components/sections/ImpactSurvey.astro';
 import Founders from '../components/sections/Founders.astro';
+import Team from '../components/sections/Team.astro';
 import NeighborhoodsSection from '../components/sections/NeighborhoodsSection.astro';
 import PartnersSection from '../components/sections/PartnersSection.astro';
-import { photo } from '../data';
-import { useTranslations, type Lang } from '../i18n';
+import { photo, team } from '../data';
+import { pick, useTranslations, type Lang } from '../i18n';
 
 interface Props {
   lang: Lang;
@@ -22,11 +23,18 @@ const { lang } = Astro.props;
 const a = useTranslations(lang).about;
 // Ícones de linha desenhados à mão (a mesma família em todo o site)
 const valueIcons = ['line/heart', 'line/pin', 'line/chart-growth', 'line/users'] as const;
+// Órgãos sociais com os nomes (src/data/team.json) por baixo da descrição
+const names = (people: { name: string; role: { pt: string; en: string } }[]) =>
+  people.map((p) => `${p.name} (${pick(p.role, lang).toLowerCase()})`).join(', ');
+const governanceItems = a.governance.bodies.map((body, i) => ({
+  ...body,
+  text: i === 0 ? `${body.text} ${a.team.members}: ${names(team.assembly)}.` : i === 2 ? `${body.text} ${names(team.fiscal)}.` : body.text,
+}));
 const methodIcons = ['line/pin', 'line/open-book', 'line/users', 'line/chart-growth'] as const;
 ---
 
 <BaseLayout lang={lang} route="about" title={a.title} description={a.description}>
-  <PageHero label={a.hero.label} title={a.hero.title} lead={a.hero.lead} image={photo('comunidade-reuniao.jpg')} />
+  <PageHero label={a.hero.label} title={a.hero.title} lead={a.hero.lead} image={photo('banca-recrutamento.jpg')} imageAlt={a.hero.imageAlt} imageAspect="4/5" imageFocus="center 60%" />
   <GapSection lang={lang} />
   <AxesSection lang={lang} />
   <FeatureGrid
@@ -42,10 +50,11 @@ const methodIcons = ['line/pin', 'line/open-book', 'line/users', 'line/chart-gro
     look="cards"
     items={a.method.items.map((item, i) => ({ ...item, icon: methodIcons[i] }))}
   />
+  <Team lang={lang} />
   <Timeline lang={lang} />
+  <Founders lang={lang} />
   <ImpactSurvey lang={lang} />
   <NeighborhoodsSection lang={lang} />
-  <Founders lang={lang} />
-  <FeatureGrid label={a.governance.label} title={a.governance.title} items={a.governance.bodies} id="organizacao" />
+  <FeatureGrid label={a.governance.label} title={a.governance.title} items={governanceItems} id="organizacao" />
   <PartnersSection lang={lang} />
 </BaseLayout>

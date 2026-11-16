@@ -55,21 +55,22 @@ const t = useTranslations(lang).home.join;
       margin-block-start: var(--space-xl);
     }
   }
-  /* Tracinhos a sair do canto superior direito do cartão amarelo.
-     O desenho original irradia para cima-esquerda; espelhado, irradia para cima-direita. */
+  /* Brilhos a sair do canto superior direito: o ponto de onde os traços irradiam
+     (20% da largura, 85% da altura do desenho espelhado) fica em cima do canto */
   :global(.join__sparks) {
-    width: 3.6rem;
-    inset-block-start: -2.6rem;
-    inset-inline-end: -2.6rem;
+    --w: 3.4rem;
+    width: var(--w);
+    inset-inline-end: auto;
+    inset-inline-start: calc(100% - var(--w) * 0.2 + 0.15rem);
+    inset-block-start: calc(var(--w) * -0.652 - 0.15rem);
     scale: -1 1;
     z-index: 1;
   }
-  /* Em ecrãs estreitos o canto do cartão está colado à margem: encolher para dentro */
+  /* telemóvel: o canto está perto da borda do ecrã — brilhos mais pequenos */
   @media (max-width: 49.99rem) {
     :global(.join__sparks) {
-      width: 2.8rem;
-      inset-block-start: -2rem;
-      inset-inline-end: -0.4rem;
+      --w: 1.5rem;
+      inset-inline-start: calc(100% - var(--w) * 0.2 - 0.35rem);
     }
   }
   .join-card {
